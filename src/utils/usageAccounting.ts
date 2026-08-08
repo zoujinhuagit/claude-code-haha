@@ -130,7 +130,7 @@ export type UsageRecordIdentity = {
   forkedFrom?: unknown
 }
 
-/** `1.0.24`, `2.3.4-beta` — anything else marks a log written by something that isn't Claude Code. */
+/** `1.0.24`, `2.3.4-beta` — anything else marks a log written by something that isn't Open AI Ma Zai. */
 function isSemverPrefix(value: string): boolean {
   return /^\d+\.\d+\.\d/.test(value)
 }
@@ -174,7 +174,7 @@ export function isForkInheritedUsageRecord(record: { forkedFrom?: unknown }): bo
  * Deduplication key for one usage record, or `null` when the line carries no message id to key on
  * (those are always counted, matching ccusage).
  *
- * Claude Code writes one JSONL line per content block of an assistant message — a reply with
+ * Open AI Ma Zai writes one JSONL line per content block of an assistant message — a reply with
  * thinking, text and 12 tool_use blocks is 14 lines — and every one repeats the same complete
  * `usage` object. Counting each line once per block inflated real transcripts by 2.2x.
  */

@@ -207,4 +207,49 @@ describe('DirectoryPicker', () => {
     })
     expect(filesystemApi.browse).not.toHaveBeenCalled()
   })
+
+  it('navigates via the manual path input (Go button and Enter key)', async () => {
+    vi.mocked(sessionsApi.getRecentProjects).mockResolvedValue({ projects: [] })
+    vi.mocked(filesystemApi.browse)
+      .mockResolvedValueOnce({
+        currentPath: '/workspace',
+        parentPath: '/Users/nanmi',
+        entries: [{ name: 'project', path: '/workspace/project', isDirectory: true }],
+      })
+      .mockResolvedValueOnce({
+        currentPath: '/workspace/project',
+        parentPath: '/workspace',
+        entries: [{ name: 'src', path: '/workspace/project/src', isDirectory: true }],
+      })
+      .mockResolvedValueOnce({
+        currentPath: '/workspace/project/src',
+        parentPath: '/workspace/project',
+        entries: [],
+      })
+
+    render(<DirectoryPicker value="" onChange={vi.fn()} />)
+
+    fireEvent.click(screen.getByRole('button', { name: /选择项目|Select a project/ }))
+    fireEvent.click(await screen.findByText(/选择其他文件夹|Choose a different folder/))
+    await screen.findByRole('button', { name: /project/ })
+
+    // The manual path input is pre-filled with the current path as placeholder.
+    const input = screen.getByPlaceholderText('/workspace')
+
+    // Go button submits.
+    fireEvent.change(input, { target: { value: '/workspace/project' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Go' }))
+    await waitFor(() => {
+      expect(filesystemApi.browse).toHaveBeenLastCalledWith('/workspace/project')
+    })
+    expect(await screen.findByRole('button', { name: /src/ })).toBeInTheDocument()
+
+    // Enter key submits too.
+    const nextInput = screen.getByPlaceholderText('/workspace/project')
+    fireEvent.change(nextInput, { target: { value: '/workspace/project/src' } })
+    fireEvent.keyDown(nextInput, { key: 'Enter' })
+    await waitFor(() => {
+      expect(filesystemApi.browse).toHaveBeenLastCalledWith('/workspace/project/src')
+    })
+  })
 })

@@ -210,7 +210,7 @@ describe('Grok Responses fetch adapter', () => {
       ...(metadata ? { metadata } : {}),
     })
 
-    test("derives it from Claude Code's session-suffixed user_id", async () => {
+    test("derives it from Open AI Ma Zai's session-suffixed user_id", async () => {
       const calls = await capture(
         anthropicBody({ user_id: 'user_abc_session_sess-123' }),
       )

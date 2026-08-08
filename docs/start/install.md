@@ -7,11 +7,11 @@ order: 1
 
 # 下载与安装
 
-装完就能用，不需要另外安装 Node.js、Python 或 Claude Code——CLI 内核和文件搜索用的 ripgrep 都已经打进安装包里了。
+装完就能用，不需要另外安装 Node.js、Python 或 Open AI Ma Zai——CLI 内核和文件搜索用的 ripgrep 都已经打进安装包里了。
 
 ## 挑对安装包
 
-所有安装包都在 [GitHub Releases](https://github.com/NanmiCoder/cc-haha/releases/latest)，按系统和 CPU 架构选一个：
+所有安装包都在 [GitHub Releases]("")，按系统和 CPU 架构选一个：
 
 | 你的系统 | 下载 |
 |---|---|
@@ -29,7 +29,7 @@ order: 1
 ## macOS
 
 1. 双击 DMG。
-2. 把 Claude Code Haha 拖进「应用程序」。
+2. 把 Open AI Ma Zai 拖进「应用程序」。
 3. 从「应用程序」打开。
 
 ### 如果提示「已损坏，无法打开」
@@ -52,7 +52,7 @@ bash install-macos-unsigned.sh
 已经把应用拖进「应用程序」了，就直接执行：
 
 ```bash
-xattr -dr com.apple.quarantine "/Applications/Claude Code Haha.app"
+xattr -dr com.apple.quarantine "/Applications/Open AI Ma Zai.app"
 ```
 
 只对你确认来自本仓库 Release 的安装包这么做。来路不明的应用不要绕过 Gatekeeper。
@@ -91,7 +91,7 @@ ARM64 机器换成对应的 `linux-arm64` 文件。
 想改代码、调试内核，或者只想在终端里用 CLI，可以从源码起：
 
 ```bash
-git clone https://github.com/NanmiCoder/cc-haha.git
+git clone ""
 cd cc-haha
 bun install
 cp .env.example .env

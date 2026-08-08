@@ -145,6 +145,7 @@ export function ChatInput({ variant = 'default', compact = false }: ChatInputPro
   const [launchTransitioning, setLaunchTransitioning] = useState(false)
   const [editingQueuedMessageId, setEditingQueuedMessageId] = useState<string | null>(null)
   const [editingQueuedMessageText, setEditingQueuedMessageText] = useState('')
+  const [optimizeLoading, setOptimizeLoading] = useState(false)
   const composingRef = useRef(false)
   const composerRef = useRef<MentionComposerHandle>(null)
   const composerContainerRef = useRef<HTMLDivElement>(null)
@@ -696,6 +697,26 @@ export function ChatInput({ variant = 'default', compact = false }: ChatInputPro
       setLaunchTransitioning(false)
     }
   }, [activeTabId, replaceEmptySession, t, updateRepositoryLaunchDraft])
+
+  const handleOptimize = useCallback(async () => {
+    const text = input.trim()
+    if (!text || optimizeLoading) return
+
+    setOptimizeLoading(true)
+    try {
+      const result = await sessionsApi.optimizePrompt(text)
+      if (result.optimized && result.optimized !== text) {
+        setComposerInput(result.optimized)
+      }
+    } catch (error) {
+      useUIStore.getState().addToast({
+        type: 'error',
+        message: error instanceof Error ? error.message : t('chat.optimizePromptFailed'),
+      })
+    } finally {
+      setOptimizeLoading(false)
+    }
+  }, [input, optimizeLoading, setComposerInput, t])
 
   const handleSubmit = async () => {
     const text = input.trim()
@@ -1456,6 +1477,20 @@ export function ChatInput({ variant = 'default', compact = false }: ChatInputPro
                   compact={useCompactControls}
                   fluid={isMobileComposer}
                 />
+              )}
+              {!isMemberSession && (
+                <button
+                  type="button"
+                  onClick={handleOptimize}
+                  disabled={!input.trim() || optimizeLoading}
+                  aria-label={t('chat.optimizePrompt')}
+                  title={t('chat.optimizePrompt')}
+                  className={`inline-flex shrink-0 items-center justify-center rounded-[var(--radius-md)] text-[var(--color-text-secondary)] transition-colors hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-border-focus)] disabled:opacity-30 ${isMobileComposer ? 'h-11 w-11' : 'h-8 w-8'}`}
+                >
+                  <span className={`material-symbols-outlined text-[18px] ${optimizeLoading ? 'animate-spin' : ''}`}>
+                    {optimizeLoading ? 'progress_activity' : 'auto_awesome'}
+                  </span>
+                </button>
               )}
               {!isMemberSession && !isActive && hasRunningSubagents ? (
                 <Button

@@ -422,7 +422,7 @@ Row 9, all 8 cells: continuing from straight down, turning left through lower-le
   'settings.activity.cancelEdit': 'Cancel',
   'settings.activity.profileSaved': 'Saved locally',
   'settings.activity.profileSaveFailed': 'Could not save profile',
-  'settings.activity.subtitleLoading': 'Based on local Claude Code CLI session transcripts',
+  'settings.activity.subtitleLoading': 'Based on local Open AI Ma Zai CLI session transcripts',
   'settings.activity.totalTokens': 'Total tokens',
   'settings.activity.peakTokens': 'Peak tokens',
   'settings.activity.longestTask': 'Longest task',
@@ -804,7 +804,7 @@ Row 9, all 8 cells: continuing from straight down, turning left through lower-le
   'settings.providers.ccSwitch.currentBadge': 'In use',
   'settings.providers.ccSwitch.duplicateBadge': 'Already exists',
   'settings.providers.ccSwitch.duplicateHint': 'Looks like your existing provider "{name}".',
-  'settings.providers.ccSwitch.appTypeClaude': 'Claude Code',
+  'settings.providers.ccSwitch.appTypeClaude': 'Open AI Ma Zai',
   'settings.providers.ccSwitch.appTypeClaudeDesktop': 'Claude Desktop',
   'settings.providers.ccSwitch.skipNoBaseUrl': 'Cannot import: no base URL.',
   'settings.providers.ccSwitch.skipNoApiKey': 'Cannot import: no API key stored.',
@@ -831,7 +831,7 @@ Row 9, all 8 cells: continuing from straight down, turning left through lower-le
 
   // Settings > Adapters
   'settings.tab.adapters': 'IM Adapters',
-  'settings.adapters.description': 'Configure IM adapters to chat with Claude Code via Telegram, WeChat, DingTalk, WhatsApp, or Feishu. For setup details, see',
+  'settings.adapters.description': 'Configure IM adapters to chat with Open AI Ma Zai via Telegram, WeChat, DingTalk, WhatsApp, or Feishu. For setup details, see',
   'settings.adapters.configurationDocs': 'documentation link',
   'settings.adapters.descriptionAfterDocs': '.',
   'settings.adapters.imTabs': 'IM adapter',
@@ -940,7 +940,7 @@ Row 9, all 8 cells: continuing from straight down, turning left through lower-le
 
   // Settings > MCP
   'settings.mcp.title': 'MCP servers',
-  'settings.mcp.description': 'Connect external tools and data sources for Claude Code. Local, project, and user scopes follow the same behavior as the CLI.',
+  'settings.mcp.description': 'Connect external tools and data sources for Open AI Ma Zai. Local, project, and user scopes follow the same behavior as the CLI.',
   'settings.mcp.addServer': 'Add server',
   'settings.mcp.openServer': 'Open {name}',
   'settings.mcp.empty': 'No MCP servers configured yet',
@@ -966,7 +966,7 @@ Row 9, all 8 cells: continuing from straight down, turning left through lower-le
   'settings.mcp.currentProjectHint': 'Selected project: {path}',
   'settings.mcp.form.back': 'Back to servers',
   'settings.mcp.form.createTitle': 'Connect to a custom MCP',
-  'settings.mcp.form.createHint': 'Set up a custom MCP server with the fields supported by Claude Code today.',
+  'settings.mcp.form.createHint': 'Set up a custom MCP server with the fields supported by Open AI Ma Zai today.',
   'settings.mcp.form.editTitle': 'Configure {name} MCP',
   'settings.mcp.form.editHint': 'Review connection details, save changes, or reconnect this server from the desktop app.',
   'settings.mcp.form.transportLocked': 'If you would like to switch MCP server type, uninstall first.',
@@ -1269,7 +1269,7 @@ Row 9, all 8 cells: continuing from straight down, turning left through lower-le
   'settings.plugins.scope.managed': 'Managed',
   'settings.plugins.scope.builtin': 'Built-in',
   'settings.plugins.empty': 'No plugins installed',
-  'settings.plugins.emptyHint': 'Install plugins from Claude Code to manage them here.',
+  'settings.plugins.emptyHint': 'Install plugins from Open AI Ma Zai to manage them here.',
   'settings.plugins.back': 'Back to list',
   'settings.plugins.noDescription': 'No description available for this plugin.',
   'settings.plugins.errorCount': '{count} errors',
@@ -1382,7 +1382,7 @@ Row 9, all 8 cells: continuing from straight down, turning left through lower-le
   'settings.general.storageTitle': 'Data Storage Location',
   'settings.general.storageDescription': 'Advanced, low-frequency setting. After switching, sessions, Skills, MCP, plugins, provider settings, tasks, and caches are read from the new directory.',
   'settings.general.storageSystemTitle': 'Use system directory',
-  'settings.general.storageSystemDescription': "Use Claude Code's standard user directory: ~/.claude (on Windows, %USERPROFILE%\\.claude).",
+  'settings.general.storageSystemDescription': "Use Open AI Ma Zai's standard user directory: ~/.claude (on Windows, %USERPROFILE%\\.claude).",
   'settings.general.storagePortableTitle': 'Use custom directory',
   'settings.general.storagePortableDescription': 'Store desktop data in one explicit folder you choose. It must be an absolute path outside the app installation directory.',
   'settings.general.storagePortableDirLabel': 'Custom data directory',
@@ -1479,7 +1479,7 @@ Row 9, all 8 cells: continuing from straight down, turning left through lower-le
   'settings.general.notificationsStatusUnsupported': 'Unavailable in this environment',
   'settings.general.notificationsAuthorize': 'Authorize',
   'settings.general.notificationsOpenSettings': 'Open Settings',
-  'settings.general.notificationsTestTitle': 'Claude Code Haha notifications are enabled',
+  'settings.general.notificationsTestTitle': 'Open AI Ma Zai notifications are enabled',
   'settings.general.notificationsTestBody': 'Permission prompts and completed agent replies will now use system notifications.',
   'settings.general.traceTitle': 'Agent trace',
   'settings.general.traceDescription': 'Collect local model request traces for stuck sessions, failed calls, and unexpected waits.',
@@ -1602,7 +1602,7 @@ Row 9, all 8 cells: continuing from straight down, turning left through lower-le
 
   // ─── Empty Session ──────────────────────────────────────
   'empty.title': 'New session',
-  'empty.subtitle': 'Start a fresh coding session. Claude is ready to help you build, debug, and architect your project.',
+  'empty.subtitle': 'Start a fresh coding session. Open AI Ma Zai is ready to help you build, debug, and architect your project.',
   'empty.placeholder': 'Ask anything...',
   'empty.addFiles': 'Add files or photos',
   'empty.slashCommands': 'Slash commands',
@@ -2155,6 +2155,8 @@ Row 9, all 8 cells: continuing from straight down, turning left through lower-le
   'dirPicker.chooseProjectFolder': 'Choose project folder',
   'dirPicker.useThisFolder': 'Use this folder',
   'dirPicker.noSubdirs': 'No subdirectories',
+  'dirPicker.availableDrives': 'Available drives:',
+  'dirPicker.typePath': 'Type or paste a path...',
 
   // ─── File Search ──────────────────────────────────────
   'fileSearch.searching': 'Searching...',
@@ -2498,6 +2500,8 @@ Row 9, all 8 cells: continuing from straight down, turning left through lower-le
   'chat.retry.retrying': 'retrying now…',
   'chat.fallback.title': 'Network hiccup — switched to non-streaming mode',
   'chat.fallback.detail': 'response arrives in one piece, this can take a while',
+  'chat.optimizePrompt': 'Optimize prompt',
+  'chat.optimizePromptFailed': 'Failed to optimize prompt',
 
 
   // ─── Tabs ──────────────────────────────────────

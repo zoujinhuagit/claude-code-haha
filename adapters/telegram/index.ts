@@ -1,5 +1,5 @@
 /**
- * Telegram Adapter for Claude Code Desktop
+ * Telegram Adapter for Open AI Ma Zai Desktop
  *
  * 基于 grammY 的轻量 Telegram Bot，直连服务端 /ws/:sessionId。
  * 启动：TELEGRAM_BOT_TOKEN=xxx bun run telegram/index.ts
@@ -661,7 +661,7 @@ async function routeUserMessage(
     if (success) {
       await ctx.reply('✅ 配对成功！现在可以开始聊天了。\n\n发送消息即可与 Claude 对话。')
     } else {
-      await ctx.reply('🔒 未授权。请在 Claude Code 桌面端生成配对码后发送给我。')
+      await ctx.reply('🔒 未授权。请在 Open AI Ma Zai 桌面端生成配对码后发送给我。')
     }
     return
   }

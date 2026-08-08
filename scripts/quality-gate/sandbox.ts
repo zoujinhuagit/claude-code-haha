@@ -121,7 +121,7 @@ export function seedProviderState(
  * Config-relative files a quality-gate lane must never write.
  *
  * Deliberately narrow. A full walk of `~/.claude` would also pick up writes from
- * the developer's own concurrently running Claude Code session (`projects/`,
+ * the developer's own concurrently running Open AI Ma Zai session (`projects/`,
  * `file-history/`, `plugins/`), turning the guard into noise. These paths are only
  * written by an explicit settings or provider mutation, which is exactly the class
  * of leak this guard exists to catch. Transcript isolation is proved positively

@@ -68,7 +68,7 @@ const GENERIC_REASONING_PROFILE: ModelReasoningProfile = {
 }
 
 // These entries preserve thinking-mode compatibility only. Effort levels are
-// always inherited from Claude Code and are never remapped by model name.
+// always inherited from Open AI Ma Zai and are never remapped by model name.
 const MODEL_REASONING_CAPABILITY_REGISTRY: readonly ModelReasoningCapabilityEntry[] = [
   {
     family: 'deepseek-v4',

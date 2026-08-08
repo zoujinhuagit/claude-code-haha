@@ -424,7 +424,7 @@ export const jp: Record<TranslationKey, string> = {
   'settings.activity.cancelEdit': 'キャンセル',
   'settings.activity.profileSaved': 'ローカルに保存しました',
   'settings.activity.profileSaveFailed': 'プロフィールを保存できませんでした',
-  'settings.activity.subtitleLoading': 'ローカルの Claude Code CLI セッション記録に基づきます',
+  'settings.activity.subtitleLoading': 'ローカルの Open AI Ma Zai CLI セッション記録に基づきます',
   'settings.activity.totalTokens': '合計トークン数',
   'settings.activity.peakTokens': 'ピークトークン数',
   'settings.activity.longestTask': '最長タスク',
@@ -806,7 +806,7 @@ export const jp: Record<TranslationKey, string> = {
   'settings.providers.ccSwitch.currentBadge': '使用中',
   'settings.providers.ccSwitch.duplicateBadge': '既に存在',
   'settings.providers.ccSwitch.duplicateHint': '既存のプロバイダー「{name}」と重複しています。',
-  'settings.providers.ccSwitch.appTypeClaude': 'Claude Code',
+  'settings.providers.ccSwitch.appTypeClaude': 'Open AI Ma Zai',
   'settings.providers.ccSwitch.appTypeClaudeDesktop': 'Claude Desktop',
   'settings.providers.ccSwitch.skipNoBaseUrl': 'インポート不可: ベース URL がありません。',
   'settings.providers.ccSwitch.skipNoApiKey': 'インポート不可: API キーが保存されていません。',
@@ -833,7 +833,7 @@ export const jp: Record<TranslationKey, string> = {
 
   // Settings > Adapters
   'settings.tab.adapters': 'IM アダプター',
-  'settings.adapters.description': 'Telegram、WeChat、DingTalk、WhatsApp、Feishu 経由で Claude Code とチャットできるよう IM アダプターを設定します。詳しい設定手順は',
+  'settings.adapters.description': 'Telegram、WeChat、DingTalk、WhatsApp、Feishu 経由で Open AI Ma Zai とチャットできるよう IM アダプターを設定します。詳しい設定手順は',
   'settings.adapters.configurationDocs': 'ドキュメントリンク',
   'settings.adapters.descriptionAfterDocs': 'を参照してください。',
   'settings.adapters.imTabs': 'IM アダプター',
@@ -942,7 +942,7 @@ export const jp: Record<TranslationKey, string> = {
 
   // Settings > MCP
   'settings.mcp.title': 'MCP サーバー',
-  'settings.mcp.description': 'Claude Code 用に外部ツールやデータソースを接続します。Local、Project、User の各スコープは CLI と同じ動作に従います。',
+  'settings.mcp.description': 'Open AI Ma Zai 用に外部ツールやデータソースを接続します。Local、Project、User の各スコープは CLI と同じ動作に従います。',
   'settings.mcp.addServer': 'サーバーを追加',
   'settings.mcp.openServer': '{name} を開く',
   'settings.mcp.empty': 'MCP サーバーはまだ設定されていません',
@@ -968,7 +968,7 @@ export const jp: Record<TranslationKey, string> = {
   'settings.mcp.currentProjectHint': '選択中のプロジェクト: {path}',
   'settings.mcp.form.back': 'サーバー一覧に戻る',
   'settings.mcp.form.createTitle': 'カスタム MCP に接続',
-  'settings.mcp.form.createHint': '現在 Claude Code がサポートするフィールドでカスタム MCP サーバーをセットアップします。',
+  'settings.mcp.form.createHint': '現在 Open AI Ma Zai がサポートするフィールドでカスタム MCP サーバーをセットアップします。',
   'settings.mcp.form.editTitle': '{name} MCP を設定',
   'settings.mcp.form.editHint': '接続の詳細を確認し、変更を保存するか、このサーバーをデスクトップアプリから再接続します。',
   'settings.mcp.form.transportLocked': 'MCP サーバーの種類を切り替えるには、まずアンインストールしてください。',
@@ -1271,7 +1271,7 @@ export const jp: Record<TranslationKey, string> = {
   'settings.plugins.scope.managed': '管理対象',
   'settings.plugins.scope.builtin': '組み込み',
   'settings.plugins.empty': 'プラグインがインストールされていません',
-  'settings.plugins.emptyHint': 'Claude Code からプラグインをインストールすると、ここで管理できます。',
+  'settings.plugins.emptyHint': 'Open AI Ma Zai からプラグインをインストールすると、ここで管理できます。',
   'settings.plugins.back': '一覧に戻る',
   'settings.plugins.noDescription': 'このプラグインの説明はありません。',
   'settings.plugins.errorCount': '{count} 件のエラー',
@@ -1384,7 +1384,7 @@ export const jp: Record<TranslationKey, string> = {
   'settings.general.storageTitle': 'データ保存場所',
   'settings.general.storageDescription': '高度で使用頻度の低い設定です。切り替え後は、セッション、スキル、MCP、プラグイン、プロバイダー設定、タスク、キャッシュが新しいディレクトリから読み込まれます。',
   'settings.general.storageSystemTitle': 'システムディレクトリを使用',
-  'settings.general.storageSystemDescription': 'Claude Code の標準ユーザーディレクトリ ~/.claude（Windows では %USERPROFILE%\\.claude）を使用します。',
+  'settings.general.storageSystemDescription': 'Open AI Ma Zai の標準ユーザーディレクトリ ~/.claude（Windows では %USERPROFILE%\\.claude）を使用します。',
   'settings.general.storagePortableTitle': 'カスタムディレクトリを使用',
   'settings.general.storagePortableDescription': '明示的に選択したフォルダへデスクトップデータを保存します。絶対パスで、アプリのインストール先の外にある必要があります。',
   'settings.general.storagePortableDirLabel': 'カスタムデータディレクトリ',
@@ -1481,7 +1481,7 @@ export const jp: Record<TranslationKey, string> = {
   'settings.general.notificationsStatusUnsupported': 'この環境では利用できません',
   'settings.general.notificationsAuthorize': '許可する',
   'settings.general.notificationsOpenSettings': '設定を開く',
-  'settings.general.notificationsTestTitle': 'Claude Code Haha の通知が有効になりました',
+  'settings.general.notificationsTestTitle': 'Open AI Ma Zai の通知が有効になりました',
   'settings.general.notificationsTestBody': '権限の確認と完了したエージェントの応答に、これからシステム通知が使用されます。',
   'settings.general.traceTitle': 'Agent Trace',
   'settings.general.traceDescription': '停止、失敗、予期しない待機を調査するために、ローカルセッションのモデル要求トレースを収集します。',
@@ -1604,7 +1604,7 @@ export const jp: Record<TranslationKey, string> = {
 
   // ─── Empty Session ──────────────────────────────────────
   'empty.title': '新しいセッション',
-  'empty.subtitle': '新しいコーディングセッションを開始します。Claude は、プロジェクトの構築、デバッグ、設計をお手伝いする準備ができています。',
+  'empty.subtitle': '新しいコーディングセッションを開始します。Open AI Ma Zai は、プロジェクトの構築、デバッグ、設計をお手伝いする準備ができています。',
   'empty.placeholder': '何でも質問してください...',
   'empty.addFiles': 'ファイルまたは写真を追加',
   'empty.slashCommands': 'スラッシュコマンド',
@@ -2157,6 +2157,8 @@ export const jp: Record<TranslationKey, string> = {
   'dirPicker.chooseProjectFolder': 'プロジェクトフォルダを選択',
   'dirPicker.useThisFolder': 'このフォルダを使用',
   'dirPicker.noSubdirs': 'サブディレクトリがありません',
+  'dirPicker.availableDrives': 'ドライブを切り替え:',
+  'dirPicker.typePath': 'パスを入力または貼り付け...',
 
   // ─── File Search ──────────────────────────────────────
   'fileSearch.searching': '検索中...',
@@ -2500,6 +2502,8 @@ export const jp: Record<TranslationKey, string> = {
   'chat.retry.retrying': '再試行しています…',
   'chat.fallback.title': 'ネットワーク不調のため非ストリーミングに切替',
   'chat.fallback.detail': '応答は一括で届くため時間がかかることがあります',
+  'chat.optimizePrompt': 'プロンプトを最適化',
+  'chat.optimizePromptFailed': 'プロンプトの最適化に失敗しました',
 
 
   // ─── Tabs ──────────────────────────────────────

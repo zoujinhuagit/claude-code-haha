@@ -290,18 +290,18 @@ describe('Sidebar', () => {
     expect(screen.getByTestId('sidebar-title-region')).toHaveAttribute('data-desktop-drag-region')
   })
 
-  // The header used to render both "Claude Code Haha" and "cc-haha" and hide
-  // one with a container query, so the app answered to two names depending on
-  // how far the sidebar had been dragged. Only the short one ships now — and
-  // the long one must not linger in the DOM, since a display-hidden copy still
-  // reaches screen readers and in-page search.
+  // The header used to render two wordmarks and hide one with a container
+  // query, so the app answered to two names depending on how far the sidebar
+  // had been dragged. Only the current name ships now — and the old one must
+  // not linger in the DOM, since a display-hidden copy still reaches screen
+  // readers and in-page search.
   it('renders one wordmark and it is the short one', () => {
     render(<Sidebar />)
 
     const region = screen.getByTestId('sidebar-title-region')
 
-    expect(region).toHaveTextContent('cc-haha')
-    expect(region).not.toHaveTextContent('Claude Code')
+    expect(region).toHaveTextContent('Open AI Ma Zai')
+    expect(region).not.toHaveTextContent('cc-haha')
   })
 
   it('groups sessions by project and expands overflow rows', () => {
@@ -1211,7 +1211,7 @@ describe('Sidebar', () => {
 
     // Scope to the wordmark's own row — the GitHub link in the same header is
     // also an svg and would answer a looser query.
-    const brandRow = () => screen.getByText('haha').closest('div')
+    const brandRow = () => screen.getByText('Open AI Ma Zai').closest('div')
 
     // Expanded, the name carries the brand and the mark beside it is clutter.
     expect(brandRow()?.querySelector('svg')).toBeNull()

@@ -8,6 +8,7 @@ const mocks = vi.hoisted(() => ({
   getRepositoryContext: vi.fn(),
   getMessages: vi.fn(),
   getSlashCommands: vi.fn(),
+  optimizePrompt: vi.fn(),
   listSkills: vi.fn(),
   listAgents: vi.fn(),
   search: vi.fn(),
@@ -34,6 +35,7 @@ vi.mock('../api/sessions', () => ({
     getRepositoryContext: mocks.getRepositoryContext,
     getMessages: mocks.getMessages,
     getSlashCommands: mocks.getSlashCommands,
+    optimizePrompt: mocks.optimizePrompt,
   },
 }))
 
@@ -302,6 +304,24 @@ describe('EmptySession', () => {
     expect(screen.getByRole('button', { name: 'Run' })).toHaveClass('h-11', 'w-11')
     expect(screen.getByTestId('empty-session-composer-shell')).toHaveClass('px-3')
     expect(screen.getByTestId('empty-session-composer-panel')).toHaveClass('rounded-[var(--radius-2xl)]')
+  })
+
+  it('optimizes the prompt via the lightning button and writes the result back', async () => {
+    mocks.optimizePrompt.mockResolvedValue({
+      optimized: 'Write a login form with validation and error states.',
+    })
+
+    render(<EmptySession />)
+
+    setComposerText('写个登录功能')
+    const button = await screen.findByRole('button', { name: 'Optimize prompt' })
+    expect(button).toBeEnabled()
+    fireEvent.click(button)
+
+    await waitFor(() => {
+      expect(mocks.optimizePrompt).toHaveBeenCalledWith('写个登录功能')
+    })
+    expect(getComposerText()).toBe('Write a login form with validation and error states.')
   })
 
   it('refreshes empty-session slash commands after plugin reloads', async () => {

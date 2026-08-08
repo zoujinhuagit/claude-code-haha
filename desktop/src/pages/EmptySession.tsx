@@ -6,6 +6,7 @@ import { IconButton } from '@/components/ui/IconButton'
 import { ApiError } from '../api/client'
 import { agentsApi } from '../api/agents'
 import { providersApi } from '../api/providers'
+import { sessionsApi } from '../api/sessions'
 import { skillsApi } from '../api/skills'
 import { useTranslation } from '../i18n'
 import { useSessionStore } from '../stores/sessionStore'
@@ -106,6 +107,7 @@ export function EmptySession() {
   const [input, setInput] = useState('')
   const [mentions, setMentions] = useState<ComposerMention[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [optimizeLoading, setOptimizeLoading] = useState(false)
   const [workDir, setWorkDir] = useState('')
   const [selectedBranch, setSelectedBranch] = useState<string | null>(null)
   const [useWorktree, setUseWorktree] = useState(false)
@@ -280,6 +282,26 @@ export function EmptySession() {
       activeItem.scrollIntoView({ block: 'nearest' })
     }
   }, [slashMenuOpen, slashSelectedIndex])
+
+  const handleOptimize = useCallback(async () => {
+    const text = input.trim()
+    if (!text || optimizeLoading) return
+
+    setOptimizeLoading(true)
+    try {
+      const result = await sessionsApi.optimizePrompt(text)
+      if (result.optimized && result.optimized !== text) {
+        setInput(result.optimized)
+      }
+    } catch (error) {
+      addToast({
+        type: 'error',
+        message: error instanceof Error ? error.message : t('chat.optimizePromptFailed'),
+      })
+    } finally {
+      setOptimizeLoading(false)
+    }
+  }, [input, optimizeLoading, addToast, t])
 
   const handleSubmit = async () => {
     const text = input.trim()
@@ -803,6 +825,18 @@ export function EmptySession() {
                     compact={isMobileComposer}
                   />
                   <ModelSelector ref={modelSelectorRef} runtimeKey={DRAFT_RUNTIME_SELECTION_KEY} disabled={isSubmitting} compact={isMobileComposer} />
+                  <button
+                    type="button"
+                    onClick={handleOptimize}
+                    disabled={!input.trim() || optimizeLoading}
+                    aria-label={t('chat.optimizePrompt')}
+                    title={t('chat.optimizePrompt')}
+                    className={`inline-flex shrink-0 items-center justify-center rounded-[var(--radius-md)] text-[var(--color-text-secondary)] transition-colors hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-border-focus)] disabled:opacity-30 ${isMobileComposer ? 'h-11 w-11' : 'h-8 w-8'}`}
+                  >
+                    <span className={`material-symbols-outlined text-[18px] ${optimizeLoading ? 'animate-spin' : ''}`}>
+                      {optimizeLoading ? 'progress_activity' : 'auto_awesome'}
+                    </span>
+                  </button>
                   {/* Kept identical to ChatInput's send button — same
                       component, shape, size and icon. See the note there for
                       why the label went away. */}

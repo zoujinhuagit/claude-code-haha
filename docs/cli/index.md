@@ -7,7 +7,7 @@ order: 0
 
 # 安装与启动
 
-CLI 是 Claude Code Haha 的内核，桌面端每个会话背后跑的都是它。如果你只想用图形界面，装桌面端就够了，见 [下载与安装](../start/install.md)；下面这些步骤是给需要终端交互、`--print` 脚本自动化，或者准备读源码、提 PR 的人看的。
+CLI 是 Open AI Ma Zai 的内核，桌面端每个会话背后跑的都是它。如果你只想用图形界面，装桌面端就够了，见 [下载与安装](../start/install.md)；下面这些步骤是给需要终端交互、`--print` 脚本自动化，或者准备读源码、提 PR 的人看的。
 
 CLI 目前只从源码运行，没有单独的安装包。
 
@@ -16,7 +16,7 @@ CLI 目前只从源码运行，没有单独的安装包。
 先装好 [Git](https://git-scm.com/downloads) 和 [Bun](https://bun.sh)，然后：
 
 ```bash
-git clone https://github.com/NanmiCoder/cc-haha.git
+git clone ""
 cd cc-haha
 bun install
 ```

@@ -92,6 +92,56 @@ describe('filesystem API', () => {
     expect(body.entries.some((entry) => entry.name === 'note.txt')).toBe(true)
   })
 
+  it('allows plain directory browsing outside the allowed roots while file listing stays whitelisted', async () => {
+    // Windows: C:\Windows is outside the user-home whitelist and exists on every machine.
+    // POSIX: use a fixture dir outside home/tmp.
+    let browsePath: string | null = null
+    if (process.platform === 'win32') {
+      browsePath = 'C:\\Windows'
+    } else {
+      browsePath = await makeExternalFixtureDir()
+    }
+    if (!browsePath) return
+
+    const fixturePath = browsePath
+    if (process.platform !== 'win32') {
+      cleanupDirs.add(fixturePath)
+      await fsp.writeFile(path.join(fixturePath, 'note.txt'), 'hello')
+    }
+
+    // Plain browse (no includeFiles / no search) is allowed everywhere: users
+    // navigate to any local directory when picking a project folder.
+    const browseRes = await handleFilesystemRoute(
+      '/api/filesystem/browse',
+      makeUrl('/api/filesystem/browse', { path: fixturePath }),
+    )
+    expect(browseRes.status).toBe(200)
+
+    // File listing/search outside the whitelist stays blocked.
+    const listRes = await handleFilesystemRoute(
+      '/api/filesystem/browse',
+      makeUrl('/api/filesystem/browse', { path: fixturePath, includeFiles: 'true' }),
+    )
+    expect(listRes.status).toBe(403)
+  })
+
+  it('injects sibling drive entries when browsing a Windows drive root', async () => {
+    if (process.platform !== 'win32') return
+    const currentDrive = path.parse(os.homedir()).root.toLowerCase() // e.g. c:\
+    const res = await handleFilesystemRoute(
+      '/api/filesystem/browse',
+      makeUrl('/api/filesystem/browse', { path: currentDrive }),
+    )
+    expect(res.status).toBe(200)
+    const body = await res.json() as { entries: Array<{ name: string; isDirectory: boolean }> }
+    const driveEntries = body.entries.filter((e) => e.isDirectory && /^[A-Za-z]:\\$/.test(e.name))
+    // The current drive is not listed; every other mapped drive is injected.
+    expect(driveEntries.some((e) => e.name.toLowerCase() === currentDrive)).toBe(false)
+    for (const entry of driveEntries) {
+      expect(fs.existsSync(entry.name)).toBe(true)
+    }
+  })
+
   it('allows browsing a selected workspace outside the default home/tmp roots', async () => {
     const externalFixtureDir = await makeExternalFixtureDir()
     if (!externalFixtureDir) return

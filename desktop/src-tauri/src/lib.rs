@@ -950,13 +950,13 @@ fn show_main_window(app: &AppHandle) {
 
 fn setup_system_tray(app: &mut tauri::App) -> tauri::Result<()> {
     let menu = MenuBuilder::new(app)
-        .text(TRAY_SHOW_ID, "Show Claude Code Haha")
+        .text(TRAY_SHOW_ID, "Show Open AI Ma Zai")
         .separator()
-        .text(TRAY_QUIT_ID, "Quit Claude Code Haha")
+        .text(TRAY_QUIT_ID, "Quit Open AI Ma Zai")
         .build()?;
 
     let mut tray = TrayIconBuilder::with_id("main-tray")
-        .tooltip("Claude Code Haha")
+        .tooltip("Open AI Ma Zai")
         .menu(&menu)
         .show_menu_on_left_click(false)
         .on_menu_event(|app, event| match event.id().as_ref() {
@@ -2639,12 +2639,12 @@ pub fn run() {
     let builder = builder
         .menu(|app| {
             let about_item =
-                MenuItemBuilder::with_id("nav_about", "关于 Claude Code Haha").build(app)?;
+                MenuItemBuilder::with_id("nav_about", "关于 Open AI Ma Zai").build(app)?;
             let settings_item = MenuItemBuilder::with_id("nav_settings", "设置...")
                 .accelerator("CmdOrCtrl+,")
                 .build(app)?;
 
-            let app_submenu = SubmenuBuilder::new(app, "Claude Code Haha")
+            let app_submenu = SubmenuBuilder::new(app, "Open AI Ma Zai")
                 .item(&about_item)
                 .separator()
                 .item(&settings_item)

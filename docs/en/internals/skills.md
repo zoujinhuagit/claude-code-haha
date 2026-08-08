@@ -7,13 +7,13 @@ order: 7
 
 # Skills Usage Guide
 
-Skills are the extensible capability engine of Claude Code, allowing you to define custom automated workflows using Markdown files.
+Skills are the extensible capability engine of Open AI Ma Zai, allowing you to define custom automated workflows using Markdown files.
 
 ![Skills System Overview](./images/01-skills-overview.png)
 
 ## What Are Skills?
 
-Skills are Claude Code's **extensible capability plugin system**. Each Skill is a Markdown file (with YAML frontmatter) that defines a specialized prompt and behavioral configuration, enabling Claude to execute professional workflows in specific scenarios.
+Skills are Open AI Ma Zai's **extensible capability plugin system**. Each Skill is a Markdown file (with YAML frontmatter) that defines a specialized prompt and behavioral configuration, enabling Claude to execute professional workflows in specific scenarios.
 
 Core capabilities:
 
@@ -30,7 +30,7 @@ Core capabilities:
 
 ![Skill Source Types](./images/02-skill-sources.png)
 
-Claude Code loads Skills from 6 different sources, ordered by priority from highest to lowest:
+Open AI Ma Zai loads Skills from 6 different sources, ordered by priority from highest to lowest:
 
 ### 1. Bundled (Built-in Skills)
 

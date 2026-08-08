@@ -13,11 +13,11 @@ Claude "dreams" -- silently reviewing recent sessions in the background to conso
 
 ## What Is AutoDream?
 
-AutoDream is Claude Code's **background memory consolidation mechanism**, internally codenamed **"Dream: Memory Consolidation"**.
+AutoDream is Open AI Ma Zai's **background memory consolidation mechanism**, internally codenamed **"Dream: Memory Consolidation"**.
 
 Core metaphor:
 
-| Human | Claude Code |
+| Human | Open AI Ma Zai |
 |-------|-------------|
 | Jotting down notes throughout the day | `extractMemories` -- extracts new memories after each conversation |
 | Organizing the notebook while sleeping | `autoDream` -- periodically reviews multiple sessions to consolidate all memories |

@@ -834,7 +834,7 @@ export const getSkillDirCommands = memoize(
      *
      * A skill name is a single slash command, so it has to resolve to exactly
      * one file however many roots spell it. `.claude` outranks `.agents` even
-     * across scopes: this is the Claude Code CLI, so a skill installed for us
+     * across scopes: this is the Open AI Ma Zai CLI, so a skill installed for us
      * stays authoritative over one another client dropped into the shared
      * `.agents` space. Within one flavor the root order above decides
      * (managed → user → project, each most-specific-first → --add-dir).

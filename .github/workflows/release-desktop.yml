@@ -364,7 +364,7 @@ jobs:
             exit 0
           fi
 
-          app_path="build-artifacts/electron/${{ matrix.app_bundle_dir }}/Claude Code Haha.app"
+          app_path="build-artifacts/electron/${{ matrix.app_bundle_dir }}/Open AI Ma Zai.app"
           set +e
           notarize_app_bundle "$app_path"
           status=$?
@@ -639,7 +639,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.version.outputs.value }}
-          name: Claude Code Haha v${{ steps.version.outputs.value }}
+          name: Open AI Ma Zai v${{ steps.version.outputs.value }}
           body: ${{ steps.release_notes.outputs.body }}
           draft: true
           prerelease: false

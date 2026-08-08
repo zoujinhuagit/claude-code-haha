@@ -41,7 +41,7 @@ Save the menu, then publish a new application version. Menu changes take effect 
 
 At the top of the page, under **Pairing**, select **Generate Code**. The six-character code is written to local configuration immediately — no separate save.
 
-Send any message to your new bot in Feishu, then send the code when prompted. Once pairing is confirmed you can talk to Claude Code directly.
+Send any message to your new bot in Feishu, then send the code when prompted. Once pairing is confirmed you can talk to Open AI Ma Zai directly.
 
 Codes are valid for 60 minutes, work once, and are invalidated when a new one is generated.
 

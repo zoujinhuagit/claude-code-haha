@@ -16,6 +16,7 @@ import {
   canonicalizeFilesystemAccessPath,
   isWithinRegisteredFilesystemRoot,
 } from '../services/filesystemAccessRoots.js'
+import { containsVulnerableUncPath } from '../../utils/shell/readOnlyCommandValidation.js'
 import { canonicalizeExistingFilesystemPath } from '../services/filesystemPathSecurity.js'
 import {
   isSameOrInsidePathForPlatform,
@@ -75,6 +76,27 @@ function isWithinRoot(targetPath: string, rootPath: string): boolean {
 
 function isVcsMetadataDirectoryName(name: string): boolean {
   return VCS_METADATA_DIRECTORY_NAMES.has(name.toLowerCase())
+}
+
+/** List available drive letters on Windows (C-Z that exist on disk). */
+function getWindowsDriveEntries(resolvedPath: string): FilesystemEntry[] {
+  const driveMatch = resolvedPath.match(/^([A-Za-z]):[\\]?$/)
+  if (!driveMatch) return []
+  const currentDrive = driveMatch[0].toLowerCase()
+
+  const drives: FilesystemEntry[] = []
+  for (let letter = 'C'.charCodeAt(0); letter <= 'Z'.charCodeAt(0); letter++) {
+    const driveLetter = String.fromCharCode(letter)
+    const drivePath = `${driveLetter}:\\`
+    if (drivePath.toLowerCase() === currentDrive) continue
+    try {
+      if (fs.statSync(drivePath).isDirectory()) {
+        drives.push({ name: drivePath, path: drivePath, isDirectory: true, relativePath: drivePath })
+      }
+    } catch { /* skip unmapped drives */ }
+  }
+  drives.sort((a, b) => a.name.localeCompare(b.name))
+  return drives
 }
 
 export function isAllowedFilesystemPath(targetPath: string): boolean {
@@ -162,20 +184,32 @@ async function handleServeFile(url: URL): Promise<Response> {
 async function handleBrowse(url: URL): Promise<Response> {
   const targetPath = url.searchParams.get('path') || os.homedir() || '/'
   const resolvedPath = path.resolve(normalizeDriveRootPathForPlatform(targetPath))
-  const canonicalPath = await canonicalizeExistingFilesystemPath(resolvedPath)
-  if (!canonicalPath) {
-    if (!isAllowedFilesystemPath(resolvedPath)) {
-      return json({ error: 'Access denied: path outside allowed directory' }, 403)
-    }
-    return json({ error: 'Cannot read directory: path not found', path: resolvedPath }, 404)
-  }
-  if (!isAllowedFilesystemPath(canonicalPath)) {
-    return json({ error: 'Access denied: path outside allowed directory' }, 403)
-  }
 
   const searchQuery = url.searchParams.get('search') || ''
   const includeFiles = url.searchParams.get('includeFiles') === 'true'
   const maxResults = Math.min(parseInt(url.searchParams.get('maxResults') || '200', 10), 200)
+  const isFileSearch = includeFiles || !!searchQuery
+
+  // 安全分级:文件搜索/文件列表仍受白名单保护;纯目录浏览(选择项目目录)
+  // 允许本地盘符自由导航,仅拦截 UNC 网络路径以防凭据泄露。
+  if (isFileSearch) {
+    if (!isAllowedFilesystemPath(resolvedPath)) {
+      return json({ error: 'File search is limited to project directories' }, 403)
+    }
+  } else if (containsVulnerableUncPath(resolvedPath)) {
+    return json({ error: 'UNC paths are not supported' }, 403)
+  }
+
+  const canonicalPath = await canonicalizeExistingFilesystemPath(resolvedPath)
+  if (!canonicalPath) {
+    if (isFileSearch && !isAllowedFilesystemPath(resolvedPath)) {
+      return json({ error: 'Access denied: path outside allowed directory' }, 403)
+    }
+    return json({ error: 'Cannot read directory: path not found', path: resolvedPath }, 404)
+  }
+  if (isFileSearch && !isAllowedFilesystemPath(canonicalPath)) {
+    return json({ error: 'Access denied: path outside allowed directory' }, 403)
+  }
 
   try {
     const stat = fs.statSync(canonicalPath)
@@ -216,6 +250,13 @@ async function handleBrowse(url: URL): Promise<Response> {
         if (a.isDirectory !== b.isDirectory) return a.isDirectory ? -1 : 1
         return a.name.localeCompare(b.name)
       })
+
+    // At a drive root (C:\ on Windows), surface sibling drives so users can
+    // navigate to other disks without typing a path.
+    const siblingDrives = getWindowsDriveEntries(resolvedPath)
+    if (siblingDrives.length > 0) {
+      entries_list.unshift(...siblingDrives)
+    }
 
     return json({
       currentPath: canonicalPath,

@@ -20,7 +20,7 @@ function createRepoRoot() {
       name: 'claude-code-desktop',
       version: '0.3.1',
       build: {
-        productName: 'Claude Code Haha',
+        productName: 'Open AI Ma Zai',
       },
     }, null, 2),
   )
@@ -85,15 +85,15 @@ describe('packaged artifact inspection', () => {
     const rootDir = createRepoRoot()
     tempDirs.push(rootDir)
 
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Info.plist')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/MacOS/Claude Code Haha')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app-update.yml')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/dist/index.html')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-apple-darwin')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/package.json')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/pty.node')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Info.plist')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/MacOS/Open AI Ma Zai')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app-update.yml')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/dist/index.html')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-apple-darwin')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/package.json')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/pty.node')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper')
     writeFile(rootDir, 'desktop/build-artifacts/electron/Claude-Code-Haha-0.3.1-arm64.zip')
     writeFile(rootDir, 'desktop/build-artifacts/electron/Claude-Code-Haha-0.3.1-arm64.zip.blockmap')
     writeFile(rootDir, 'desktop/build-artifacts/electron/Claude-Code-Haha-0.3.1-arm64.dmg')
@@ -122,11 +122,11 @@ describe('packaged artifact inspection', () => {
   test('fails macOS inspection when bundled ripgrep is missing', async () => {
     const rootDir = createRepoRoot()
     tempDirs.push(rootDir)
-    const appRoot = 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app'
+    const appRoot = 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app'
     const sidecarRoot = `${appRoot}/Contents/Resources/app.asar.unpacked/src-tauri/binaries`
 
     writeFile(rootDir, `${appRoot}/Contents/Info.plist`)
-    writeFile(rootDir, `${appRoot}/Contents/MacOS/Claude Code Haha`)
+    writeFile(rootDir, `${appRoot}/Contents/MacOS/Open AI Ma Zai`)
     writeFile(rootDir, `${appRoot}/Contents/Resources/app.asar`)
     writeFile(rootDir, `${appRoot}/Contents/Resources/app.asar.unpacked/dist/index.html`)
     writeFile(rootDir, `${sidecarRoot}/claude-sidecar-aarch64-apple-darwin`)
@@ -151,14 +151,14 @@ describe('packaged artifact inspection', () => {
     const rootDir = createRepoRoot()
     tempDirs.push(rootDir)
 
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Info.plist')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/MacOS/Claude Code Haha')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app-update.yml')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-apple-darwin')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/package.json')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/pty.node')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Info.plist')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/MacOS/Open AI Ma Zai')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app-update.yml')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-apple-darwin')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/package.json')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/pty.node')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper')
 
     const report = await inspectPackagedArtifacts(rootDir, { platform: 'macos', packageKind: 'dir' })
 
@@ -170,15 +170,15 @@ describe('packaged artifact inspection', () => {
     const rootDir = createRepoRoot()
     tempDirs.push(rootDir)
 
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Info.plist')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/MacOS/Claude Code Haha')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app-update.yml')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-apple-darwin')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/package.json')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/pty.node')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/Claude Code Haha-0.3.1-arm64-mac.zip')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Info.plist')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/MacOS/Open AI Ma Zai')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app-update.yml')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-apple-darwin')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/package.json')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/pty.node')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/Open AI Ma Zai-0.3.1-arm64-mac.zip')
     writeFile(rootDir, 'desktop/build-artifacts/electron/latest-mac.yml', 'path: Claude-Code-Haha-0.3.1-arm64-mac.zip\n')
 
     const report = await inspectPackagedArtifacts(rootDir, { platform: 'macos' })
@@ -191,13 +191,13 @@ describe('packaged artifact inspection', () => {
     const rootDir = createRepoRoot()
     tempDirs.push(rootDir)
 
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Info.plist')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/MacOS/Claude Code Haha')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-apple-darwin')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/package.json')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/pty.node')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Info.plist')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/MacOS/Open AI Ma Zai')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-apple-darwin')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/package.json')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/pty.node')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper')
     writeFile(rootDir, 'desktop/build-artifacts/electron/Claude-Code-Haha-0.3.1-arm64.zip')
     writeFile(rootDir, 'desktop/build-artifacts/electron/latest-mac.yml', [
       'version: 0.3.1',
@@ -216,14 +216,14 @@ describe('packaged artifact inspection', () => {
     const rootDir = createRepoRoot()
     tempDirs.push(rootDir)
 
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Info.plist')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/MacOS/Claude Code Haha')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app-update.yml')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-apple-darwin')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/package.json')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/pty.node')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Info.plist')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/MacOS/Open AI Ma Zai')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app-update.yml')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-apple-darwin')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/package.json')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/pty.node')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper')
     writeFile(rootDir, 'desktop/build-artifacts/electron/Claude-Code-Haha-0.3.1-arm64.zip')
     writeFile(rootDir, 'desktop/build-artifacts/electron/latest-mac.yml', 'path: Claude-Code-Haha-0.3.1-arm64.zip\n')
 
@@ -237,13 +237,13 @@ describe('packaged artifact inspection', () => {
     const rootDir = createRepoRoot()
     tempDirs.push(rootDir)
 
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Info.plist')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/MacOS/Claude Code Haha')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-apple-darwin')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/package.json')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/pty.node')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Info.plist')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/MacOS/Open AI Ma Zai')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-apple-darwin')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/package.json')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/pty.node')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper')
 
     const report = await inspectPackagedArtifacts(rootDir, {
       platform: 'macos',
@@ -276,13 +276,13 @@ describe('packaged artifact inspection', () => {
     const rootDir = createRepoRoot()
     tempDirs.push(rootDir)
 
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Info.plist')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/MacOS/Claude Code Haha')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-apple-darwin')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/package.json')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/pty.node')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Info.plist')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/MacOS/Open AI Ma Zai')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-apple-darwin')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/package.json')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/pty.node')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/mac-arm64/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/node_modules/node-pty/prebuilds/darwin-arm64/spawn-helper')
 
     const commands: string[] = []
     const report = await inspectPackagedArtifacts(rootDir, {
@@ -319,14 +319,14 @@ describe('packaged artifact inspection', () => {
     const rootDir = createRepoRoot()
     tempDirs.push(rootDir)
 
-    writeFile(rootDir, 'desktop/build-artifacts/electron/Claude Code Haha Setup 0.3.1.exe')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/Claude Code Haha Setup 0.3.1.exe.blockmap')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/Open AI Ma Zai Setup 0.3.1.exe')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/Open AI Ma Zai Setup 0.3.1.exe.blockmap')
     writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/resources/app.asar')
     writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/resources/app-update.yml')
     writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-x86_64-pc-windows-msvc.exe')
     writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/resources/app.asar.unpacked/node_modules/node-pty/package.json')
     writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/resources/app.asar.unpacked/node_modules/node-pty/prebuilds/win32-x64/pty.node')
-    writeFile(rootDir, 'desktop/build-artifacts/electron/latest.yml', 'path: Claude Code Haha Setup 0.3.1.exe\n')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/latest.yml', 'path: Open AI Ma Zai Setup 0.3.1.exe\n')
 
     const report = await inspectPackagedArtifacts(rootDir, { platform: 'windows' })
 
@@ -413,7 +413,7 @@ describe('packaged artifact inspection', () => {
     const rootDir = createRepoRoot()
     tempDirs.push(rootDir)
 
-    writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/Claude Code Haha.exe')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/Open AI Ma Zai.exe')
     writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/resources/app.asar')
     writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-x86_64-pc-windows-msvc.exe')
     writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/resources/app.asar.unpacked/node_modules/node-pty/package.json')
@@ -430,7 +430,7 @@ describe('packaged artifact inspection', () => {
     const rootDir = createRepoRoot()
     tempDirs.push(rootDir)
 
-    writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/Claude Code Haha.exe')
+    writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/Open AI Ma Zai.exe')
     writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/resources/app.asar')
     writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/resources/app-update.yml')
     writeFile(rootDir, 'desktop/build-artifacts/electron/win-unpacked/resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-x86_64-pc-windows-msvc.exe')
@@ -447,7 +447,7 @@ describe('packaged artifact inspection', () => {
     const rootDir = createRepoRoot()
     tempDirs.push(rootDir)
 
-    writeFile(rootDir, 'desktop/build-artifacts/windows-arm64/win-arm64-unpacked/Claude Code Haha.exe')
+    writeFile(rootDir, 'desktop/build-artifacts/windows-arm64/win-arm64-unpacked/Open AI Ma Zai.exe')
     writeFile(rootDir, 'desktop/build-artifacts/windows-arm64/win-arm64-unpacked/resources/app.asar')
     writeFile(rootDir, 'desktop/build-artifacts/windows-arm64/win-arm64-unpacked/resources/app-update.yml')
     writeFile(rootDir, 'desktop/build-artifacts/windows-arm64/win-arm64-unpacked/resources/app.asar.unpacked/src-tauri/binaries/claude-sidecar-aarch64-pc-windows-msvc.exe')

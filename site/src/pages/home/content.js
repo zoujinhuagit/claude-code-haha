@@ -54,7 +54,7 @@ export const images = localizedImages.zh
 export const content = {
   zh: {
     hero: {
-      title: '让 Claude Code 有个能看见的地方干活',
+      title: '让 Open AI Ma Zai 有个能看见的地方干活',
       lede: '本地优先的桌面客户端：会话、改动、Agent、定时任务都摆在明处。接哪个模型你说了算，改哪一行你点头才算。',
       primary: '下载桌面端',
       secondary: '三步跑通第一条会话',
@@ -186,7 +186,7 @@ export const content = {
       copied: '已复制'
     },
     footer: {
-      tagline: '本地优先的 Claude Code 桌面客户端',
+      tagline: '本地优先的 Open AI Ma Zai 桌面客户端',
       columns: [
         ['文档', [['/start', '开始使用'], ['/desktop', '桌面端功能'], ['/im', 'IM 接入'], ['/cli', '命令行']]],
         ['开发者', [['/internals', '架构总览'], ['/internals/structure', '项目结构'], ['/internals/contributing', '参与贡献']]]
@@ -196,7 +196,7 @@ export const content = {
 
   en: {
     hero: {
-      title: 'Give Claude Code somewhere you can watch it work',
+      title: 'Give Open AI Ma Zai somewhere you can watch it work',
       lede: 'A local-first desktop client. Sessions, diffs, agents and scheduled runs all sit in the open. You pick the model; nothing lands until you say so.',
       primary: 'Download the app',
       secondary: 'Run your first session',
@@ -280,7 +280,7 @@ export const content = {
       copied: 'Copied'
     },
     footer: {
-      tagline: 'A local-first desktop client for Claude Code',
+      tagline: 'A local-first desktop client for Open AI Ma Zai',
       columns: [
         ['Docs', [['/en/start', 'Get started'], ['/en/desktop', 'Desktop app'], ['/en/im', 'Messaging'], ['/en/cli', 'Command line']]],
         ['Developers', [['/en/internals', 'Architecture'], ['/en/internals/structure', 'Project structure'], ['/en/internals/contributing', 'Contributing']]]

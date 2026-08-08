@@ -30,9 +30,9 @@ Available without any setup:
 | `general-purpose` | The catch-all. Researching complex questions, searching for code, multi-step tasks |
 | `Explore` | Fast codebase exploration. Find files by pattern, search code by keyword, answer "how does this part work" |
 | `Plan` | The architect. Designs an implementation strategy and returns step-by-step plans, critical files, and trade-offs |
-| `claude-code-guide` | Answers questions about Claude Code, the Agent SDK, and the Claude API themselves |
+| `claude-code-guide` | Answers questions about Open AI Ma Zai, the Agent SDK, and the Claude API themselves |
 | `verification` | Sign-off before you call it done. Runs builds, tests, and linters and returns PASS / FAIL / PARTIAL with evidence |
-| `statusline-setup` | Configures the Claude Code status line |
+| `statusline-setup` | Configures the Open AI Ma Zai status line |
 
 You can name one directly ("use Explore to find…") or let Claude decide who to send.
 

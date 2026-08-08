@@ -93,7 +93,7 @@ Windows 用户可以在这里指定启动 Shell（系统默认 / PowerShell 7 / 
 
 ![设置 → Token 用量：热力图与统计卡](../images/app/zh-CN/settings-usage.webp)
 
-基于本机 Claude Code 会话记录统计出来的用量看板，全部在本地算，不上传。
+基于本机 Open AI Ma Zai 会话记录统计出来的用量看板，全部在本地算，不上传。
 
 - 顶部是累计 Token 数、峰值、最长任务时长、连续活跃天数。
 - 中间是热力图，可以切每日 / 每周 / 累计三种口径，点某一天看当天的会话数、Token、消息和工具调用。

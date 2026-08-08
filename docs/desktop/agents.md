@@ -30,9 +30,9 @@ order: 3
 | `general-purpose` | 通用兜底。复杂问题研究、找代码、多步骤任务，不知道派谁就派它 |
 | `Explore` | 专门快速探索代码库。按模式找文件、按关键词搜代码、回答「这块是怎么工作的」 |
 | `Plan` | 架构师。设计实现方案，返回分步计划、关键文件和取舍 |
-| `claude-code-guide` | 回答关于 Claude Code、Agent SDK 和 Claude API 本身的问题 |
+| `claude-code-guide` | 回答关于 Open AI Ma Zai、Agent SDK 和 Claude API 本身的问题 |
 | `verification` | 收工前的验收。跑构建、测试、linter，给出通过 / 失败 / 部分通过的结论 |
-| `statusline-setup` | 配置 Claude Code 状态栏 |
+| `statusline-setup` | 配置 Open AI Ma Zai 状态栏 |
 
 在会话里可以直接说「用 Explore 去找一下……」，也可以让 Claude 自己判断该派谁。
 

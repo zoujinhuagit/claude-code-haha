@@ -62,9 +62,9 @@ export function anthropicToOpenaiResponses(
   }
 
   // max_tokens — omit to let upstream provider use its own default/max.
-  // Claude Code sends very large values that exceed many providers' limits.
+  // Open AI Ma Zai sends very large values that exceed many providers' limits.
 
-  // Claude Code sends Anthropic sampling params that some compatible
+  // Open AI Ma Zai sends Anthropic sampling params that some compatible
   // providers reject. Keep them opt-in for providers known to accept them.
   if (options.passSamplingParams) {
     if (body.temperature !== undefined) result.temperature = body.temperature

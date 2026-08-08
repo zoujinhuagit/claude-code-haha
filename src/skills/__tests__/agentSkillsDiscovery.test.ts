@@ -202,7 +202,7 @@ describe('.agents/skills discovery', () => {
   /**
    * A skill name is a single slash command, so it must resolve to exactly one
    * file no matter how many roots hold that name. `.claude` outranks `.agents`
-   * across scopes too: this repository is the Claude Code CLI, and a skill the
+   * across scopes too: this repository is the Open AI Ma Zai CLI, and a skill the
    * user installed for us stays authoritative over one another client dropped
    * into the shared `.agents` space.
    */

@@ -66,7 +66,7 @@ order: 2
 
 ## Agent 能力与边界
 
-Telegram 不是一套独立的问答模型。普通消息和从 `/skills` 点选的 Skill 都会进入当前项目的同一条 Claude Code Agent 会话，因此会延续多轮上下文，并能使用该会话已经加载的文件、终端、Git、Skills 和 MCP 工具。点选 Skill 后，adapter 会把对应的 `/<skill-name>` 作为用户消息送入 Agent，由现有 Skill 系统加载 `SKILL.md` 并继续执行。
+Telegram 不是一套独立的问答模型。普通消息和从 `/skills` 点选的 Skill 都会进入当前项目的同一条 Open AI Ma Zai Agent 会话，因此会延续多轮上下文，并能使用该会话已经加载的文件、终端、Git、Skills 和 MCP 工具。点选 Skill 后，adapter 会把对应的 `/<skill-name>` 作为用户消息送入 Agent，由现有 Skill 系统加载 `SKILL.md` 并继续执行。
 
 这些能力只适合单一可信用户远程控制自己的机器。配对账号获得的是当前项目中的完整 Agent 能力，权限确认只是操作闸门，并不是操作系统沙箱；不要把 Bot 暴露给公开群聊或不可信账号，也不要从聊天中安装未经本机审核的 Skill、Plugin 或 MCP。
 

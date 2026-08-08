@@ -423,7 +423,7 @@ export const zh: Record<TranslationKey, string> = {
   'settings.activity.cancelEdit': '取消',
   'settings.activity.profileSaved': '已保存到本地',
   'settings.activity.profileSaveFailed': '保存个人资料失败',
-  'settings.activity.subtitleLoading': '基于本机 Claude Code CLI 会话记录统计',
+  'settings.activity.subtitleLoading': '基于本机 Open AI Ma Zai CLI 会话记录统计',
   'settings.activity.totalTokens': '累计 Token 数',
   'settings.activity.peakTokens': '峰值 Token 数',
   'settings.activity.longestTask': '最长任务时长',
@@ -805,7 +805,7 @@ export const zh: Record<TranslationKey, string> = {
   'settings.providers.ccSwitch.currentBadge': '使用中',
   'settings.providers.ccSwitch.duplicateBadge': '已存在',
   'settings.providers.ccSwitch.duplicateHint': '与已有服务商「{name}」重复。',
-  'settings.providers.ccSwitch.appTypeClaude': 'Claude Code',
+  'settings.providers.ccSwitch.appTypeClaude': 'Open AI Ma Zai',
   'settings.providers.ccSwitch.appTypeClaudeDesktop': 'Claude Desktop',
   'settings.providers.ccSwitch.skipNoBaseUrl': '无法导入：没有接口地址。',
   'settings.providers.ccSwitch.skipNoApiKey': '无法导入：没有保存 API 密钥。',
@@ -832,7 +832,7 @@ export const zh: Record<TranslationKey, string> = {
 
   // Settings > Adapters
   'settings.tab.adapters': 'IM 接入',
-  'settings.adapters.description': '配置即时通讯适配器，通过 Telegram、微信、钉钉、WhatsApp 或飞书与 Claude Code 对话。首次配置请参考',
+  'settings.adapters.description': '配置即时通讯适配器，通过 Telegram、微信、钉钉、WhatsApp 或飞书与 Open AI Ma Zai 对话。首次配置请参考',
   'settings.adapters.configurationDocs': '文档地址',
   'settings.adapters.descriptionAfterDocs': '。',
   'settings.adapters.imTabs': '即时通讯适配器',
@@ -967,7 +967,7 @@ export const zh: Record<TranslationKey, string> = {
   'settings.mcp.currentProjectHint': '当前项目：{path}',
   'settings.mcp.form.back': '返回服务列表',
   'settings.mcp.form.createTitle': '连接自定义 MCP',
-  'settings.mcp.form.createHint': '按当前 Claude Code 支持的字段添加一个自定义 MCP 服务。',
+  'settings.mcp.form.createHint': '按当前 Open AI Ma Zai 支持的字段添加一个自定义 MCP 服务。',
   'settings.mcp.form.editTitle': '配置 {name} MCP',
   'settings.mcp.form.editHint': '查看连接信息、保存修改，或直接在桌面端重连这个服务。',
   'settings.mcp.form.transportLocked': '如果你想切换 MCP 服务类型，请先卸载后重新添加。',
@@ -1270,7 +1270,7 @@ export const zh: Record<TranslationKey, string> = {
   'settings.plugins.scope.managed': '托管',
   'settings.plugins.scope.builtin': '内置',
   'settings.plugins.empty': '暂无已安装插件',
-  'settings.plugins.emptyHint': '先在 Claude Code 里安装插件，桌面端就可以在这里管理。',
+  'settings.plugins.emptyHint': '先在 Open AI Ma Zai 里安装插件，桌面端就可以在这里管理。',
   'settings.plugins.back': '返回列表',
   'settings.plugins.noDescription': '这个插件没有可用描述。',
   'settings.plugins.errorCount': '{count} 个错误',
@@ -1383,7 +1383,7 @@ export const zh: Record<TranslationKey, string> = {
   'settings.general.storageTitle': '数据存储位置',
   'settings.general.storageDescription': '低频高级设置。切换后，会话记录、Skills、MCP、插件、Provider 配置、任务和缓存都会从新的目录读取。',
   'settings.general.storageSystemTitle': '使用系统目录',
-  'settings.general.storageSystemDescription': '使用 Claude Code 的标准用户目录：~/.claude（Windows 上是 %USERPROFILE%\\.claude）。',
+  'settings.general.storageSystemDescription': '使用 Open AI Ma Zai 的标准用户目录：~/.claude（Windows 上是 %USERPROFILE%\\.claude）。',
   'settings.general.storagePortableTitle': '使用自定义目录',
   'settings.general.storagePortableDescription': '把桌面端数据写入你明确选择的文件夹。必须使用绝对路径，而且不能放在应用安装目录内。',
   'settings.general.storagePortableDirLabel': '自定义数据目录',
@@ -1480,7 +1480,7 @@ export const zh: Record<TranslationKey, string> = {
   'settings.general.notificationsStatusUnsupported': '当前环境不可用',
   'settings.general.notificationsAuthorize': '授权通知',
   'settings.general.notificationsOpenSettings': '打开系统设置',
-  'settings.general.notificationsTestTitle': 'Claude Code Haha 通知已启用',
+  'settings.general.notificationsTestTitle': 'Open AI Ma Zai 通知已启用',
   'settings.general.notificationsTestBody': '后续授权确认和 Agent 回复完成都会通过系统通知提醒。',
   'settings.general.traceTitle': 'Agent Trace',
   'settings.general.traceDescription': '收集本地会话的模型请求链路，用于排查卡住、失败和异常等待。',
@@ -1603,7 +1603,7 @@ export const zh: Record<TranslationKey, string> = {
 
   // ─── Empty Session ──────────────────────────────────────
   'empty.title': '新建会话',
-  'empty.subtitle': '开始一个新的编码会话。Claude 已准备好帮你构建、调试和设计你的项目。',
+  'empty.subtitle': '开始一个新的编码会话。Open AI Ma Zai已准备好帮你构建、调试和架构你的项目。',
   'empty.placeholder': '随便问点什么...',
   'empty.addFiles': '添加文件或图片',
   'empty.slashCommands': '斜杠命令',
@@ -2156,6 +2156,8 @@ export const zh: Record<TranslationKey, string> = {
   'dirPicker.chooseProjectFolder': '选择项目文件夹',
   'dirPicker.useThisFolder': '使用此文件夹',
   'dirPicker.noSubdirs': '无子目录',
+  'dirPicker.availableDrives': '切换盘符:',
+  'dirPicker.typePath': '输入或粘贴路径...',
 
   // ─── File Search ──────────────────────────────────────
   'fileSearch.searching': '搜索中...',
@@ -2499,6 +2501,8 @@ export const zh: Record<TranslationKey, string> = {
   'chat.retry.retrying': '正在重试…',
   'chat.fallback.title': '网络波动，已切换为非流式请求',
   'chat.fallback.detail': '响应将一次性返回，可能需要较长时间',
+  'chat.optimizePrompt': '优化提示词',
+  'chat.optimizePromptFailed': '提示词优化失败',
 
 
   // ─── Tabs ──────────────────────────────────────

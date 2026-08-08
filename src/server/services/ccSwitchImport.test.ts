@@ -1454,7 +1454,7 @@ describe('cc-switch candidate mapping', () => {
 
     const candidates = await scanCandidates()
 
-    // The claude (Claude Code) copy wins regardless of cc-switch ordering.
+    // The claude (Open AI Ma Zai) copy wins regardless of cc-switch ordering.
     expect(candidates.map((candidate) => candidate.sourceId)).toEqual(['claude:shared'])
   })
 

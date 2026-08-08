@@ -326,7 +326,7 @@ const REQUIRED_PROVIDER_COLUMNS = ['id', 'app_type', 'settings_config']
 
 /**
  * Every app cc-switch is known to ship. Used only to tell "this user simply has
- * no Claude Code providers" apart from "cc-switch renamed its apps".
+ * no Open AI Ma Zai providers" apart from "cc-switch renamed its apps".
  */
 const KNOWN_CC_SWITCH_APP_TYPES = new Set([
   'claude', 'claude-desktop', 'codex', 'gemini',
@@ -830,7 +830,7 @@ function importFingerprint(entry: CcSwitchEntry): string {
  * cc-switch keeps a separate provider set per app, and users commonly hold the
  * same upstream under both `claude` and `claude-desktop`. Importing both would
  * create indistinguishable same-name pairs, so drop the `claude-desktop` copy
- * when an identical `claude` (Claude Code) one exists — that is the app
+ * when an identical `claude` (Open AI Ma Zai) one exists — that is the app
  * cc-haha corresponds to.
  *
  * Collapsing is strictly cross-app: two rows inside the *same* app are two

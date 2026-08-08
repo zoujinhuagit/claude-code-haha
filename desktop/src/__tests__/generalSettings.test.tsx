@@ -1054,7 +1054,7 @@ describe('Settings > General tab', () => {
       expect(desktopNotificationsMock.requestDesktopNotificationPermission).toHaveBeenCalledTimes(1)
     })
     expect(desktopNotificationsMock.notifyDesktop).toHaveBeenCalledWith({
-      title: 'Claude Code Haha notifications are enabled',
+      title: 'Open AI Ma Zai notifications are enabled',
       body: 'Permission prompts and completed agent replies will now use system notifications.',
     })
   })
@@ -2907,8 +2907,10 @@ describe('Settings > Providers tab', () => {
   })
 })
 
-describe('Settings > About tab', () => {
+describe('Settings > About tab (disabled)', () => {
   beforeEach(() => {
+    // A stale navigation intent pointing at About must be a no-op now that the
+    // tab is disabled; the app must never render About content behind it.
     useUIStore.setState({ activeSettingsTab: 'providers', pendingSettingsTab: 'about' })
     useSettingsStore.setState({
       locale: 'en',
@@ -2917,140 +2919,16 @@ describe('Settings > About tab', () => {
         useSettingsStore.setState({ updateProxy: next })
       }),
     })
-    useUpdateStore.setState({
-      status: 'available',
-      availableVersion: '0.1.5',
-      releaseNotes: '# Claude Code Haha v0.1.5\n\n- Fixed updater rendering\n- Added markdown support',
-      progressPercent: 0,
-      downloadedBytes: 0,
-      totalBytes: null,
-      error: null,
-      checkedAt: null,
-      shouldPrompt: true,
-      initialize: vi.fn().mockResolvedValue(undefined),
-      checkForUpdates: vi.fn().mockResolvedValue(null),
-      installUpdate: vi.fn().mockResolvedValue(undefined),
-      dismissPrompt: vi.fn(),
-    })
   })
 
-  it('renders release notes with markdown formatting', async () => {
+  it('no longer exposes the About tab or its content', () => {
     render(<Settings />)
 
-    expect(await screen.findByRole('heading', { name: 'Claude Code Haha v0.1.5' })).toBeInTheDocument()
-    expect(screen.getByText('Fixed updater rendering')).toBeInTheDocument()
-    expect(screen.getByText('Added markdown support')).toBeInTheDocument()
-  })
-
-  it('does not show a fake fallback app version when desktop version IPC fails', async () => {
-    window.desktopHost = {
-      ...browserHost,
-      kind: 'electron',
-      isDesktop: true,
-      capabilities: {
-        ...browserHost.capabilities,
-        updates: true,
-      },
-      app: {
-        ...browserHost.app,
-        getVersion: vi.fn().mockRejectedValue(new Error('version IPC failed')),
-      },
-    }
-    useUpdateStore.setState({
-      status: 'up-to-date',
-      availableVersion: null,
-      releaseNotes: null,
-      progressPercent: 0,
-      downloadedBytes: 0,
-      totalBytes: null,
-      error: null,
-      checkedAt: Date.now(),
-      shouldPrompt: false,
-      initialize: vi.fn().mockResolvedValue(undefined),
-      checkForUpdates: vi.fn().mockResolvedValue(null),
-      installUpdate: vi.fn().mockResolvedValue(undefined),
-      dismissPrompt: vi.fn(),
-    })
-
-    render(<Settings />)
-
-    expect(await screen.findByText('Unknown')).toBeInTheDocument()
-    expect(screen.queryByText('0.1.0')).not.toBeInTheDocument()
-  })
-
-  it('shows downloaded bytes instead of a fake zero percent when total size is unknown', async () => {
-    useUpdateStore.setState({
-      status: 'downloading',
-      availableVersion: '0.1.5',
-      releaseNotes: '# Claude Code Haha v0.1.5',
-      progressPercent: 0,
-      downloadedBytes: 1536,
-      totalBytes: null,
-      error: null,
-      checkedAt: null,
-      shouldPrompt: true,
-      initialize: vi.fn().mockResolvedValue(undefined),
-      checkForUpdates: vi.fn().mockResolvedValue(null),
-      installUpdate: vi.fn().mockResolvedValue(undefined),
-      dismissPrompt: vi.fn(),
-    })
-
-    render(<Settings />)
-
-    expect(await screen.findByText('Downloading update... 1.5 KB downloaded')).toBeInTheDocument()
-    expect(screen.queryByText('Downloading update... 0%')).not.toBeInTheDocument()
-  })
-
-  it('saves a manual update proxy from the advanced update controls', async () => {
-    render(<Settings />)
-
-    fireEvent.click(screen.getByRole('button', { name: /Advanced update proxy/i }))
-    expect(screen.getByRole('button', { name: /System proxy/i })).toHaveAttribute('aria-pressed', 'true')
-    expect(screen.getByText('This only affects app update checks and downloads.')).toBeInTheDocument()
-
-    fireEvent.click(screen.getByRole('button', { name: /Manual proxy/i }))
-    const proxyInput = screen.getByLabelText('Proxy URL')
-    const saveButton = screen.getByRole('button', { name: 'Save' })
-
-    expect(screen.getByText('Enter a proxy URL.')).toBeInTheDocument()
-    expect(saveButton).toBeDisabled()
-
-    fireEvent.change(proxyInput, { target: { value: 'socks5://127.0.0.1:7890' } })
-    expect(screen.getByText('Enter an HTTP or HTTPS proxy URL.')).toBeInTheDocument()
-    expect(saveButton).toBeDisabled()
-
-    fireEvent.change(proxyInput, { target: { value: '  http://127.0.0.1:7890  ' } })
-    expect(screen.getByText('HTTP and HTTPS proxy URLs are supported, for example http://127.0.0.1:7890.')).toBeInTheDocument()
-
-    await act(async () => {
-      fireEvent.click(saveButton)
-    })
-
-    expect(useSettingsStore.getState().setUpdateProxy).toHaveBeenCalledWith({
-      mode: 'manual',
-      url: 'http://127.0.0.1:7890',
-    })
-  })
-
-  it('can switch update proxy settings back to system mode', async () => {
-    useSettingsStore.setState({
-      updateProxy: { mode: 'manual', url: 'http://127.0.0.1:7890' },
-    })
-    render(<Settings />)
-
-    fireEvent.click(screen.getByRole('button', { name: /Advanced update proxy/i }))
-    expect(screen.getByRole('button', { name: /Manual proxy/i })).toHaveAttribute('aria-pressed', 'true')
-
-    fireEvent.click(screen.getByRole('button', { name: /System proxy/i }))
-    const saveButton = screen.getByRole('button', { name: 'Save' })
-
-    await act(async () => {
-      fireEvent.click(saveButton)
-    })
-
-    expect(useSettingsStore.getState().setUpdateProxy).toHaveBeenCalledWith({
-      mode: 'system',
-      url: 'http://127.0.0.1:7890',
-    })
+    // The navigation entry is gone from the settings rail…
+    expect(screen.queryByRole('button', { name: /About/i })).not.toBeInTheDocument()
+    // …and neither the release-notes card nor the update controls render.
+    expect(screen.queryByText(/Open AI Ma Zai v/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/Downloading update/)).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /Advanced update proxy/i })).not.toBeInTheDocument()
   })
 })

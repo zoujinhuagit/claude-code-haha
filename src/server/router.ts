@@ -27,6 +27,7 @@ import { handleH5AccessApi } from './api/h5-access.js'
 import { handleActivityStatsApi } from './api/activityStats.js'
 import { handleOpenTargetsApi } from './api/open-targets.js'
 import { handleMemoryApi } from './api/memory.js'
+import { handleOptimizeApi } from './api/optimize.js'
 import { handleDesktopUiApi } from './api/desktop-ui.js'
 import { handleTracesApi } from './api/traces.js'
 
@@ -134,6 +135,9 @@ export async function handleApiRequest(req: Request, url: URL): Promise<Response
 
     case 'filesystem':
       return handleFilesystemRoute(url.pathname, url)
+
+    case 'optimize':
+      return handleOptimizeApi(req)
 
     default:
       return Response.json(

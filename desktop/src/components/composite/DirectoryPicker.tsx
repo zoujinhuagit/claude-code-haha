@@ -93,6 +93,7 @@ export function RecentProjectsPanel({
   const [browseEntries, setBrowseEntries] = useState<DirEntry[]>([])
   const [browsePath, setBrowsePath] = useState('')
   const [browseParent, setBrowseParent] = useState('')
+  const [pathInput, setPathInput] = useState('')
   const [loading, setLoading] = useState(false)
 
   // Both callbacks fire from effects. Holding them in a ref means an inline
@@ -136,8 +137,15 @@ export function RecentProjectsPanel({
       setBrowsePath(result.currentPath)
       setBrowseParent(result.parentPath)
       setBrowseEntries(result.entries)
+      setPathInput('')
     } catch { /* API not available */ }
     setLoading(false)
+  }
+
+  const handlePathSubmit = () => {
+    const trimmed = pathInput.trim()
+    if (!trimmed) return
+    loadBrowseDir(trimmed)
   }
 
   // Every selection path funnels through here, including the native dialog —
@@ -176,16 +184,63 @@ export function RecentProjectsPanel({
           <Button variant="link" size="xs" className="mr-2" onClick={() => setMode('recent')}>
             {'← ' + t('dirPicker.recent')}
           </Button>
-          <button onClick={() => loadBrowseDir('/')} className="text-[10px] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]">/</button>
-          {browsePath.split('/').filter(Boolean).map((seg, i, arr) => (
-            <span key={i} className="flex items-center gap-1">
-              <span className="text-[10px] text-[var(--color-text-tertiary)]">/</span>
-              <button
-                onClick={() => loadBrowseDir('/' + arr.slice(0, i + 1).join('/'))}
-                className="text-[10px] text-[var(--color-text-accent)] hover:underline"
-              >{seg}</button>
-            </span>
-          ))}
+          {(() => {
+            // Windows path detection: C:\...
+            const isWindowsPath = browsePath.match(/^[A-Za-z]:[\\/]/)
+            if (isWindowsPath) {
+              const parts = browsePath.split('\\').filter(Boolean)
+              const driveRoot = parts[0] // e.g. "C:"
+              return (
+                <>
+                  <button onClick={() => loadBrowseDir(driveRoot + '\\')} className="text-[10px] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]">{driveRoot}\</button>
+                  {parts.slice(1).map((seg, i, arr) => (
+                    <span key={i} className="flex items-center gap-1">
+                      <span className="text-[10px] text-[var(--color-text-tertiary)]">\</span>
+                      <button
+                        onClick={() => loadBrowseDir(driveRoot + '\\' + arr.slice(0, i + 1).join('\\'))}
+                        className="text-[10px] text-[var(--color-text-accent)] hover:underline"
+                      >{seg}</button>
+                    </span>
+                  ))}
+                </>
+              )
+            }
+            // POSIX path: /home/user/...
+            return (
+              <>
+                <button onClick={() => loadBrowseDir('/')} className="text-[10px] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]">/</button>
+                {browsePath.split('/').filter(Boolean).map((seg, i, arr) => (
+                  <span key={i} className="flex items-center gap-1">
+                    <span className="text-[10px] text-[var(--color-text-tertiary)]">/</span>
+                    <button
+                      onClick={() => loadBrowseDir('/' + arr.slice(0, i + 1).join('/'))}
+                      className="text-[10px] text-[var(--color-text-accent)] hover:underline"
+                    >{seg}</button>
+                  </span>
+                ))}
+              </>
+            )
+          })()}
+        </div>
+
+        <div className="flex items-center gap-1 border-b border-[var(--color-border)] px-3 py-1.5">
+          <span className="material-symbols-outlined text-[14px] text-[var(--color-text-tertiary)]">edit</span>
+          <input
+            type="text"
+            value={pathInput}
+            onChange={(e) => setPathInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handlePathSubmit()
+            }}
+            placeholder={browsePath || t('dirPicker.typePath')}
+            className="flex-1 bg-transparent font-mono text-[11px] text-[var(--color-text-primary)] outline-none placeholder:text-[var(--color-text-tertiary)]"
+          />
+          <button
+            onClick={handlePathSubmit}
+            className="rounded px-2 py-0.5 text-[10px] font-semibold text-[var(--color-brand)] transition-colors hover:bg-[var(--color-surface-hover)]"
+          >
+            Go
+          </button>
         </div>
 
         <div className={`${touch ? '' : 'max-h-[240px]'} overflow-y-auto`}>
@@ -193,12 +248,14 @@ export function RecentProjectsPanel({
             <LoadingState label={t('common.loading')} variant="block" size="sm" />
           ) : (
             <>
-              {browseParent && browseParent !== browsePath && (
+              {(browseParent && browseParent !== browsePath) ? (
                 <button onClick={() => loadBrowseDir(browseParent)} className="flex w-full items-center gap-2 px-3 py-2 text-left hover:bg-[var(--color-surface-hover)]">
                   <span className="material-symbols-outlined text-[16px] text-[var(--color-text-tertiary)]">arrow_upward</span>
                   <span className="text-xs text-[var(--color-text-secondary)]">..</span>
                 </button>
-              )}
+              ) : browsePath.match(/^[A-Za-z]:[\\/]?$/) ? (
+                <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[var(--color-outline)]">{t('dirPicker.availableDrives')}</div>
+              ) : null}
               {browseEntries.length === 0 ? (
                 <EmptyState description={t('dirPicker.noSubdirs')} variant="plain" size="sm" />
               ) : browseEntries.map((entry) => (

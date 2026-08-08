@@ -140,7 +140,7 @@ describe('provider presets API', () => {
     expect(xuanshuapi?.defaultModels.sonnet).toBe('claude-sonnet-5')
     expect(xuanshuapi?.defaultModels.opus).toBe('claude-opus-5')
     expect(xuanshuapi?.modelContextWindows?.['claude-opus-5']).toBe(1000000)
-    // Both endpoints below are the Anthropic-compatible root: Claude Code appends
+    // Both endpoints below are the Anthropic-compatible root: Open AI Ma Zai appends
     // /v1/messages itself, so a /v1 or /anthropic suffix here would 404.
     expect(fennoai?.baseUrl).toBe('https://api.fenno.ai')
     expect(fennoai?.apiFormat).toBe('anthropic')

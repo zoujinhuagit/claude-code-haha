@@ -389,7 +389,7 @@ describe('reduceTranscript', () => {
   })
 })
 
-// One assistant reply, written the way Claude Code actually writes it: one JSONL line per content
+// One assistant reply, written the way Open AI Ma Zai actually writes it: one JSONL line per content
 // block, every line repeating the same complete `usage`. Real transcripts hit 52 lines for a
 // single reply, and counting each one is what inflated the token totals 2.2x.
 function assistantBlockLines(options: {

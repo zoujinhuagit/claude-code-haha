@@ -8,7 +8,7 @@ import {
 } from './modelReasoning.js'
 
 describe('model reasoning capability pass-through', () => {
-  test('passes every Claude Code effort through without vendor-specific model rules', () => {
+  test('passes every Open AI Ma Zai effort through without vendor-specific model rules', () => {
     const modelIds = [
       'deepseek-v4-pro',
       'k3',
@@ -34,7 +34,7 @@ describe('model reasoning capability pass-through', () => {
     }
   })
 
-  test('enables the current Claude Code effort capabilities for compatible models', () => {
+  test('enables the current Open AI Ma Zai effort capabilities for compatible models', () => {
     expect(getClaudeCodeModelCapabilities('MiniMax-M3', 'anthropic')).toBe(
       'thinking,effort,adaptive_thinking,xhigh_effort,max_effort',
     )
