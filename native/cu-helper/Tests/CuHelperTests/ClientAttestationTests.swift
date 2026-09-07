@@ -6,7 +6,7 @@ import Testing
 struct ClientAttestationTests {
     private let team = "TEAM123456"
     private let leaf = Data([0xCA, 0xFE])
-    private let appRoot = "/Applications/Claude Code Haha.app"
+    private let appRoot = "/Applications/Open AI Ma Zai.app"
 
     private var sidecarPath: String {
         appRoot
@@ -38,7 +38,7 @@ struct ClientAttestationTests {
         process(
             pid: 900,
             parentPID: 1,
-            path: "/Users/test/Library/Application Support/Claude Code Haha/"
+            path: "/Users/test/Library/Application Support/Open AI Ma Zai/"
                 + "cc-haha-computer-use.app/Contents/MacOS/cc-haha-computer-use",
             identifier: HelperClientPolicy.helperIdentifier
         )
@@ -48,7 +48,7 @@ struct ClientAttestationTests {
         process(
             pid: 300,
             parentPID: 1,
-            path: appRoot + "/Contents/MacOS/Claude Code Haha",
+            path: appRoot + "/Contents/MacOS/Open AI Ma Zai",
             identifier: HelperClientPolicy.desktopIdentifier
         )
     }

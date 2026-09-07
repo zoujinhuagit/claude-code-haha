@@ -7,13 +7,13 @@ order: 9
 
 # Memory System Usage Guide
 
-Let Claude Code remember who you are, what you prefer, and what's happening in your project across sessions.
+Let Open AI Ma Zai remember who you are, what you prefer, and what's happening in your project across sessions.
 
 ![Memory System Overview](./images/01-memory-overview.png)
 
 ## What Is the Memory System?
 
-Claude Code's memory system is a **file-based persistent knowledge store** that allows Claude to continuously build understanding of you and your project across multiple conversations.
+Open AI Ma Zai's memory system is a **file-based persistent knowledge store** that allows Claude to continuously build understanding of you and your project across multiple conversations.
 
 Core principle: **Only remember things that cannot be inferred from the code itself.**
 
@@ -28,7 +28,7 @@ Core principle: **Only remember things that cannot be inferred from the code its
 
 ![Four Memory Types](./images/02-memory-types.png)
 
-Claude Code strictly categorizes memories into four types:
+Open AI Ma Zai strictly categorizes memories into four types:
 
 ### User (User Profile)
 
@@ -236,7 +236,7 @@ New information learned during conversation
 
 ### AutoDream -- "Dreaming" to Organize Memories
 
-Claude Code has a hidden **AutoDream** feature, analogous to how the human brain organizes memories during sleep. When the following conditions are met, Claude silently launches a "dreaming" subagent in the background:
+Open AI Ma Zai has a hidden **AutoDream** feature, analogous to how the human brain organizes memories during sleep. When the following conditions are met, Claude silently launches a "dreaming" subagent in the background:
 
 - At least **>= 24 hours** since the last consolidation
 - At least **>= 5 sessions** accumulated in the interim

@@ -314,7 +314,7 @@ export function GeneralSettings() {
     : supportedReasoningEfforts === undefined
       // Match the new-session selector's compatibility fallback for models
       // that predate explicit capability metadata. xhigh is opt-in; the other
-      // Claude Code levels remain available until the provider declares it.
+      // Open AI Ma Zai levels remain available until the provider declares it.
       ? MODEL_REASONING_EFFORTS.filter((level) => level !== 'xhigh')
       : MODEL_REASONING_EFFORTS.filter((level) => supportedReasoningEfforts.includes(level))
   const modelDefaultEffort = currentModel?.defaultReasoningEffort

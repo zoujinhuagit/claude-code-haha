@@ -7,17 +7,17 @@ order: 13
 
 # Channel System
 
-A deep dive into how Claude Code enables remote Agent control via IM platforms
+A deep dive into how Open AI Ma Zai enables remote Agent control via IM platforms
 
 ![Channel System Overview](./images/01-channel-overview.png)
 
 ## What is a Channel
 
-A Channel is Claude Code's **IM integration system** that allows users to remotely control a running Claude Code Agent through instant messaging platforms such as Telegram, Feishu (Lark), Discord, and Slack.
+A Channel is Open AI Ma Zai's **IM integration system** that allows users to remotely control a running Open AI Ma Zai Agent through instant messaging platforms such as Telegram, Feishu (Lark), Discord, and Slack.
 
 ### Core Idea
 
-Traditional AI coding assistants can only interact through the terminal. The Channel system breaks this limitation — you can send messages to Claude Code from your phone via Telegram, and it will understand and execute your requests just as it would in the terminal, replying directly to your chat window.
+Traditional AI coding assistants can only interact through the terminal. The Channel system breaks this limitation — you can send messages to Open AI Ma Zai from your phone via Telegram, and it will understand and execute your requests just as it would in the terminal, replying directly to your chat window.
 
 ### The Essence of a Channel
 
@@ -101,7 +101,7 @@ The Channel system follows a clear bidirectional message path:
 
 ### Inbound Notification Schema
 
-The notification format Channel Servers push to Claude Code:
+The notification format Channel Servers push to Open AI Ma Zai:
 
 ```typescript
 // channelNotification.ts
@@ -295,7 +295,7 @@ type ChannelGateResult =
 
 ### Why Permission Relay Exists
 
-When Claude Code needs to execute sensitive operations (like running a Bash command), it shows a permission confirmation dialog. But if the user is controlling the Agent remotely via Telegram, they can't see the local terminal dialog.
+When Open AI Ma Zai needs to execute sensitive operations (like running a Bash command), it shows a permission confirmation dialog. But if the user is controlling the Agent remotely via Telegram, they can't see the local terminal dialog.
 
 The permission relay system solves this: **forward permission prompts to the IM platform so users can approve or deny operations from their phone**.
 
@@ -627,7 +627,7 @@ From Kenneth's analysis in code comments (PR discussion #2956440848):
 
 ### skipSlashCommands
 
-Channel messages are enqueued with `skipSlashCommands: true`, ensuring text like `/help` sent by IM users is not interpreted as Claude Code slash commands.
+Channel messages are enqueued with `skipSlashCommands: true`, ensuring text like `/help` sent by IM users is not interpreted as Open AI Ma Zai slash commands.
 
 ### Dev Bypass Granularity
 

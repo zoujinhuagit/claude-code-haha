@@ -201,7 +201,7 @@ export function applySafeConfigEnvironmentVariables(): void {
 
   // cc-haha provider isolation: apply env from ~/.claude/cc-haha/settings.json
   // AFTER userSettings so Haha-specific provider config takes priority over
-  // the original Claude Code's settings. This prevents Haha from polluting
+  // the original Open AI Ma Zai's settings. This prevents Haha from polluting
   // ~/.claude/settings.json while still allowing it to override provider vars.
   Object.assign(process.env, filterSettingsEnv(getCcHahaSettingsEnv()))
 

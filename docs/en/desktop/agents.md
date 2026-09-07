@@ -30,9 +30,9 @@ Available without any setup:
 | `general-purpose` | The catch-all. Researching complex questions, searching for code, multi-step tasks |
 | `Explore` | Fast codebase exploration. Find files by pattern, search code by keyword, answer "how does this part work" |
 | `Plan` | The architect. Designs an implementation strategy and returns step-by-step plans, critical files, and trade-offs |
-| `claude-code-guide` | Answers questions about Claude Code, the Agent SDK, and the Claude API themselves |
+| `claude-code-guide` | Answers questions about Open AI Ma Zai, the Agent SDK, and the Claude API themselves |
 | `verification` | Sign-off before you call it done. Runs builds, tests, and linters and returns PASS / FAIL / PARTIAL with evidence |
-| `statusline-setup` | Configures the Claude Code status line |
+| `statusline-setup` | Configures the Open AI Ma Zai status line |
 
 You can name one directly ("use Explore to find…") or let Claude decide who to send.
 
@@ -62,7 +62,7 @@ Click **Adjust model** on the built-in agent's row, or the same button in the to
 - **Model** — Built-in default, Inherit from parent, the Haiku / Sonnet / Opus / Fable aliases, or a model configured for the current provider.
 - **Reasoning effort** — Built-in default, or low / medium / high / xhigh / max.
 
-The system prompt, tool scope, and color stay fixed by Claude Code.
+The system prompt, tool scope, and color stay fixed by Open AI Ma Zai.
 
 :::tip
 "Built-in default" and "Inherit from parent" are not the same thing. For `Explore`, the first is the Haiku it ships pinned to; the second follows whatever model your main conversation is using. To go back to how it shipped, pick "Built-in default" or click **Reset to built-in default**.

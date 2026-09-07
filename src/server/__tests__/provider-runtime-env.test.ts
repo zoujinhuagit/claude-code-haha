@@ -140,7 +140,7 @@ describe('providerRuntimeEnv', () => {
     expect(env.CC_HAHA_IMAGE_MODEL).toBeUndefined()
   })
 
-  test('keeps Claude Code effort capabilities for an unlisted custom model', async () => {
+  test('keeps Open AI Ma Zai effort capabilities for an unlisted custom model', async () => {
     await writeJson(path.join(tmpDir, 'cc-haha', 'providers.json'), {
       activeId: 'provider-1',
       providers: [

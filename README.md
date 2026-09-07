@@ -1,19 +1,19 @@
-# Claude Code Haha
+# Open AI Ma Zai
 
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/images/logo-horizontal-dark.png">
-    <img src="docs/images/logo-horizontal.png" alt="Claude Code Haha" width="480">
+    <img src="docs/images/logo-horizontal.png" alt="Open AI Ma Zai" width="480">
   </picture>
 </p>
 
 <div align="center">
 
-[![GitHub Stars](https://img.shields.io/github/stars/NanmiCoder/cc-haha?style=social)](https://github.com/NanmiCoder/cc-haha/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/NanmiCoder/cc-haha?style=social)](https://github.com/NanmiCoder/cc-haha/network/members)
-[![GitHub Issues](https://img.shields.io/github/issues/NanmiCoder/cc-haha)](https://github.com/NanmiCoder/cc-haha/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/NanmiCoder/cc-haha)](https://github.com/NanmiCoder/cc-haha/pulls)
-[![License](https://img.shields.io/badge/License-MIT-blue)](https://github.com/NanmiCoder/cc-haha/blob/main/LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/NanmiCoder/cc-haha?style=social)](/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/NanmiCoder/cc-haha?style=social)](/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/NanmiCoder/cc-haha)](/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/NanmiCoder/cc-haha)](/pulls)
+[![License](https://img.shields.io/badge/License-MIT-blue)](/blob/main/LICENSE)
 [![English](https://img.shields.io/badge/🇺🇸_English-Current-blue)](README.md)
 [![中文](https://img.shields.io/badge/🇨🇳_简体中文-Available-green)](README.zh-CN.md)
 [![Docs](https://img.shields.io/badge/📖_Documentation-Visit-FF7A00)](https://cchaha.ai)
@@ -22,7 +22,7 @@
 
 </div>
 
-Claude Code Haha is a **desktop Claude Code workspace** for macOS, Windows, and Linux: multi-session workspaces, global search, branch / Worktree launch, diff review, built-in browser preview, GUI permission approval, any model — Claude, ChatGPT, Grok, presets, or local endpoints — image generation, visual MCP & SubAgent managers, an Agent Teams workbench, dynamic Workflow orchestration, model trace, Computer Use, skill marketplace, colour themes, desktop pets, H5 remote access, IM integration, and scheduled tasks, all in one app.
+Open AI Ma Zai is a **desktop Open AI Ma Zai workspace** for macOS, Windows, and Linux: multi-session workspaces, global search, branch / Worktree launch, diff review, built-in browser preview, GUI permission approval, any model — Claude, ChatGPT, Grok, presets, or local endpoints — image generation, visual MCP & SubAgent managers, an Agent Teams workbench, dynamic Workflow orchestration, model trace, Computer Use, skill marketplace, colour themes, desktop pets, H5 remote access, IM integration, and scheduled tasks, all in one app.
 
 <p align="center">
   <a href="#desktop-preview">Desktop Preview</a> · <a href="#install-the-desktop-app">Install</a> · <a href="#desktop-highlights">Highlights</a> · <a href="#more-documentation">More Docs</a> · <a href="#sponsorship--partnership">Sponsorship</a> · <a href="#user-group">User Group</a>
@@ -33,7 +33,7 @@ Claude Code Haha is a **desktop Claude Code workspace** for macOS, Windows, and 
 ## Desktop Preview
 
 <p align="center">
-  <a href="https://github.com/NanmiCoder/cc-haha/releases"><img src="https://img.shields.io/badge/⬇_Download_Desktop-macOS_%7C_Windows_%7C_Linux-FF7A00?style=for-the-badge" alt="Download Desktop"></a>
+  <a href="/releases"><img src="https://img.shields.io/badge/⬇_Download_Desktop-macOS_%7C_Windows_%7C_Linux-FF7A00?style=for-the-badge" alt="Download Desktop"></a>
 </p>
 
 <table>
@@ -70,7 +70,7 @@ This project is maintained in the author's spare time. Corporate or individual s
         </a>
       </td>
       <td valign="middle">
-        Thanks to <a href="https://www.xuanshuapi.com/register?aff=CC-HAHA&promo=CC-HAHA">XuanShu API</a> for sponsoring this project. XuanShu API is an all-in-one, enterprise-grade AI gateway that gives you access to leading global models through a single unified API, and works out of the box with popular AI coding tools such as Claude Code, Codex, and Gemini CLI. Stability comes first: multi-account pool scheduling and automatic failover smooth out upstream account fluctuations. Model calls are priced as low as 25% of official rates, and balance top-ups get roughly a 20% bonus with no expiry. New users who register through <a href="https://www.xuanshuapi.com/register?aff=CC-HAHA&promo=CC-HAHA">this link</a> receive a $5 credit.
+        Thanks to <a href="https://www.xuanshuapi.com/register?aff=CC-HAHA&promo=CC-HAHA">XuanShu API</a> for sponsoring this project. XuanShu API is an all-in-one, enterprise-grade AI gateway that gives you access to leading global models through a single unified API, and works out of the box with popular AI coding tools such as Open AI Ma Zai, Codex, and Gemini CLI. Stability comes first: multi-account pool scheduling and automatic failover smooth out upstream account fluctuations. Model calls are priced as low as 25% of official rates, and balance top-ups get roughly a 20% bonus with no expiry. New users who register through <a href="https://www.xuanshuapi.com/register?aff=CC-HAHA&promo=CC-HAHA">this link</a> receive a $5 credit.
       </td>
     </tr>
     <tr>
@@ -80,7 +80,7 @@ This project is maintained in the author's spare time. Corporate or individual s
         </a>
       </td>
       <td valign="middle">
-        Thanks to <a href="https://api.fenno.ai/s/WD8c">FennoAI</a> for sponsoring this project. FennoAI is a high-stability, high-performance API relay service for enterprise engineering teams and individual developers. It speaks both the OpenAI and Anthropic protocols, so it drops straight into Codex, Claude Code, OpenCode, and other mainstream AI coding tools. The platform is built for enterprise-grade stability at hundreds of billions of tokens per day, and supports corporate settlement and invoicing for both domestic and overseas entities. As a cc-haha user perk, buying a subscription through <a href="https://api.fenno.ai/s/WD8c">this link</a> gets you $50 of Coding Plan credit for $1.99. Referrals earn up to 20% commission — the more you invite, the more you get.
+        Thanks to <a href="https://api.fenno.ai/s/WD8c">FennoAI</a> for sponsoring this project. FennoAI is a high-stability, high-performance API relay service for enterprise engineering teams and individual developers. It speaks both the OpenAI and Anthropic protocols, so it drops straight into Codex, Open AI Ma Zai, OpenCode, and other mainstream AI coding tools. The platform is built for enterprise-grade stability at hundreds of billions of tokens per day, and supports corporate settlement and invoicing for both domestic and overseas entities. As a cc-haha user perk, buying a subscription through <a href="https://api.fenno.ai/s/WD8c">this link</a> gets you $50 of Coding Plan credit for $1.99. Referrals earn up to 20% commission — the more you invite, the more you get.
       </td>
     </tr>
     <tr>
@@ -113,7 +113,7 @@ This project is maintained in the author's spare time. Corporate or individual s
 
 ## Install the Desktop App
 
-1. Download the macOS / Windows / Linux desktop installer from [Releases](https://github.com/NanmiCoder/cc-haha/releases).
+1. Download the macOS / Windows / Linux desktop installer from [Releases](/releases).
 2. On first launch, configure your model provider, API key, and default model in Settings.
 3. Public macOS releases require signing and notarization. Draft or unsigned temporary builds may still need one-time manual approval. Unsigned Windows installers may show SmartScreen; click "More info" -> "Run anyway". See the [desktop installation guide](docs/en/start/install.md).
 
@@ -200,7 +200,7 @@ If this project helps you, consider buying me a coffee — every bit of support 
 
 ## User Group
 
-Scan the QR code below to join the cc-haha user group on Feishu (Lark) — the conversation there is mostly in Chinese. For questions and bug reports in English, [Issues](https://github.com/NanmiCoder/cc-haha/issues) is the better place.
+Scan the QR code below to join the cc-haha user group on Feishu (Lark) — the conversation there is mostly in Chinese. For questions and bug reports in English, [Issues](/issues) is the better place.
 
 <p align="center">
   <img src="docs/images/community/feishu-group-qr.png" width="300" alt="cc-haha Feishu user group QR code">
@@ -234,7 +234,7 @@ Thanks to the following open-source projects and community practices for referen
 
 ## ⭐ Star History
 
-If this project helps you, please support it with a ⭐ Star so more people can discover Claude Code Haha.
+If this project helps you, please support it with a ⭐ Star so more people can discover Open AI Ma Zai.
 
 <a href="https://www.repostars.dev/?repos=NanmiCoder%2Fcc-haha&theme=ocean">
   <img alt="Star History Chart" src="https://www.repostars.dev/api/embed?repo=NanmiCoder%2Fcc-haha&theme=ocean" />

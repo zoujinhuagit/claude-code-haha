@@ -91,7 +91,7 @@ test('rejects missing credentials and unsafe remote session ids without a reques
   const post = spyOn(axios, 'post').mockResolvedValue({ status: 200 })
 
   await expect(archiveRemoteSession('session-1')).rejects.toThrow(
-    'Claude Code web sessions require authentication',
+    'Open AI Ma Zai web sessions require authentication',
   )
   await expect(archiveRemoteSession('../session-2')).rejects.toThrow(
     'Invalid remote session id',

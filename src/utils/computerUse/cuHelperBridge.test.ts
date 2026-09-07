@@ -194,9 +194,9 @@ describe('callCuHelper', () => {
 
   test('never falls back to a packaged nested source when standalone installation fails', async () => {
     process.env.CLAUDE_APP_ROOT =
-      '/Applications/Claude Code Haha.app/Contents/Resources/app.asar'
+      '/Applications/Open AI Ma Zai.app/Contents/Resources/app.asar'
     const nestedBinary =
-      '/Applications/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/cc-haha-computer-use.app/Contents/MacOS/cc-haha-computer-use'
+      '/Applications/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/cc-haha-computer-use.app/Contents/MacOS/cc-haha-computer-use'
     __resetCuHelperCache()
     resolveCuHelperBinary(candidate => candidate === nestedBinary)
     let spawnCount = 0

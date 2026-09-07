@@ -1,4 +1,4 @@
-# Claude Code IM Adapters
+# Open AI Ma Zai IM Adapters
 
 当前目录只放 IM Adapter 运行时代码。
 
@@ -21,7 +21,7 @@ Desktop Webapp Settings
   -> ~/.claude/adapters.json
   -> adapters/<platform>/index.ts
   -> /api/sessions + /ws/:sessionId
-  -> Claude Code session
+  -> Open AI Ma Zai session
 ```
 
 注意两点：

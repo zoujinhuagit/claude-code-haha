@@ -13,7 +13,7 @@ Deconstructing the architecture behind the world's most popular AI code editor �
 
 ## What This Framework Solves
 
-Watch Claude Code closely and a few behaviors need explaining:
+Watch Open AI Ma Zai closely and a few behaviors need explaining:
 
 - It can modify dozens of files in a single conversation with extremely few errors
 - It automatically recovers from edge cases (token overflow, API timeouts, tool failures)
@@ -32,7 +32,7 @@ Most agent frameworks (including LangChain) adopt the classic **ReAct** pattern:
 Thought → Action → Observation → Thought → ...
 ```
 
-Claude Code does **not** use this pattern. Its core is an **async generator-driven state machine**, defined in `src/query.ts` (~1730 lines):
+Open AI Ma Zai does **not** use this pattern. Its core is an **async generator-driven state machine**, defined in `src/query.ts` (~1730 lines):
 
 ```typescript
 // src/query.ts:219
@@ -76,7 +76,7 @@ Before calling the API, conversation history goes through four layers of compres
 | **Context Collapse** | Staged summarization of historical messages | When context nears limit |
 | **Auto Compact** | Full summary generation via Claude | When context is critically low |
 
-This is the key to Claude Code handling **extremely long conversations** without degradation — it doesn't simply truncate history, but **intelligently compresses while preserving critical information**.
+This is the key to Open AI Ma Zai handling **extremely long conversations** without degradation — it doesn't simply truncate history, but **intelligently compresses while preserving critical information**.
 
 #### Phase 2: Streaming API Call (lines 652-954)
 
@@ -166,7 +166,7 @@ The **cache boundary (`SYSTEM_PROMPT_DYNAMIC_BOUNDARY`)** is a critical design e
 - **Above the boundary**: Content universal across users and organizations, cached with `scope: 'global'`
 - **Below the boundary**: User/session-specific content, cached with `scope: 'ephemeral'`
 
-This means Claude Code's system prompt **doesn't need to be reprocessed every time** — the static portion is shared globally, dramatically reducing latency and cost.
+This means Open AI Ma Zai's system prompt **doesn't need to be reprocessed every time** — the static portion is shared globally, dramatically reducing latency and cost.
 
 ### Two Section Types
 
@@ -217,7 +217,7 @@ The final system prompt is determined through `buildEffectiveSystemPrompt()` (`s
 
 ### Tools: More Than Function Calls
 
-Claude Code's tools aren't simple "name + params + execute". Each tool is a **complete lifecycle management unit** (`src/Tool.ts:362-695`):
+Open AI Ma Zai's tools aren't simple "name + params + execute". Each tool is a **complete lifecycle management unit** (`src/Tool.ts:362-695`):
 
 ```typescript
 type Tool<Input, Output> = {
@@ -287,7 +287,7 @@ Each step can **interrupt, modify, or enhance** the execution flow. This isn't a
 
 ### Deferred Tool Loading
 
-Claude Code has 48+ built-in tools. Sending all tool definitions to the model on every API call would waste massive tokens. The solution:
+Open AI Ma Zai has 48+ built-in tools. Sending all tool definitions to the model on every API call would waste massive tokens. The solution:
 
 ```typescript
 // Tools can be marked for deferred loading
@@ -304,7 +304,7 @@ The model dynamically retrieves full definitions via the `ToolSearch` tool when 
 
 ### The Secret Behind Unlimited Conversations
 
-Claude Code claims "conversations have no context limit." Behind this is a **four-level compression system**:
+Open AI Ma Zai claims "conversations have no context limit." Behind this is a **four-level compression system**:
 
 ![Context Compression Strategy](./images/14-context-compression.png)
 
@@ -363,7 +363,7 @@ Use cases include:
 
 ### Skills System
 
-Skills are one of Claude Code's most powerful extension mechanisms. They're not simple "command aliases" but **complete AI behavior definitions**.
+Skills are one of Open AI Ma Zai's most powerful extension mechanisms. They're not simple "command aliases" but **complete AI behavior definitions**.
 
 #### Skill Definition Structure
 
@@ -442,7 +442,7 @@ Hooks execute as shell commands, with exit codes controlling behavior:
 
 ### MCP: Model Context Protocol
 
-MCP is the standard protocol for Claude Code's interaction with the external world. Tool naming convention:
+MCP is the standard protocol for Open AI Ma Zai's interaction with the external world. Tool naming convention:
 
 ```
 mcp__{normalized_server_name}__{tool_name}
@@ -509,7 +509,7 @@ Decision reason traceability:
 
 ## Fault Recovery Mechanisms
 
-This is one of Claude Code's most sophisticated designs. The core loop in `src/query.ts` has **6 built-in recovery strategies**:
+This is one of Open AI Ma Zai's most sophisticated designs. The core loop in `src/query.ts` has **6 built-in recovery strategies**:
 
 | Recovery Strategy | Trigger | Recovery Method |
 |-------------------|---------|-----------------|
@@ -550,7 +550,7 @@ When images or other media cause token overflow:
 
 ### Architecture Paradigm Comparison
 
-| Dimension | LangChain | Claude Code |
+| Dimension | LangChain | Open AI Ma Zai |
 |-----------|-----------|-------------|
 | **Core Pattern** | ReAct (Think→Act→Observe) | Async Generator State Machine |
 | **Execution Model** | Synchronous blocking | Streaming non-blocking |
@@ -571,7 +571,7 @@ The ReAct pattern has several inherent limitations:
 3. **Recovery difficulty**: No unified state representation makes automatic recovery hard
 4. **Cache-unfriendly**: Prompt structure changes significantly each cycle, making caching difficult
 
-Claude Code's Async Generator pattern solves all these problems:
+Open AI Ma Zai's Async Generator pattern solves all these problems:
 
 - **Streaming execution**: Tools run while the model generates
 - **Controllable state**: The `State` object contains all needed info; recovery means just modifying state
@@ -587,7 +587,7 @@ LangChain Agent:
   # Internal: LLM → parse → tool → LLM → parse → tool → ... → final answer
   # Each step is an independent LLM call
 
-Claude Code Agent:
+Open AI Ma Zai Agent:
   for await (const msg of query({ messages, tools, systemPrompt })) {
     yield msg  // Real-time message output
     // Internal: streaming LLM → streaming tool execution → state update → continue
@@ -597,15 +597,15 @@ Claude Code Agent:
 
 Key differences:
 - Each LangChain "step" is a complete LLM call
-- Each Claude Code "turn" can include multiple tool calls, with tools executing during streaming
+- Each Open AI Ma Zai "turn" can include multiple tool calls, with tools executing during streaming
 - LangChain requires an OutputParser to parse tool calls from model output
-- Claude Code directly uses Anthropic API's native `tool_use` capability — no parsing needed
+- Open AI Ma Zai directly uses Anthropic API's native `tool_use` capability — no parsing needed
 
 ### Comparison with LangGraph
 
 LangGraph is LangChain's evolution, introducing graph structures:
 
-| Dimension | LangGraph | Claude Code |
+| Dimension | LangGraph | Open AI Ma Zai |
 |-----------|-----------|-------------|
 | **State Flow** | Explicit graph nodes + edges | Implicit state machine (while + continue) |
 | **Visualization** | Exportable as graph | Transition reasons are traceable |
@@ -613,9 +613,9 @@ LangGraph is LangChain's evolution, introducing graph structures:
 | **Human-in-Loop** | interrupt_before/after | Permission system + hooks |
 | **Multi-Agent** | Requires explicit orchestration | Unified AgentTool interface |
 
-Claude Code's advantage is **simplicity** — no need to define graph structures; a single while loop handles everything.
+Open AI Ma Zai's advantage is **simplicity** — no need to define graph structures; a single while loop handles everything.
 
-## Why Claude Code Is So Good
+## Why Open AI Ma Zai Is So Good
 
 From source code analysis, we can distill these core design principles:
 
@@ -645,7 +645,7 @@ This dramatically reduces latency and cost for every API call.
 
 ### Graceful Degradation
 
-Six recovery strategies ensure Claude Code **almost never interrupts the user's workflow due to technical issues**:
+Six recovery strategies ensure Open AI Ma Zai **almost never interrupts the user's workflow due to technical issues**:
 - Token overflow? Auto-compress
 - API timeout? Auto-retry
 - Model failure? Fall back to alternate model
@@ -653,7 +653,7 @@ Six recovery strategies ensure Claude Code **almost never interrupts the user's 
 
 ### Minimal Abstraction Principle
 
-Unlike LangChain's "abstract everything" philosophy, Claude Code's core has only:
+Unlike LangChain's "abstract everything" philosophy, Open AI Ma Zai's core has only:
 - **One loop** (`while (true)` in `query()`)
 - **One state** (`State` object)
 - **One interface** (`Tool` type)
@@ -662,7 +662,7 @@ No Agent → AgentExecutor → Chain → Memory → Callback nesting layers. Thi
 
 ### Native API Integration
 
-Claude Code directly leverages Anthropic API's native capabilities:
+Open AI Ma Zai directly leverages Anthropic API's native capabilities:
 - **Native tool calling**: No OutputParser needed, directly uses `tool_use` blocks
 - **Native streaming**: No wrapper layers, directly consumes SSE streams
 - **Native caching**: Leverages API's prompt caching feature
@@ -672,7 +672,7 @@ This avoids the "framework tax" — the abstraction layer that frameworks like L
 
 ### Tool-Driven Agent
 
-Claude Code's philosophy: **an agent's capability equals the capability of its tools**.
+Open AI Ma Zai's philosophy: **an agent's capability equals the capability of its tools**.
 
 - Spawn a subagent? That's a tool (`AgentTool`)
 - Manage a team? That's a tool (`TeamCreate`/`SendMessage`)
@@ -683,7 +683,7 @@ Claude Code's philosophy: **an agent's capability equals the capability of its t
 
 ### Deep Developer Experience Integration
 
-Claude Code isn't "generic agent + code plugin" — it's **deeply optimized for coding scenarios from the ground up**:
+Open AI Ma Zai isn't "generic agent + code plugin" — it's **deeply optimized for coding scenarios from the ground up**:
 
 - **Git-aware**: Automatically injects git status, understands branches, commits, diffs
 - **Filesystem-aware**: Understands project structure, intelligently searches files

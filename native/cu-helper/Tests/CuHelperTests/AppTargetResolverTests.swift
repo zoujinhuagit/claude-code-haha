@@ -30,20 +30,20 @@ final class AppTargetResolverTests: XCTestCase {
         let installed = AppTargetCandidate(
             pid: 100,
             bundleIdentifier: "com.claude-code-haha.desktop",
-            bundleURL: URL(fileURLWithPath: "/Applications/Claude Code Haha.app"),
-            localizedName: "Claude Code Haha",
-            executableName: "Claude Code Haha"
+            bundleURL: URL(fileURLWithPath: "/Applications/Open AI Ma Zai.app"),
+            localizedName: "Open AI Ma Zai",
+            executableName: "Open AI Ma Zai"
         )
         let worktree = AppTargetCandidate(
             pid: 200,
             bundleIdentifier: "com.claude-code-haha.desktop",
-            bundleURL: URL(fileURLWithPath: "/Users/test/worktree/desktop/build-artifacts/macos-arm64/Claude Code Haha.app"),
-            localizedName: "Claude Code Haha",
-            executableName: "Claude Code Haha"
+            bundleURL: URL(fileURLWithPath: "/Users/test/worktree/desktop/build-artifacts/macos-arm64/Open AI Ma Zai.app"),
+            localizedName: "Open AI Ma Zai",
+            executableName: "Open AI Ma Zai"
         )
 
         let result = try AppTargetResolver.match(
-            identifier: "/Users/test/worktree/desktop/build-artifacts/macos-arm64/Claude Code Haha.app",
+            identifier: "/Users/test/worktree/desktop/build-artifacts/macos-arm64/Open AI Ma Zai.app",
             candidates: [installed, worktree]
         )
 
@@ -51,7 +51,7 @@ final class AppTargetResolverTests: XCTestCase {
         XCTAssertEqual(result.bundleURL, worktree.bundleURL)
         XCTAssertThrowsError(
             try AppTargetResolver.match(
-                identifier: "Claude Code Haha",
+                identifier: "Open AI Ma Zai",
                 candidates: [installed, worktree]
             )
         ) {
@@ -60,20 +60,20 @@ final class AppTargetResolverTests: XCTestCase {
     }
 
     func testFullPathCollapsesHelperProcessesIntoTheirMainBundleInstance() throws {
-        let path = "/Users/test/worktree/desktop/build-artifacts/macos-arm64/Claude Code Haha.app"
+        let path = "/Users/test/worktree/desktop/build-artifacts/macos-arm64/Open AI Ma Zai.app"
         let main = AppTargetCandidate(
             pid: 200,
             bundleIdentifier: "com.claude-code-haha.desktop",
             bundleURL: URL(fileURLWithPath: path),
-            localizedName: "Claude Code Haha",
-            executableName: "Claude Code Haha"
+            localizedName: "Open AI Ma Zai",
+            executableName: "Open AI Ma Zai"
         )
         let renderer = AppTargetCandidate(
             pid: 201,
             bundleIdentifier: main.bundleIdentifier,
             bundleURL: main.bundleURL,
-            localizedName: "Claude Code Haha Helper (Renderer)",
-            executableName: "Claude Code Haha Helper (Renderer)"
+            localizedName: "Open AI Ma Zai Helper (Renderer)",
+            executableName: "Open AI Ma Zai Helper (Renderer)"
         )
 
         let result = try AppTargetResolver.match(

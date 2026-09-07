@@ -58,14 +58,14 @@ final class ResolvedTargetAuthorizationTests: XCTestCase {
         let installed = AppTargetCandidate(
             pid: 100,
             bundleIdentifier: "com.claude-code-haha.desktop",
-            bundleURL: URL(fileURLWithPath: "/Applications/Claude Code Haha.app"),
-            localizedName: "Claude Code Haha",
-            executableName: "Claude Code Haha"
+            bundleURL: URL(fileURLWithPath: "/Applications/Open AI Ma Zai.app"),
+            localizedName: "Open AI Ma Zai",
+            executableName: "Open AI Ma Zai"
         )
         let worktree = AppTargetCandidate(
             pid: 200,
             bundleIdentifier: installed.bundleIdentifier,
-            bundleURL: URL(fileURLWithPath: "/Users/test/worktree/desktop/build-artifacts/macos-arm64/Claude Code Haha.app"),
+            bundleURL: URL(fileURLWithPath: "/Users/test/worktree/desktop/build-artifacts/macos-arm64/Open AI Ma Zai.app"),
             localizedName: installed.localizedName,
             executableName: installed.executableName
         )
@@ -75,7 +75,7 @@ final class ResolvedTargetAuthorizationTests: XCTestCase {
         )
         let identity = AXTreeProcessIdentity(
             bundleID: worktree.bundleIdentifier,
-            executablePath: worktree.bundleURL!.appendingPathComponent("Contents/MacOS/Claude Code Haha").path,
+            executablePath: worktree.bundleURL!.appendingPathComponent("Contents/MacOS/Open AI Ma Zai").path,
             launchTime: 300
         )
 

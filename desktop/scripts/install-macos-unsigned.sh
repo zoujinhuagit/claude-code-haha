@@ -3,7 +3,7 @@ set -euo pipefail
 
 # install-macos-unsigned.sh
 #
-# Installs the unsigned macOS build of Claude Code Haha from a DMG that sits
+# Installs the unsigned macOS build of Open AI Ma Zai from a DMG that sits
 # next to this script (download both from the same GitHub Release into one
 # folder, e.g. ~/Downloads, then run this script).
 #
@@ -16,7 +16,7 @@ set -euo pipefail
 #   bash install-macos-unsigned.sh                       # auto-pick the DMG next to this script
 #   bash install-macos-unsigned.sh /path/to/Claude-Code-Haha-0.4.0-mac-arm64.dmg
 
-APP_NAME="Claude Code Haha.app"
+APP_NAME="Open AI Ma Zai.app"
 APP_PATH="/Applications/${APP_NAME}"
 
 script_dir() {
@@ -65,7 +65,7 @@ main() {
   local dmg="${1:-}"
   if [ -z "$dmg" ]; then
     if ! dmg="$(find_dmg "$base_dir")"; then
-      echo "No Claude Code Haha macOS DMG found next to this script."
+      echo "No Open AI Ma Zai macOS DMG found next to this script."
       echo "Download the DMG into the same folder as this script, then run it again."
       echo "Usage: bash install-macos-unsigned.sh /path/to/Claude-Code-Haha-0.4.0-mac-arm64.dmg"
       exit 1
@@ -99,11 +99,11 @@ main() {
     exit 1
   fi
 
-  osascript -e 'quit app "Claude Code Haha"' >/dev/null 2>&1 || true
+  osascript -e 'quit app "Open AI Ma Zai"' >/dev/null 2>&1 || true
 
   if [ -d "$APP_PATH" ]; then
     local backup
-    backup="${HOME}/.Trash/Claude Code Haha.$(date +%Y%m%d%H%M%S).app"
+    backup="${HOME}/.Trash/Open AI Ma Zai.$(date +%Y%m%d%H%M%S).app"
     echo "Moving existing app to: $backup"
     mv "$APP_PATH" "$backup"
   fi
@@ -112,7 +112,7 @@ main() {
   ditto "$app_in_volume" "$APP_PATH"
   xattr -dr com.apple.quarantine "$APP_PATH" 2>/dev/null || true
 
-  echo "Opening Claude Code Haha..."
+  echo "Opening Open AI Ma Zai..."
   open "$APP_PATH"
 }
 

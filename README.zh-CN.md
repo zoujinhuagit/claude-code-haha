@@ -1,19 +1,19 @@
-# Claude Code Haha
+# Open AI Ma Zai
 
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/images/logo-horizontal-dark.png">
-    <img src="docs/images/logo-horizontal.png" alt="Claude Code Haha" width="480">
+    <img src="docs/images/logo-horizontal.png" alt="Open AI Ma Zai" width="480">
   </picture>
 </p>
 
 <div align="center">
 
-[![GitHub Stars](https://img.shields.io/github/stars/NanmiCoder/cc-haha?style=social)](https://github.com/NanmiCoder/cc-haha/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/NanmiCoder/cc-haha?style=social)](https://github.com/NanmiCoder/cc-haha/network/members)
-[![GitHub Issues](https://img.shields.io/github/issues/NanmiCoder/cc-haha)](https://github.com/NanmiCoder/cc-haha/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/NanmiCoder/cc-haha)](https://github.com/NanmiCoder/cc-haha/pulls)
-[![License](https://img.shields.io/badge/License-MIT-blue)](https://github.com/NanmiCoder/cc-haha/blob/main/LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/NanmiCoder/cc-haha?style=social)](/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/NanmiCoder/cc-haha?style=social)](/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/NanmiCoder/cc-haha)](/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/NanmiCoder/cc-haha)](/pulls)
+[![License](https://img.shields.io/badge/License-MIT-blue)](/blob/main/LICENSE)
 [![中文](https://img.shields.io/badge/🇨🇳_简体中文-当前-blue)](README.zh-CN.md)
 [![English](https://img.shields.io/badge/🇺🇸_English-Available-green)](README.md)
 [![Docs](https://img.shields.io/badge/📖_文档站点-Visit-FF7A00)](https://cchaha.ai)
@@ -22,7 +22,7 @@
 
 </div>
 
-Claude Code Haha 是一个**桌面端 Claude Code 工作台**：多会话与全局搜索、分支 / Worktree 启动、Diff 审阅、内置浏览器预览、图形化权限审批、模型自选（Claude / ChatGPT / Grok / 预设 / 本地端点）、图片生成、MCP 与 SubAgent 可视化管理、Agent Teams 协作工作台、动态 Workflow 编排、模型请求追踪、Computer Use、技能市场、多主题、桌面宠物、H5 远程访问、IM 接入和定时任务，集中在一个 macOS / Windows / Linux APP 里。
+Open AI Ma Zai 是一个**桌面端 Open AI Ma Zai 工作台**：多会话与全局搜索、分支 / Worktree 启动、Diff 审阅、内置浏览器预览、图形化权限审批、模型自选（Claude / ChatGPT / Grok / 预设 / 本地端点）、图片生成、MCP 与 SubAgent 可视化管理、Agent Teams 协作工作台、动态 Workflow 编排、模型请求追踪、Computer Use、技能市场、多主题、桌面宠物、H5 远程访问、IM 接入和定时任务，集中在一个 macOS / Windows / Linux APP 里。
 
 <p align="center">
   <a href="#桌面端预览">桌面端预览</a> · <a href="#安装桌面端">安装桌面端</a> · <a href="#桌面端亮点">桌面端亮点</a> · <a href="#更多文档">更多文档</a> · <a href="#赞助与合作">赞助与合作</a> · <a href="#用户交流群">用户交流群</a>
@@ -33,7 +33,7 @@ Claude Code Haha 是一个**桌面端 Claude Code 工作台**：多会话与全�
 ## 桌面端预览
 
 <p align="center">
-  <a href="https://github.com/NanmiCoder/cc-haha/releases"><img src="https://img.shields.io/badge/⬇_下载桌面端-macOS_%7C_Windows_%7C_Linux-FF7A00?style=for-the-badge" alt="下载桌面端"></a>
+  <a href="/releases"><img src="https://img.shields.io/badge/⬇_下载桌面端-macOS_%7C_Windows_%7C_Linux-FF7A00?style=for-the-badge" alt="下载桌面端"></a>
 </p>
 
 <table>
@@ -70,7 +70,7 @@ Claude Code Haha 是一个**桌面端 Claude Code 工作台**：多会话与全�
         </a>
       </td>
       <td valign="middle">
-        感谢 <a href="https://www.xuanshuapi.com/register?aff=CC-HAHA&promo=CC-HAHA">玄枢API</a> 赞助本项目！玄枢API 是一站式企业级 AI 网关，通过一个统一 API 即可接入 Claude Code、Codex、Gemini CLI 等热门 AI 编程工具，调用全球顶尖模型。平台以稳定为前提，通过多账号池调度与自动故障切换屏蔽上游账号波动；模型调用低至官方定价 2.5 折，余额充值再享约 8 折优惠且不设有效期。新用户通过 <a href="https://www.xuanshuapi.com/register?aff=CC-HAHA&promo=CC-HAHA">专属链接</a> 注册即赠 5 美元额度。
+        感谢 <a href="https://www.xuanshuapi.com/register?aff=CC-HAHA&promo=CC-HAHA">玄枢API</a> 赞助本项目！玄枢API 是一站式企业级 AI 网关，通过一个统一 API 即可接入 Open AI Ma Zai、Codex、Gemini CLI 等热门 AI 编程工具，调用全球顶尖模型。平台以稳定为前提，通过多账号池调度与自动故障切换屏蔽上游账号波动；模型调用低至官方定价 2.5 折，余额充值再享约 8 折优惠且不设有效期。新用户通过 <a href="https://www.xuanshuapi.com/register?aff=CC-HAHA&promo=CC-HAHA">专属链接</a> 注册即赠 5 美元额度。
       </td>
     </tr>
     <tr>
@@ -80,7 +80,7 @@ Claude Code Haha 是一个**桌面端 Claude Code 工作台**：多会话与全�
         </a>
       </td>
       <td valign="middle">
-        感谢 <a href="https://api.fenno.ai/s/WD8c">FennoAI</a> 赞助本项目！FennoAI 是一家面向企业研发团队和开发者的高稳定、高性能 API 中转服务商，兼容 OpenAI 与 Anthropic 协议，可无缝接入 Codex、Claude Code、OpenCode 等主流 AI 编程工具。平台具备企业级稳定性，可支撑千亿 Token/日的调用规模，并支持境内外主体公对公结算及开票，满足企业级研发与采购需求。作为 cc-haha 用户专属福利，通过 <a href="https://api.fenno.ai/s/WD8c">专属链接</a> 购买订阅，仅需 1.99 美元即可获得价值 50 美元的 Coding Plan 额度；同时支持邀请奖励，邀请好友购买最高可获得 20% 返佣，邀请越多，奖励越高。
+        感谢 <a href="https://api.fenno.ai/s/WD8c">FennoAI</a> 赞助本项目！FennoAI 是一家面向企业研发团队和开发者的高稳定、高性能 API 中转服务商，兼容 OpenAI 与 Anthropic 协议，可无缝接入 Codex、Open AI Ma Zai、OpenCode 等主流 AI 编程工具。平台具备企业级稳定性，可支撑千亿 Token/日的调用规模，并支持境内外主体公对公结算及开票，满足企业级研发与采购需求。作为 cc-haha 用户专属福利，通过 <a href="https://api.fenno.ai/s/WD8c">专属链接</a> 购买订阅，仅需 1.99 美元即可获得价值 50 美元的 Coding Plan 额度；同时支持邀请奖励，邀请好友购买最高可获得 20% 返佣，邀请越多，奖励越高。
       </td>
     </tr>
     <tr>
@@ -113,7 +113,7 @@ Claude Code Haha 是一个**桌面端 Claude Code 工作台**：多会话与全�
 
 ## 安装桌面端
 
-1. 前往 [Releases](https://github.com/NanmiCoder/cc-haha/releases) 下载 macOS / Windows / Linux 桌面端安装包。
+1. 前往 [Releases](/releases) 下载 macOS / Windows / Linux 桌面端安装包。
 2. 首次启动后，在桌面端设置里配置模型提供商、API Key 和默认模型。
 3. 正式 macOS Release 需要经过签名和公证；如果安装的是 draft/unsigned 临时包，首次打开可能仍需手动放行。Windows 未签名安装包可能出现 SmartScreen 提示，点「更多信息」→「仍要运行」即可。详见 [桌面端安装指南](docs/start/install.md)。
 
@@ -200,7 +200,7 @@ cp .env.example .env
 
 ## 用户交流群
 
-使用过程中有问题、想反馈 Bug，或者想看看别人怎么用，欢迎扫码加入 cc-haha 飞书用户群。也可以直接来 [Issues](https://github.com/NanmiCoder/cc-haha/issues) 提问。
+使用过程中有问题、想反馈 Bug，或者想看看别人怎么用，欢迎扫码加入 cc-haha 飞书用户群。也可以直接来 [Issues](/issues) 提问。
 
 <p align="center">
   <img src="docs/images/community/feishu-group-qr.png" width="300" alt="cc-haha 飞书用户群二维码">
@@ -234,7 +234,7 @@ cp .env.example .env
 
 ## ⭐ Star History
 
-如果这个项目对你有帮助，欢迎点一个 ⭐ Star，让更多人发现 Claude Code Haha。
+如果这个项目对你有帮助，欢迎点一个 ⭐ Star，让更多人发现 Open AI Ma Zai。
 
 <a href="https://www.repostars.dev/?repos=NanmiCoder%2Fcc-haha&theme=ocean">
   <img alt="Star History Chart" src="https://www.repostars.dev/api/embed?repo=NanmiCoder%2Fcc-haha&theme=ocean" />

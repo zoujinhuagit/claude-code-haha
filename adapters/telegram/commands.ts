@@ -117,7 +117,7 @@ export async function ensureAuthorizedTelegramPrivateChat(
 ): Promise<boolean> {
   if (!ctx.from || ctx.chat?.type !== 'private') return false
   if (isAllowedUser(ctx.from.id)) return true
-  await ctx.reply('🔒 未授权。请在 Claude Code 桌面端生成配对码后发送给我。')
+  await ctx.reply('🔒 未授权。请在 Open AI Ma Zai 桌面端生成配对码后发送给我。')
   return false
 }
 
@@ -694,7 +694,7 @@ export function createTelegramCommandController(deps: TelegramCommandControllerD
 
 export function buildTelegramHelpText(): string {
   return [
-    '👋 Claude Code Bot 已就绪。',
+    '👋 Open AI Ma Zai Bot 已就绪。',
     '',
     formatImHelp(),
     '',

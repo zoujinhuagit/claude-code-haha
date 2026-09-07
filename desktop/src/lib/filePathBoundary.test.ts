@@ -133,7 +133,7 @@ describe('matchGitHubRef', () => {
       owner: 'NanmiCoder',
       repo: 'cc-haha',
       number: 1146,
-      url: 'https://github.com/NanmiCoder/cc-haha/issues/1146',
+      url: '/issues/1146',
     })
   })
 

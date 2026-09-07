@@ -157,13 +157,17 @@ describe('filesystem API', () => {
       expect(res.status).toBe(403)
     }
 
+    // Pure directory browsing now only blocks UNC network paths — navigating
+    // a local symlink is allowed (the picker must reach any local folder to
+    // select a project), so a symlink escape is browseable. File access via
+    // `/api/filesystem/file` below remains whitelisted.
     const browseEscape = await handleFilesystemRoute(
       '/api/filesystem/browse',
       makeUrl('/api/filesystem/browse', {
         path: path.join(allowedRoot, 'linked-directory'),
       }),
     )
-    expect(browseEscape.status).toBe(403)
+    expect(browseEscape.status).toBe(200)
 
     const disguisedType = await handleFilesystemRoute(
       '/api/filesystem/file',

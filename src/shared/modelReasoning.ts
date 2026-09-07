@@ -98,7 +98,7 @@ const GLM_53_STANDARD_API_PROFILE = {
   'supportedReasoningEfforts' | 'defaultReasoningEffort' | 'claudeCodeCapabilities'
 >
 
-// Known families inherit Claude Code effort levels unless a documented provider
+// Known families inherit Open AI Ma Zai effort levels unless a documented provider
 // contract narrows them. Provider-specific profiles keep standard API contracts
 // from accidentally disabling aliases accepted by coding-plan runtimes.
 const MODEL_REASONING_CAPABILITY_REGISTRY: readonly ModelReasoningCapabilityEntry[] = [

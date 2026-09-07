@@ -103,7 +103,7 @@ describe('bundled provider presets', () => {
   })
 
   // Both gateways mount the Anthropic protocol on the bare host; a /v1 or
-  // /anthropic suffix here would double up with the path Claude Code appends.
+  // /anthropic suffix here would double up with the path Open AI Ma Zai appends.
   it('points the sponsored gateways at their Anthropic-compatible roots', () => {
     const fennoai = BUNDLED_PROVIDER_PRESETS.find((preset) => preset.id === 'fennoai')
     const qiniuai = BUNDLED_PROVIDER_PRESETS.find((preset) => preset.id === 'qiniuai')

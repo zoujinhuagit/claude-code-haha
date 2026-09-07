@@ -7,7 +7,7 @@ order: 2
 
 # Connect a model
 
-Claude Code Haha ships without a model. It's the shell that does the work; you have to give it a brain first.
+Open AI Ma Zai ships without a model. It's the shell that does the work; you have to give it a brain first.
 
 Click "Settings" at the bottom of the sidebar, then pick the first tab, "Providers". From there you have three routes:
 
@@ -31,7 +31,7 @@ Click the sign-in button on the card ("Sign in to Claude" / "Sign in with ChatGP
 
 Three things to watch for:
 
-- Leave Claude Code Haha running for the whole flow — the callback has to land in the running app.
+- Leave Open AI Ma Zai running for the whole flow — the callback has to land in the running app.
 - If the browser doesn't open by itself, click "Copy authorization link" and paste it in manually.
 - Proxies and blocking browser extensions can intercept either the authorization page or the local callback. Turn them off before retrying.
 
@@ -64,7 +64,7 @@ To spend nothing and stay offline, run a model server on your machine and point 
 Two hard requirements:
 
 1. **Do not append `/v1` to the base URL.** Both of these expose an Anthropic-compatible protocol and the app uses that path. Adding `/v1` gives you a straight 404.
-2. **Raise the context window — at least 200K.** Claude Code's system prompt, tool definitions, and Skills consume a substantial amount of context before your first message. A default 4K or 8K window can't even hold the opening. Change this in LM Studio or Ollama's own model settings, not in this app.
+2. **Raise the context window — at least 200K.** Open AI Ma Zai's system prompt, tool definitions, and Skills consume a substantial amount of context before your first message. A default 4K or 8K window can't even hold the opening. Change this in LM Studio or Ollama's own model settings, not in this app.
 
 Whether a local model can actually sustain an agent workflow comes down to its tool-calling ability. Small models often talk endlessly without ever calling a tool — that's the model, not your configuration.
 

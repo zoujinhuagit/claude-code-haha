@@ -7,11 +7,11 @@ order: 1
 
 # Download and install
 
-Install and go. You don't need Node.js, Python, or Claude Code — the CLI engine and the ripgrep binary used for file search are both bundled inside the installer.
+Install and go. You don't need Node.js, Python, or Open AI Ma Zai — the CLI engine and the ripgrep binary used for file search are both bundled inside the installer.
 
 ## Pick the right package
 
-Everything lives on [GitHub Releases](https://github.com/NanmiCoder/cc-haha/releases/latest). Choose by operating system and CPU architecture:
+Everything lives on [GitHub Releases](/releases/latest). Choose by operating system and CPU architecture:
 
 | Your system | Download |
 |---|---|
@@ -29,7 +29,7 @@ The `.blockmap` and `latest*.yml` files are used by the app's own updater. You d
 ## macOS
 
 1. Open the DMG.
-2. Drag Claude Code Haha into Applications.
+2. Drag Open AI Ma Zai into Applications.
 3. Launch it from Applications.
 
 ### If macOS says the app is damaged
@@ -52,7 +52,7 @@ The script picks the DMG matching your architecture, mounts it, installs the app
 If the app is already in Applications:
 
 ```bash
-xattr -dr com.apple.quarantine "/Applications/Claude Code Haha.app"
+xattr -dr com.apple.quarantine "/Applications/Open AI Ma Zai.app"
 ```
 
 Only do this for packages you have confirmed came from this repository's Releases. Never bypass Gatekeeper for software of unknown origin.
@@ -91,7 +91,7 @@ On ARM64 machines, use the corresponding `linux-arm64` file.
 If you want to modify the code, debug the engine, or just use the CLI in a terminal:
 
 ```bash
-git clone https://github.com/NanmiCoder/cc-haha.git
+git clone .git
 cd cc-haha
 bun install
 cp .env.example .env

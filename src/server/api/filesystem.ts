@@ -21,6 +21,7 @@ import {
   isSameOrInsidePathForPlatform,
   normalizeDriveRootPathForPlatform,
 } from '../services/windowsDrivePath.js'
+import { containsVulnerableUncPath } from '../../utils/shell/readOnlyCommandValidation.js'
 
 export type FilesystemEntry = {
   name: string
@@ -75,6 +76,27 @@ function isWithinRoot(targetPath: string, rootPath: string): boolean {
 
 function isVcsMetadataDirectoryName(name: string): boolean {
   return VCS_METADATA_DIRECTORY_NAMES.has(name.toLowerCase())
+}
+
+/** List available drive letters on Windows (C-Z that exist on disk). */
+function getWindowsDriveEntries(resolvedPath: string): FilesystemEntry[] {
+  const driveMatch = resolvedPath.match(/^([A-Za-z]):[\\]?$/)
+  if (!driveMatch) return []
+  const currentDrive = driveMatch[0].toLowerCase()
+
+  const drives: FilesystemEntry[] = []
+  for (let letter = 'C'.charCodeAt(0); letter <= 'Z'.charCodeAt(0); letter++) {
+    const driveLetter = String.fromCharCode(letter)
+    const drivePath = `${driveLetter}:\\`
+    if (drivePath.toLowerCase() === currentDrive) continue
+    try {
+      if (fs.statSync(drivePath).isDirectory()) {
+        drives.push({ name: drivePath, path: drivePath, isDirectory: true, relativePath: drivePath })
+      }
+    } catch { /* skip unmapped drives */ }
+  }
+  drives.sort((a, b) => a.name.localeCompare(b.name))
+  return drives
 }
 
 export function isAllowedFilesystemPath(targetPath: string): boolean {
@@ -162,20 +184,29 @@ async function handleServeFile(url: URL): Promise<Response> {
 async function handleBrowse(url: URL): Promise<Response> {
   const targetPath = url.searchParams.get('path') || os.homedir() || '/'
   const resolvedPath = path.resolve(normalizeDriveRootPathForPlatform(targetPath))
-  const canonicalPath = await canonicalizeExistingFilesystemPath(resolvedPath)
-  if (!canonicalPath) {
-    if (!isAllowedFilesystemPath(resolvedPath)) {
-      return json({ error: 'Access denied: path outside allowed directory' }, 403)
-    }
-    return json({ error: 'Cannot read directory: path not found', path: resolvedPath }, 404)
-  }
-  if (!isAllowedFilesystemPath(canonicalPath)) {
-    return json({ error: 'Access denied: path outside allowed directory' }, 403)
-  }
 
   const searchQuery = url.searchParams.get('search') || ''
   const includeFiles = url.searchParams.get('includeFiles') === 'true'
   const maxResults = Math.min(parseInt(url.searchParams.get('maxResults') || '200', 10), 200)
+
+  // Security grading: pure directory browsing lets the picker navigate any
+  // local path (including other drive letters on Windows) while still blocking
+  // UNC network paths; file search / file listing stays on the access whitelist.
+  const isFileSearch = includeFiles || !!searchQuery
+  if (isFileSearch) {
+    if (!isAllowedFilesystemPath(resolvedPath)) {
+      return json({ error: 'File search is limited to project directories' }, 403)
+    }
+  } else {
+    if (containsVulnerableUncPath(resolvedPath)) {
+      return json({ error: 'UNC paths are not supported' }, 403)
+    }
+  }
+
+  const canonicalPath = await canonicalizeExistingFilesystemPath(resolvedPath)
+  if (!canonicalPath) {
+    return json({ error: 'Cannot read directory: path not found', path: resolvedPath }, 404)
+  }
 
   try {
     const stat = fs.statSync(canonicalPath)
@@ -216,6 +247,13 @@ async function handleBrowse(url: URL): Promise<Response> {
         if (a.isDirectory !== b.isDirectory) return a.isDirectory ? -1 : 1
         return a.name.localeCompare(b.name)
       })
+
+    // On Windows drive roots (e.g. `C:\`), surface sibling drives so the
+    // picker can jump between disks.
+    const siblingDrives = getWindowsDriveEntries(resolvedPath)
+    if (siblingDrives.length > 0) {
+      entries_list.unshift(...siblingDrives)
+    }
 
     return json({
       currentPath: canonicalPath,

@@ -58,7 +58,7 @@ await stageHostRipgrepForOfflineBuild()
 await compileExecutable({
   entrypoint: path.join(desktopRoot, 'sidecars/claude-sidecar.ts'),
   outfileBase: path.join(binariesDir, `claude-sidecar-${targetTriple}`),
-  productName: 'Claude Code Sidecar',
+  productName: 'Open AI Ma Zai Sidecar',
   bunTarget,
 })
 
@@ -242,7 +242,7 @@ async function compileExecutable({
       autoloadPackageJson: true,
       windows: {
         title: productName,
-        publisher: 'Claude Code',
+        publisher: 'Open AI Ma Zai',
         description: productName,
         hideConsole: true,
       },

@@ -511,4 +511,10 @@ export const sessionsApi = {
       timeout: 60_000,
     })
   },
+
+  optimizePrompt(prompt: string) {
+    return api.post<{ optimized: string }>('/api/optimize', { prompt }, {
+      timeout: 30_000,
+    })
+  },
 }

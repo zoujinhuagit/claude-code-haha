@@ -161,7 +161,7 @@ export function modelSupportsAdaptiveThinking(model: string): boolean {
     return false
   }
 
-  // Supported by current Claude Code flagship models.
+  // Supported by current Open AI Ma Zai flagship models.
   if (
     canonical.includes('sonnet-5') ||
     canonical.includes('opus-4-8') ||

@@ -130,6 +130,7 @@ export function ChatInput({ variant = 'default', compact = false }: ChatInputPro
   // itself across the threshold. The shell just fills the chat column.
   const [shellRef, shellWidth] = useElementWidth<HTMLDivElement>()
   const [input, setInput] = useState('')
+  const [optimizeLoading, setOptimizeLoading] = useState(false)
   const [mentions, setMentions] = useState<ComposerMention[]>([])
   const [attachments, setAttachments] = useState<Attachment[]>([])
   const [plusMenuOpen, setPlusMenuOpen] = useState(false)
@@ -858,6 +859,26 @@ export function ChatInput({ variant = 'default', compact = false }: ChatInputPro
     setLocalSlashPanel(null)
   }
 
+  const handleOptimize = useCallback(async () => {
+    const text = input.trim()
+    if (!text || optimizeLoading) return
+
+    setOptimizeLoading(true)
+    try {
+      const result = await sessionsApi.optimizePrompt(text)
+      if (result.optimized && result.optimized !== text) {
+        setComposerInput(result.optimized)
+      }
+    } catch (error) {
+      useUIStore.getState().addToast({
+        type: 'error',
+        message: error instanceof Error ? error.message : t('chat.optimizePromptFailed'),
+      })
+    } finally {
+      setOptimizeLoading(false)
+    }
+  }, [input, optimizeLoading, setComposerInput, t])
+
   const handleComposerKeyDown = (event: KeyboardEvent): boolean => {
     // Ignore key events during IME composition (e.g. Chinese input method)
     if (composingRef.current || event.isComposing || event.keyCode === 229) return false
@@ -1505,6 +1526,21 @@ export function ChatInput({ variant = 'default', compact = false }: ChatInputPro
                   message is being sent to — which is also what makes it read as
                   send without a word next to it. Dropping the label is why the
                   name now lives only in `aria-label`, on both breakpoints. */}
+              {!isMemberSession && (
+                <button
+                  onClick={handleOptimize}
+                  disabled={!input.trim() || optimizeLoading}
+                  aria-label={t('chat.optimizePrompt')}
+                  title={t('chat.optimizePrompt')}
+                  className={`flex shrink-0 items-center justify-center rounded-lg text-[var(--color-text-secondary)] transition-all hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)] disabled:opacity-30 ${
+                    isMobileComposer ? 'h-11 w-11 rounded-xl' : 'h-8 w-8'
+                  }`}
+                >
+                  <span className={`material-symbols-outlined text-[18px] ${optimizeLoading ? 'animate-spin' : ''}`}>
+                    {optimizeLoading ? 'progress_activity' : 'auto_awesome'}
+                  </span>
+                </button>
+              )}
               <Button
                 variant={!isMemberSession && isActive ? 'danger' : 'accent'}
                 size="base"

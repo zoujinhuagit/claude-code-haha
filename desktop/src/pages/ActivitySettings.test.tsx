@@ -203,7 +203,7 @@ describe('ActivitySettings', () => {
     expect(screen.getByAltText('cc-haha avatar')).toHaveClass('scale-[1.28]')
     expect(screen.getByRole('link', { name: 'github.com/NanmiCoder/cc-haha' })).toHaveAttribute(
       'href',
-      'https://github.com/NanmiCoder/cc-haha',
+      '',
     )
     expect(screen.getByText('Token Activity')).toBeInTheDocument()
     expect(screen.getByText('Total tokens')).toBeInTheDocument()

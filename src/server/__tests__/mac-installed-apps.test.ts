@@ -117,7 +117,7 @@ describe('macOS installed app enumeration', () => {
 
   it('filters the built-in host, helper, and an additional configured host', async () => {
     const metadata = new Map([
-      ['Desktop.app', { bundleId: 'com.claude-code-haha.desktop', displayName: 'Claude Code Haha' }],
+      ['Desktop.app', { bundleId: 'com.claude-code-haha.desktop', displayName: 'Open AI Ma Zai' }],
       ['Helper.app', { bundleId: 'dev.cchaha.cu-helper', displayName: 'Computer Use Helper' }],
       ['Custom.app', { bundleId: 'com.example.custom-host', displayName: 'Custom Host' }],
       ['Notes.app', { bundleId: 'com.example.notes', displayName: 'Notes' }],

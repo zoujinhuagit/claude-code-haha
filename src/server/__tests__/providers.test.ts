@@ -1604,7 +1604,7 @@ describe('ProviderService', () => {
           body: JSON.stringify({
             model: 'deepseek-v4-flash-vision-exp',
             max_tokens: 64,
-            system: [{ type: 'text', text: 'You are Claude Code.' }],
+            system: [{ type: 'text', text: 'You are Open AI Ma Zai.' }],
             messages: [
               {
                 role: 'user',
@@ -1651,7 +1651,7 @@ describe('ProviderService', () => {
           version: 1,
           request: {
             model: 'deepseek-v4-flash-vision-exp',
-            system: [{ type: 'text', text: 'You are Claude Code.' }],
+            system: [{ type: 'text', text: 'You are Open AI Ma Zai.' }],
             messages: [
               {
                 role: 'user',

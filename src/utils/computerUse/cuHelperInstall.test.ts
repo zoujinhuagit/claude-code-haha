@@ -18,7 +18,7 @@ const INNER = path.join('Contents', 'MacOS', 'cc-haha-computer-use')
 describe('isNestedInHostApp', () => {
   test('true when the helper .app sits inside an OUTER .app (packaged in the host)', () => {
     const nested =
-      '/Applications/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/cc-haha-computer-use.app'
+      '/Applications/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/cc-haha-computer-use.app'
     expect(isNestedInHostApp(nested)).toBe(true)
   })
 
@@ -55,7 +55,7 @@ describe('ensureInstalledHelper', () => {
   const DEST_INNER = path.join(DEST_APP, INNER)
   const STAGING_APP = path.join(CONFIG, 'cu-helper', '.cc-haha-computer-use.app.staging-test')
   const NESTED =
-    '/Applications/Claude Code Haha.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/cc-haha-computer-use.app'
+    '/Applications/Open AI Ma Zai.app/Contents/Resources/app.asar.unpacked/src-tauri/binaries/cc-haha-computer-use.app'
   const STANDALONE = '/dev/native/cu-helper/.build/release/cc-haha-computer-use.app'
   const BYTES = Buffer.from('helper-binary-v1')
   const HASH = createHash('sha256')

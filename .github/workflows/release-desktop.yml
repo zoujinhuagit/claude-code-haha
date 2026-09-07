@@ -431,7 +431,7 @@ jobs:
             exit 0
           fi
 
-          app_path="build-artifacts/electron/${{ matrix.app_bundle_dir }}/Claude Code Haha.app"
+          app_path="build-artifacts/electron/${{ matrix.app_bundle_dir }}/Open AI Ma Zai.app"
           set +e
           notarize_app_bundle "$app_path"
           status=$?
@@ -489,10 +489,10 @@ jobs:
           $unpackedDir = Join-Path $PWD "desktop/build-artifacts/electron/${{ matrix.unpacked_dir }}"
           $stageDir = Join-Path $env:RUNNER_TEMP "signpath-application-${{ matrix.arch }}"
           $sidecarName = "claude-sidecar-${{ matrix.target_triple }}.exe"
-          $mainExecutable = Join-Path $unpackedDir "Claude Code Haha.exe"
+          $mainExecutable = Join-Path $unpackedDir "Open AI Ma Zai.exe"
           $sidecarExecutable = Join-Path $unpackedDir "resources/app.asar.unpacked/src-tauri/binaries/$sidecarName"
           New-Item -ItemType Directory -Path $stageDir | Out-Null
-          Copy-Item -LiteralPath $mainExecutable -Destination (Join-Path $stageDir "Claude Code Haha.exe")
+          Copy-Item -LiteralPath $mainExecutable -Destination (Join-Path $stageDir "Open AI Ma Zai.exe")
           Copy-Item -LiteralPath $sidecarExecutable -Destination (Join-Path $stageDir $sidecarName)
           "stage_dir=$stageDir" >> $env:GITHUB_OUTPUT
           "unpacked_dir=$unpackedDir" >> $env:GITHUB_OUTPUT
@@ -530,9 +530,9 @@ jobs:
           $signedDir = Join-Path $env:RUNNER_TEMP "signpath-signed-application-${{ matrix.arch }}"
           $unpackedDir = "${{ steps.stage-signpath-application.outputs.unpacked_dir }}"
           $sidecarName = "${{ steps.stage-signpath-application.outputs.sidecar_name }}"
-          $mainExecutable = Join-Path $unpackedDir "Claude Code Haha.exe"
+          $mainExecutable = Join-Path $unpackedDir "Open AI Ma Zai.exe"
           $sidecarExecutable = Join-Path $unpackedDir "resources/app.asar.unpacked/src-tauri/binaries/$sidecarName"
-          Copy-Item -LiteralPath (Join-Path $signedDir "Claude Code Haha.exe") -Destination $mainExecutable -Force
+          Copy-Item -LiteralPath (Join-Path $signedDir "Open AI Ma Zai.exe") -Destination $mainExecutable -Force
           Copy-Item -LiteralPath (Join-Path $signedDir $sidecarName) -Destination $sidecarExecutable -Force
 
           function Assert-SignPathSignature([string] $Path) {
@@ -904,7 +904,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.version.outputs.value }}
-          name: Claude Code Haha v${{ steps.version.outputs.value }}
+          name: Open AI Ma Zai v${{ steps.version.outputs.value }}
           body: ${{ steps.release_notes.outputs.body }}
           draft: true
           prerelease: false

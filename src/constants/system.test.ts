@@ -3,11 +3,11 @@ import { CLAUDE_CODE_COMPAT_VERSION } from './claudeCodeCompatibility.js'
 import { getAttributionHeader } from './system.js'
 
 describe('getAttributionHeader', () => {
-  test('tracks the audited upstream Claude Code compatibility release', () => {
+  test('tracks the audited upstream Open AI Ma Zai compatibility release', () => {
     expect(CLAUDE_CODE_COMPAT_VERSION).toBe('2.1.220')
   })
 
-  test('uses Claude Code compatibility version and always includes CCH placeholder', () => {
+  test('uses Open AI Ma Zai compatibility version and always includes CCH placeholder', () => {
     const originalEntrypoint = process.env.CLAUDE_CODE_ENTRYPOINT
     process.env.CLAUDE_CODE_ENTRYPOINT = 'cli'
 

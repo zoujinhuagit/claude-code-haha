@@ -7,7 +7,7 @@ order: 0
 
 # Install and Run
 
-The CLI is the core of Claude Code Haha — every desktop session runs one underneath. If you only want the graphical app, installing that is enough; see [Download and install](../start/install.md). The steps below are for people who want a terminal workflow, `--print` automation, or a source checkout to read and contribute to.
+The CLI is the core of Open AI Ma Zai — every desktop session runs one underneath. If you only want the graphical app, installing that is enough; see [Download and install](../start/install.md). The steps below are for people who want a terminal workflow, `--print` automation, or a source checkout to read and contribute to.
 
 The CLI runs from source only. There is no separate installer for it.
 
@@ -16,7 +16,7 @@ The CLI runs from source only. There is no separate installer for it.
 Install [Git](https://git-scm.com/downloads) and [Bun](https://bun.sh) first, then:
 
 ```bash
-git clone https://github.com/NanmiCoder/cc-haha.git
+git clone .git
 cd cc-haha
 bun install
 ```

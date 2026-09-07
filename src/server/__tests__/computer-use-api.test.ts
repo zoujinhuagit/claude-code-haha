@@ -727,14 +727,14 @@ describe('checkCuHelperPermissions failure reporting', () => {
     try {
       const result = await checkCuHelperPermissions(async () => {
         throw new Error(
-          'This helper command requires the signed Claude Code Haha desktop app.',
+          'This helper command requires the signed Open AI Ma Zai desktop app.',
         )
       })
 
       expect(result).toEqual({
         accessibility: null,
         screenRecording: null,
-        error: 'This helper command requires the signed Claude Code Haha desktop app.',
+        error: 'This helper command requires the signed Open AI Ma Zai desktop app.',
       })
 
       expect(recorded).toHaveLength(1)
@@ -744,7 +744,7 @@ describe('checkCuHelperPermissions failure reporting', () => {
         // this project's definition of error rather than warn.
         severity: 'error',
         summary:
-          'This helper command requires the signed Claude Code Haha desktop app.',
+          'This helper command requires the signed Open AI Ma Zai desktop app.',
       })
     } finally {
       spy.mockRestore()
