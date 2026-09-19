@@ -1,11 +1,11 @@
 ---
-title: What Claude Code Haha is
+title: What Open AI Ma Zai is
 nav_title: What it is
 description: An AI coding workbench that runs on your own machine. You pick the model; you approve every change.
 order: 0
 ---
 
-# What Claude Code Haha is
+# What Open AI Ma Zai is
 
 It's an app on your computer. You hand it a project folder, describe what you want in plain language, and it goes off to read the code, edit files, and run commands — with every change laid out in front of you, waiting for your approval.
 
@@ -13,13 +13,13 @@ It's an app on your computer. You hand it a project folder, describe what you wa
 
 That's a real session. Projects and history on the left, the conversation in the middle, and when Claude edits a file the diff appears right underneath, line by line.
 
-## How this relates to the Claude Code CLI
+## How this relates to the Open AI Ma Zai CLI
 
-Claude Code is Anthropic's command-line coding agent. The engine inside Claude Code Haha is a CLI built from repaired Claude Code sources (it's called `claude-haha` in this repo), and the desktop app is the graphical shell wrapped around it.
+Open AI Ma Zai is Anthropic's command-line coding agent. The engine inside Open AI Ma Zai is a CLI built from repaired Open AI Ma Zai sources (it's called `claude-haha` in this repo), and the desktop app is the graphical shell wrapped around it.
 
 Two practical consequences:
 
-- **You don't install Claude Code first.** The CLI engine ships inside the installer. No Node.js, no npm, no global commands.
+- **You don't install Open AI Ma Zai first.** The CLI engine ships inside the installer. No Node.js, no npm, no global commands.
 - **Nothing is missing.** Permission prompts, subagents, Skills, MCP, memory — it's the same machinery, just shown as an interface instead of scrolling terminal output.
 
 If you'd rather stay in the terminal, the CLI is still there: see [Command line](../cli/index.md).

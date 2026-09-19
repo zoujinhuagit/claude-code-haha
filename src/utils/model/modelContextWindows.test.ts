@@ -26,7 +26,7 @@ describe('model context windows', () => {
     expect(getConfiguredOrBuiltInModelContextWindow('deepseek-ai/deepseek-v4-pro')).toBe(1_000_000)
   })
 
-  test('matches configured base model windows for Claude Code 1m aliases', () => {
+  test('matches configured base model windows for Open AI Ma Zai 1m aliases', () => {
     expect(getModelContextWindowFromEnvValue(
       'MiniMax-M3[1m]',
       JSON.stringify({ 'MiniMax-M3': 1_000_000 }),

@@ -233,15 +233,15 @@ async function main() {
       alternate: alternateFor(record, records),
       description: record.description,
       path: record.path,
-      title: `${record.title} · Claude Code Haha`
+      title: `${record.title} · Open AI Ma Zai`
     })
   }
 
   await createRouteEntry('/en', shell, {
     alternate: '/',
-    description: 'A local-first desktop client for Claude Code. Sessions, diffs, agents and scheduled runs all sit in the open.',
+    description: 'A local-first desktop client for Open AI Ma Zai. Sessions, diffs, agents and scheduled runs all sit in the open.',
     path: '/en',
-    title: 'Claude Code Haha — a local-first desktop client for Claude Code'
+    title: 'Open AI Ma Zai — a local-first desktop client for Open AI Ma Zai'
   })
 
   for (const legacy of legacyRoutes) {

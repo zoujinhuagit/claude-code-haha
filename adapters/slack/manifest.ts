@@ -1,5 +1,5 @@
 /**
- * Slack app manifest for Claude Code Desktop.
+ * Slack app manifest for Open AI Ma Zai Desktop.
  *
  * Slack has no scan-to-create flow, so its closest equivalent is a manifest:
  * the user opens Slack's "create an app" page with the whole configuration
@@ -28,11 +28,11 @@ export const SLACK_BOT_SCOPES = [
 
 export type SlackManifest = Record<string, unknown>
 
-export function buildSlackAppManifest(appName = 'Claude Code Haha'): SlackManifest {
+export function buildSlackAppManifest(appName = 'Open AI Ma Zai'): SlackManifest {
   return {
     display_information: {
       name: appName,
-      description: 'Drive a local Claude Code session from Slack direct messages.',
+      description: 'Drive a local Open AI Ma Zai session from Slack direct messages.',
       background_color: '#1a1a1a',
     },
     features: {

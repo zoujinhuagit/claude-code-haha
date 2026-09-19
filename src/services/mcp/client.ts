@@ -1047,7 +1047,7 @@ const connectToServerMemoized = memoize(
       const client = new Client(
         {
           name: 'claude-code',
-          title: 'Claude Code',
+          title: 'Open AI Ma Zai',
           version: MACRO.VERSION ?? 'unknown',
           description: "Anthropic's agentic coding tool",
           websiteUrl: PRODUCT_URL,
@@ -3581,7 +3581,7 @@ export async function setupSdkMcpClients(
       const client = new Client(
         {
           name: 'claude-code',
-          title: 'Claude Code',
+          title: 'Open AI Ma Zai',
           version: MACRO.VERSION ?? 'unknown',
           description: "Anthropic's agentic coding tool",
           websiteUrl: PRODUCT_URL,

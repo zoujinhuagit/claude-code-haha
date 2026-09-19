@@ -33,8 +33,8 @@ function PlatformSetupFlow({
     <Box flexDirection="column" gap={1} marginTop={1}>
       <Text bold>Using 3rd-party platforms</Text>
       <Text>
-        Claude Code supports Amazon Bedrock, Microsoft Foundry, and Vertex AI.
-        Set the required environment variables, then restart Claude Code.
+        Open AI Ma Zai supports Amazon Bedrock, Microsoft Foundry, and Vertex AI.
+        Set the required environment variables, then restart Open AI Ma Zai.
       </Text>
       <Text>
         If you are part of an enterprise organization, contact your
@@ -143,7 +143,7 @@ export function SlashLoginFlow({
     <Box flexDirection="column" gap={1} marginTop={1}>
       <Text bold>
         {startingMessage ??
-          'Claude Code can be used with your Claude subscription, Anthropic Console billing, or your ChatGPT subscription.'}
+          'Open AI Ma Zai can be used with your Claude subscription, Anthropic Console billing, or your ChatGPT subscription.'}
       </Text>
       <Text>Select login method:</Text>
       <Box>

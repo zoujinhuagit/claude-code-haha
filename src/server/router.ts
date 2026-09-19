@@ -30,6 +30,7 @@ import { handleMemoryApi } from './api/memory.js'
 import { handleDesktopUiApi } from './api/desktop-ui.js'
 import { handleTracesApi } from './api/traces.js'
 import { handleWorkflowsApi } from './api/workflows.js'
+import { handleOptimizeApi } from './api/optimize.js'
 
 import { remoteProviderRouteAllowed, remoteSettingsRouteAllowed, projectRemoteProvider, projectRemoteSettings, replaceRemoteCompatibility, validateRemoteSettingsPatch, type ApiRequestContext } from './remoteBrowserPolicy.js'
 import { ProviderService } from './services/providerService.js'
@@ -197,6 +198,9 @@ async function routeApiRequest(req: Request, url: URL): Promise<Response> {
 
     case 'filesystem':
       return handleFilesystemRoute(url.pathname, url)
+
+    case 'optimize':
+      return handleOptimizeApi(req, url, segments)
 
     default:
       return Response.json(

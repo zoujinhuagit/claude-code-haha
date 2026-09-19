@@ -3,7 +3,7 @@
  *
  * Storage: ~/.claude/cc-haha/providers.json (lightweight index)
  * Active provider env vars written to ~/.claude/cc-haha/settings.json
- * (isolated from the original Claude Code's ~/.claude/settings.json)
+ * (isolated from the original Open AI Ma Zai's ~/.claude/settings.json)
  */
 
 import * as fs from 'fs/promises'

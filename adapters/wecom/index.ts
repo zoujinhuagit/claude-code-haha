@@ -1,5 +1,5 @@
 /**
- * 企业微信 (Enterprise WeChat / WeCom) Adapter for Claude Code Desktop
+ * 企业微信 (Enterprise WeChat / WeCom) Adapter for Open AI Ma Zai Desktop
  *
  * Uses the official 智能机器人 WebSocket channel (`@wecom/aibot-node-sdk`), so
  * no public callback URL is needed — the same shape as the Feishu adapter.

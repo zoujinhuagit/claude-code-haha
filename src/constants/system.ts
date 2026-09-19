@@ -7,8 +7,8 @@ import { getAPIProvider } from '../utils/model/providers.js'
 import { getWorkload } from '../utils/workloadContext.js'
 import { formatClaudeCodeBillingHeader } from './claudeCodeCompatibility.js'
 
-const DEFAULT_PREFIX = `You are Claude Code, Anthropic's official CLI for Claude.`
-const AGENT_SDK_CLAUDE_CODE_PRESET_PREFIX = `You are Claude Code, Anthropic's official CLI for Claude, running within the Claude Agent SDK.`
+const DEFAULT_PREFIX = `You are Open AI Ma Zai, Anthropic's official CLI for Claude.`
+const AGENT_SDK_CLAUDE_CODE_PRESET_PREFIX = `You are Open AI Ma Zai, Anthropic's official CLI for Claude, running within the Claude Agent SDK.`
 const AGENT_SDK_PREFIX = `You are a Claude agent, built on Anthropic's Claude Agent SDK.`
 
 const CLI_SYSPROMPT_PREFIX_VALUES = [
@@ -64,7 +64,7 @@ function isAttributionHeaderEnabled(): boolean {
  * Includes a `cch=00000` placeholder. Before the request is sent,
  * signClaudeCodeCCHBody overwrites the zeros with a computed hash.
  * The server verifies this token to confirm the request came from a real
- * Claude Code client.
+ * Open AI Ma Zai client.
  */
 export function getAttributionHeader(fingerprint: string): string {
   if (!isAttributionHeaderEnabled()) {

@@ -26,7 +26,7 @@ This step only gives the Desktop app the bot's credentials. It does **not** auth
 
 Back at the top of the page, under **Pairing**, select **Generate Code** to get a six-character code. This takes effect immediately; no **Save** is needed.
 
-Send that code to the newly authorized bot in a private QQ chat. Once pairing is confirmed, anything you type goes to Claude Code.
+Send that code to the newly authorized bot in a private QQ chat. Once pairing is confirmed, anything you type goes to Open AI Ma Zai.
 
 A code is valid for 60 minutes, works once, and is invalidated the moment a new one is generated. Five failed attempts within five minutes trigger rate limiting.
 
@@ -50,7 +50,7 @@ A typing indicator is sent while Claude is thinking or running tools. Inbound im
 
 ## Agent capability and boundaries
 
-QQ is not a separate question-and-answer model. Messages enter the same Claude Code Agent session as the current project, so they continue the multi-turn context and can use the files, terminal, Git, Skills, and MCP tools that session already has.
+QQ is not a separate question-and-answer model. Messages enter the same Open AI Ma Zai Agent session as the current project, so they continue the multi-turn context and can use the files, terminal, Git, Skills, and MCP tools that session already has.
 
 That means a paired account holds the full Agent capability of the current project. Permission confirmation is a gate on individual operations, not an OS sandbox. Do not hand the bot to people you do not trust, and do not install unreviewed Skills, plugins, or MCP servers from chat.
 

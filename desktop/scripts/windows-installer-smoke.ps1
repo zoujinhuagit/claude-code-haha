@@ -20,12 +20,12 @@ if ($installers.Count -ne 1) {
 $installer = $installers[0].FullName
 
 $testRoot = Join-Path ([IO.Path]::GetTempPath()) "cc-haha-installer-smoke-$([Guid]::NewGuid().ToString('N'))"
-$installDir = Join-Path $testRoot '中文 安装目录\Claude Code Haha'
+$installDir = Join-Path $testRoot '中文 安装目录\Open AI Ma Zai'
 $appData = Join-Path $testRoot 'AppData\Roaming'
 $localAppData = Join-Path $testRoot 'AppData\Local'
 $userProfile = Join-Path $testRoot 'UserProfile'
-$appExe = Join-Path $installDir 'Claude Code Haha.exe'
-$uninstaller = Join-Path $installDir 'Uninstall Claude Code Haha.exe'
+$appExe = Join-Path $installDir 'Open AI Ma Zai.exe'
+$uninstaller = Join-Path $installDir 'Uninstall Open AI Ma Zai.exe'
 $recoveryHelper = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\build\recover-legacy-install-data.ps1')).Path
 $processHelper = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..\build\check-install-processes.ps1')).Path
 $siblingProcess = $null
@@ -111,7 +111,7 @@ function Test-IsProcessElevated {
 # process carrying one -- whoever started it -- reads as "the app is still
 # running". Keep this in sync with installer.nsh.
 $installerFallbackImageNames = @(
-  'Claude Code Haha.exe',
+  'Open AI Ma Zai.exe',
   'claude-sidecar-x86_64-pc-windows-msvc.exe',
   'claude-sidecar-aarch64-pc-windows-msvc.exe',
   'claude-sidecar.exe',
@@ -338,7 +338,7 @@ function Invoke-InstalledApplicationSmoke {
             -Stage 'Installed application Unicode-path smoke cleanup' `
             -Arguments @(
               '-InstallDir', $InstallDirectory,
-              '-ProcessName', 'Claude Code Haha.exe',
+              '-ProcessName', 'Open AI Ma Zai.exe',
               '-Action', 'KillForce',
               '-InstallerPid', [string]$PID,
               '-InstallerParentPid', '0'
@@ -379,11 +379,11 @@ function Invoke-LegacyRecoveryDiagnostic {
     '-CandidateInstallDir',
     $installDir,
     '-UserDataDir',
-    (Join-Path $appData 'Claude Code Haha'),
+    (Join-Path $appData 'Open AI Ma Zai'),
     '-RecoveryRoot',
-    (Join-Path $userProfile 'Claude Code Haha Data\Recovered'),
+    (Join-Path $userProfile 'Open AI Ma Zai Data\Recovered'),
     '-ProcessName',
-    'Claude Code Haha.exe',
+    'Open AI Ma Zai.exe',
     '-InstallerIdentitySafety',
     'trusted-user'
   )
@@ -424,7 +424,7 @@ try {
 
   $processProbeSource = Join-Path $env:SystemRoot 'System32\ping.exe'
   $siblingDir = "$installDir Tools"
-  $siblingProbe = Join-Path $siblingDir 'Claude Code Haha.exe'
+  $siblingProbe = Join-Path $siblingDir 'Open AI Ma Zai.exe'
   New-Item -ItemType Directory -Path $siblingDir -Force | Out-Null
   Copy-Item -LiteralPath $processProbeSource -Destination $siblingProbe
   $siblingProcess = Start-Process -FilePath $siblingProbe -ArgumentList @('-t', '127.0.0.1') -PassThru
@@ -444,7 +444,7 @@ try {
     -ExpectedExitCode 0 `
     -Arguments @(
       '-InstallDir', $installDir,
-      '-ProcessName', 'Claude Code Haha.exe',
+      '-ProcessName', 'Open AI Ma Zai.exe',
       '-Action', 'Find',
       '-InstallerPid', [string]$PID,
       '-InstallerParentPid', [string]$installProcess.Id

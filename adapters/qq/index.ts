@@ -1,5 +1,5 @@
 /**
- * QQ Adapter for Claude Code Desktop
+ * QQ Adapter for Open AI Ma Zai Desktop
  *
  * Uses the official QQ Open Platform SDK (`@tencent-connect/qqbot-nodejs`) over
  * the WebSocket gateway, so no public callback URL is needed. Credentials

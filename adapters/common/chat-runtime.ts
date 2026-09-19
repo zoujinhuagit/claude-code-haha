@@ -229,7 +229,7 @@ export class ImChatRuntime {
         chatId,
         paired
           ? '配对成功！现在可以开始聊天了。\n\n发送消息即可与 Claude 对话，发送 /help 查看可用命令。'
-          : '未授权。请在 Claude Code 桌面端生成配对码后发送给我。',
+          : '未授权。请在 Open AI Ma Zai 桌面端生成配对码后发送给我。',
       )
       return
     }

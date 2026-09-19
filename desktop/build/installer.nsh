@@ -127,13 +127,13 @@ Function CcHahaCanSkipLegacyRecovery
   StrCpy $R0 "0"
 
   IfFileExists "$ccHahaPerUserInstallLocation\CLAUDE_CONFIG_DIR\*.*" cc_haha_skip_recovery_done 0
-  IfFileExists "$R1\Claude Code Haha\app-mode.json" cc_haha_check_default_mode 0
+  IfFileExists "$R1\Open AI Ma Zai\app-mode.json" cc_haha_check_default_mode 0
   StrCpy $R0 "1"
   Goto cc_haha_skip_recovery_done
 
   cc_haha_check_default_mode:
     ClearErrors
-    FileOpen $R2 "$R1\Claude Code Haha\app-mode.json" r
+    FileOpen $R2 "$R1\Open AI Ma Zai\app-mode.json" r
     IfErrors cc_haha_skip_recovery_done 0
     FileRead $R2 $R3
     StrCmp $R3 '{$\n' 0 cc_haha_close_mode_file
@@ -217,8 +217,8 @@ Function CcHahaRecoverLegacy
     Return
   ${EndIf}
 
-  DetailPrint "Checking registered installations for legacy Claude Code Haha data..."
-  nsExec::ExecToStack '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\recover-legacy-install-data.ps1" -PerUserInstallDir "$4" -PerMachineInstallDir "$5" -CandidateInstallDir "$9" -UserDataDir "$2\Claude Code Haha" -RecoveryRoot "$3\Claude Code Haha Data\Recovered" -ProcessName "${PRODUCT_FILENAME}.exe" -ActiveConfigDir "$6" -ActiveConfigManaged "$7" -InstallerIdentitySafety "$8"'
+  DetailPrint "Checking registered installations for legacy Open AI Ma Zai data..."
+  nsExec::ExecToStack '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\recover-legacy-install-data.ps1" -PerUserInstallDir "$4" -PerMachineInstallDir "$5" -CandidateInstallDir "$9" -UserDataDir "$2\Open AI Ma Zai" -RecoveryRoot "$3\Open AI Ma Zai Data\Recovered" -ProcessName "${PRODUCT_FILENAME}.exe" -ActiveConfigDir "$6" -ActiveConfigManaged "$7" -InstallerIdentitySafety "$8"'
   Pop $0
   Pop $1
 FunctionEnd
@@ -272,12 +272,12 @@ FunctionEnd
             StrCpy $1 "Recovery helper failed without diagnostic output (exit code $0)"
           ${EndIf}
           StrCpy $R2 "$1" 360
-          MessageBox MB_ICONSTOP|MB_OK "Claude Code Haha stopped setup before removing the old version. Reason: $R2$\r$\n$\r$\nClose the app and retry. If the reason mentions an elevated installer, launch setup normally instead of using Run as administrator.$\r$\n$\r$\nClaude Code Haha 已在删除旧版本前停止安装。原因：$R2$\r$\n$\r$\n请关闭旧程序后重试；如果原因提到安装器权限过高，请直接双击运行，不要使用“以管理员身份运行”。旧版本和原数据尚未删除。" /SD IDOK
+          MessageBox MB_ICONSTOP|MB_OK "Open AI Ma Zai stopped setup before removing the old version. Reason: $R2$\r$\n$\r$\nClose the app and retry. If the reason mentions an elevated installer, launch setup normally instead of using Run as administrator.$\r$\n$\r$\nOpen AI Ma Zai 已在删除旧版本前停止安装。原因：$R2$\r$\n$\r$\n请关闭旧程序后重试；如果原因提到安装器权限过高，请直接双击运行，不要使用“以管理员身份运行”。旧版本和原数据尚未删除。" /SD IDOK
           SetErrorLevel 20
           Quit
         ${EndIf}
         StrCpy $ccHahaRecoveryDone "1"
-        DetailPrint "Legacy Claude Code Haha data safety check completed"
+        DetailPrint "Legacy Open AI Ma Zai data safety check completed"
       ${EndIf}
     ${EndIf}
   ${EndIf}

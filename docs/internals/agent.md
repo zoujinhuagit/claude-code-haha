@@ -7,13 +7,13 @@ order: 4
 
 # 多 Agent 使用指南
 
-让 Claude Code 同时调度多个专业 Agent，并行处理复杂任务。
+让 Open AI Ma Zai 同时调度多个专业 Agent，并行处理复杂任务。
 
 ![多 Agent 系统概览](./images/01-agent-overview.png)
 
 ## 什么是多 Agent 系统？
 
-Claude Code 的多 Agent 系统是一套**智能任务编排框架**，让主 Agent 能够生成多个专业化的子 Agent（Subagent），各自独立执行不同的任务，最终将结果汇总给用户。
+Open AI Ma Zai 的多 Agent 系统是一套**智能任务编排框架**，让主 Agent 能够生成多个专业化的子 Agent（Subagent），各自独立执行不同的任务，最终将结果汇总给用户。
 
 核心理念：**把大任务拆分为多个专业小任务，并行执行，提高效率。**
 
@@ -28,7 +28,7 @@ Claude Code 的多 Agent 系统是一套**智能任务编排框架**，让主 Ag
 
 ![六种内置 Agent](./images/02-agent-types.png)
 
-Claude Code 内置了 6 种专业 Agent，每种都有特定的工具池和适用场景：
+Open AI Ma Zai 内置了 6 种专业 Agent，每种都有特定的工具池和适用场景：
 
 ### 1. general-purpose（通用型）
 
@@ -96,7 +96,7 @@ Agent({
 
 ### 5. claude-code-guide（指南型）
 
-**适用场景**：回答关于 Claude Code、Agent SDK、Claude API 的问题。
+**适用场景**：回答关于 Open AI Ma Zai、Agent SDK、Claude API 的问题。
 
 ```
 Agent({
@@ -112,7 +112,7 @@ Agent({
 
 ### 6. statusline-setup（状态栏配置）
 
-**适用场景**：配置 Claude Code 状态栏显示。
+**适用场景**：配置 Open AI Ma Zai 状态栏显示。
 
 - **工具池**：仅 Read + Edit
 - **模型**：Sonnet

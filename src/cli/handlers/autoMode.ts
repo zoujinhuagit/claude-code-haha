@@ -52,9 +52,9 @@ function resolveRules(
 }
 
 const CRITIQUE_SYSTEM_PROMPT =
-  'You are an expert reviewer of auto mode classifier rules for Claude Code.\n' +
+  'You are an expert reviewer of auto mode classifier rules for Open AI Ma Zai.\n' +
   '\n' +
-  'Claude Code has an "auto mode" that uses an AI classifier to decide whether ' +
+  'Open AI Ma Zai has an "auto mode" that uses an AI classifier to decide whether ' +
   'tool calls should be auto-approved or require user confirmation. Users can ' +
   'write custom rules in four categories:\n' +
   '\n' +

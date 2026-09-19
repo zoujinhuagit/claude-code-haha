@@ -1,9 +1,9 @@
 /**
- * Claude Code billing compatibility values based on sub2api.
+ * Open AI Ma Zai billing compatibility values based on sub2api.
  * Reference: https://github.com/Wei-Shaw/sub2api
  * License: LGPL-3.0-or-later, Copyright (c) 2026 Wesley Liddick.
  */
-// Keep in sync with the Claude Code version accepted by upstream billing validation.
+// Keep in sync with the Open AI Ma Zai version accepted by upstream billing validation.
 export const CLAUDE_CODE_COMPAT_VERSION = '2.1.220'
 export const CLAUDE_CODE_BILLING_HEADER_PREFIX = 'x-anthropic-billing-header:'
 

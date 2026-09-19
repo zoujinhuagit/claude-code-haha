@@ -1,11 +1,11 @@
 ---
-title: Claude Code Haha 是什么
+title: Open AI Ma Zai 是什么
 nav_title: 这是什么
 description: 跑在你自己电脑上的 AI 编程工作台：模型自己接，改动你审阅。
 order: 0
 ---
 
-# Claude Code Haha 是什么
+# Open AI Ma Zai 是什么
 
 它是一个装在你电脑上的应用。你把一个项目文件夹交给它，用大白话说出你想要什么，它去读代码、改文件、跑命令——每一处改动都摆在你眼前，等你点头才算数。
 
@@ -13,13 +13,13 @@ order: 0
 
 上图是一条真实会话：左边是项目和历史，中间是对话，Claude 读完文件后直接改，改了什么就在下面逐行标出来。
 
-## 和 Claude Code CLI 是什么关系
+## 和 Open AI Ma Zai CLI 是什么关系
 
-Claude Code 是 Anthropic 出的命令行编程 Agent，跑在终端里。Claude Code Haha 的内核就是从 Claude Code 源码修复而来的一份 CLI（仓库里叫 `claude-haha`），桌面端是包在它外面的图形界面。
+Open AI Ma Zai 是 Anthropic 出的命令行编程 Agent，跑在终端里。Open AI Ma Zai 的内核就是从 Open AI Ma Zai 源码修复而来的一份 CLI（仓库里叫 `claude-haha`），桌面端是包在它外面的图形界面。
 
 对你来说，这意味着两件事：
 
-- **不用先装 Claude Code。** CLI 内核已经打进安装包，装完应用就能用，不需要 Node.js、npm 或任何全局命令。
+- **不用先装 Open AI Ma Zai。** CLI 内核已经打进安装包，装完应用就能用，不需要 Node.js、npm 或任何全局命令。
 - **终端里能干的，这里都能干。** 权限审批、子 Agent、Skills、MCP、记忆，都是同一套东西，只是从滚动的终端输出变成了看得懂的界面。
 
 想直接用终端的人也没被落下，源码里的 CLI 一直在，见 [命令行](../cli/index.md)。

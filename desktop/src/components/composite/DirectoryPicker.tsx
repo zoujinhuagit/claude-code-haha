@@ -6,6 +6,7 @@ import { filesystemApi } from '../../api/filesystem'
 import { useTranslation } from '../../i18n'
 import { useMobileViewport } from '../../hooks/useMobileViewport'
 import { useProjectDisplayName } from '../../stores/projectDisplayNameStore'
+import { useUIStore } from '../../stores/uiStore'
 import { getDesktopHost } from '../../lib/desktopHost'
 import {
   getCachedRecentProjects,
@@ -32,6 +33,10 @@ const DESKTOP_WORKTREE_MARKER = '/.claude/worktrees/'
 const DROPDOWN_WIDTH = 400
 const DROPDOWN_VIEWPORT_MARGIN = 12
 const DROPDOWN_HEIGHT = 380 // approximate max height
+
+/** `C:` or `C:\` — the top of a drive, where the sibling-drive list belongs. */
+const WINDOWS_DRIVE_ROOT_PATTERN = /^[A-Za-z]:[\\/]?$/
+const WINDOWS_ABSOLUTE_PATTERN = /^([A-Za-z]):[\\/]/
 
 function isDesktopRuntime() {
   return typeof window !== 'undefined' && getDesktopHost().isDesktop
@@ -143,6 +148,7 @@ export function RecentProjectsPanel({
   const [browseEntries, setBrowseEntries] = useState<DirEntry[]>([])
   const [browsePath, setBrowsePath] = useState('')
   const [browseParent, setBrowseParent] = useState('')
+  const [pathInput, setPathInput] = useState('')
   const [loading, setLoading] = useState(false)
 
   // Both callbacks fire from effects. Holding them in a ref means an inline
@@ -181,14 +187,61 @@ export function RecentProjectsPanel({
 
   const loadBrowseDir = async (path?: string) => {
     setLoading(true)
+    let loaded = false
     try {
       const result = await filesystemApi.browse(path)
       setBrowsePath(result.currentPath)
       setBrowseParent(result.parentPath)
       setBrowseEntries(result.entries)
+      setPathInput('')
+      loaded = true
     } catch { /* API not available */ }
     setLoading(false)
+    return loaded
   }
+
+  // A typed path is the one navigation the user can get wrong, so it is the one
+  // that has to answer back: everything else in this panel moves between
+  // entries the server already vouched for. Without the toast a bad path looks
+  // like a dead control.
+  const handlePathSubmit = async () => {
+    const trimmed = pathInput.trim()
+    if (!trimmed) return
+    if (await loadBrowseDir(trimmed)) return
+    useUIStore.getState().addToast({
+      type: 'error',
+      message: t('dirPicker.pathNotFound'),
+    })
+  }
+
+  // `browsePath` is whatever the backend canonicalized to, so it can be a
+  // Windows path (`D:\work\app`) or a POSIX one (`/home/u/app`). Splitting on
+  // `/` alone would collapse a Windows path into a single segment, so take the
+  // separator, the root label and the join rule from the path's own shape.
+  const breadcrumb = (() => {
+    const windowsMatch = browsePath.match(WINDOWS_ABSOLUTE_PATTERN)
+    if (windowsMatch) {
+      const root = `${windowsMatch[1]}:\\`
+      return {
+        root,
+        separator: '\\',
+        segments: browsePath.slice(root.length).split('\\').filter(Boolean),
+        join: (parts: string[]) => root + parts.join('\\'),
+      }
+    }
+    return {
+      root: '/',
+      separator: '/',
+      segments: browsePath.split('/').filter(Boolean),
+      join: (parts: string[]) => '/' + parts.join('/'),
+    }
+  })()
+
+  // The server only prepends sibling drives when there are any to prepend, and
+  // it does not flag them separately — so the heading keying off "we are at a
+  // drive root" alone would announce an empty section on a single-drive box.
+  const showDriveHeading = WINDOWS_DRIVE_ROOT_PATTERN.test(browsePath)
+    && browseEntries.some((entry) => WINDOWS_DRIVE_ROOT_PATTERN.test(entry.path))
 
   // Every selection path funnels through here, including the native dialog —
   // which used to call `onChange` directly and so left a stale cache behind.
@@ -226,16 +279,37 @@ export function RecentProjectsPanel({
           <Button variant="link" size="xs" className="mr-2" onClick={() => setMode('recent')}>
             {'← ' + t('dirPicker.recent')}
           </Button>
-          <button onClick={() => loadBrowseDir('/')} className="text-[10px] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]">/</button>
-          {browsePath.split('/').filter(Boolean).map((seg, i, arr) => (
-            <span key={i} className="flex items-center gap-1">
-              <span className="text-[10px] text-[var(--color-text-tertiary)]">/</span>
+          <button
+            onClick={() => loadBrowseDir(breadcrumb.root)}
+            className="text-[10px] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]"
+          >{breadcrumb.root}</button>
+          {breadcrumb.segments.map((seg, i, arr) => (
+            <span key={`${breadcrumb.root}${breadcrumb.separator}${i}`} className="flex items-center gap-1">
+              <span className="text-[10px] text-[var(--color-text-tertiary)]">{breadcrumb.separator}</span>
               <button
-                onClick={() => loadBrowseDir('/' + arr.slice(0, i + 1).join('/'))}
+                onClick={() => loadBrowseDir(breadcrumb.join(arr.slice(0, i + 1)))}
                 className="text-[10px] text-[var(--color-text-accent)] hover:underline"
               >{seg}</button>
             </span>
           ))}
+        </div>
+
+        <div className="flex items-center gap-1 border-b border-[var(--color-border)] px-3 py-1.5">
+          <span className="material-symbols-outlined text-[14px] text-[var(--color-text-tertiary)]">edit</span>
+          <input
+            type="text"
+            value={pathInput}
+            onChange={(e) => setPathInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') void handlePathSubmit()
+            }}
+            placeholder={browsePath || t('dirPicker.typePath')}
+            aria-label={t('dirPicker.typePath')}
+            className="min-w-0 flex-1 bg-transparent font-mono text-[11px] text-[var(--color-text-primary)] outline-none placeholder:text-[var(--color-text-tertiary)]"
+          />
+          <Button variant="link" size="xs" onClick={() => void handlePathSubmit()}>
+            Go
+          </Button>
         </div>
 
         <div className={`${touch ? '' : 'max-h-[240px]'} overflow-y-auto`}>
@@ -243,12 +317,18 @@ export function RecentProjectsPanel({
             <LoadingState label={t('common.loading')} variant="block" size="sm" />
           ) : (
             <>
-              {browseParent && browseParent !== browsePath && (
+              {browseParent && browseParent !== browsePath ? (
                 <button onClick={() => loadBrowseDir(browseParent)} className="flex w-full items-center gap-2 px-3 py-2 text-left hover:bg-[var(--color-surface-hover)]">
                   <span className="material-symbols-outlined text-[16px] text-[var(--color-text-tertiary)]">arrow_upward</span>
                   <span className="text-xs text-[var(--color-text-secondary)]">..</span>
                 </button>
-              )}
+              ) : showDriveHeading ? (
+                // At a drive root `..` has nowhere to go and the server has
+                // prepended the sibling drives, so label that block instead.
+                <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[var(--color-outline)]">
+                  {t('dirPicker.availableDrives')}
+                </div>
+              ) : null}
               {browseEntries.length === 0 ? (
                 <EmptyState description={t('dirPicker.noSubdirs')} variant="plain" size="sm" />
               ) : browseEntries.map((entry) => (

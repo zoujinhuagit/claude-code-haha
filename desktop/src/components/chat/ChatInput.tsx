@@ -141,6 +141,7 @@ export function ChatInput({ variant = 'default', compact = false }: ChatInputPro
   const [shellRef, shellWidth] = useElementWidth<HTMLDivElement>()
   const [input, setInput] = useState('')
   const [mentions, setMentions] = useState<ComposerMention[]>([])
+  const [optimizeLoading, setOptimizeLoading] = useState(false)
   const [referenceDetail, setReferenceDetail] = useState<ComposerMention | null>(null)
   const [referenceOptionId, setReferenceOptionId] = useState<string | undefined>()
   const [referenceState, setReferenceState] = useState<{ context: string, items: ComposerReferenceCandidate[], loading: boolean, error: boolean } | null>(null)
@@ -767,6 +768,37 @@ export function ChatInput({ variant = 'default', compact = false }: ChatInputPro
       setLaunchTransitioning(false)
     }
   }, [activeTabId, replaceEmptySession, t, updateRepositoryLaunchDraft])
+
+  // Reads from the live document rather than `input` so mention pills are sent
+  // as the paths the model would otherwise receive at send time. The result
+  // comes back as plain text, so it replaces the pills too — see the write-back
+  // below.
+  const handleOptimize = useCallback(async () => {
+    if (optimizeLoading) return
+    const text = (composerRef.current?.getModelContent() ?? inputRef.current).trim()
+    if (!text) return
+
+    setOptimizeLoading(true)
+    try {
+      const { optimized } = await sessionsApi.optimizePrompt(text, activeTabId ?? undefined)
+      if (!optimized || optimized === text) return
+
+      // The second argument is not optional in practice: leaving `mentions`
+      // untouched would apply the old pill ranges to unrelated new text.
+      setComposerInput(optimized, [])
+      requestAnimationFrame(() => {
+        composerRef.current?.focus()
+        composerRef.current?.setSelectionOffsets(optimized.length)
+      })
+    } catch (error) {
+      useUIStore.getState().addToast({
+        type: 'error',
+        message: error instanceof Error ? error.message : t('chat.optimizePromptFailed'),
+      })
+    } finally {
+      setOptimizeLoading(false)
+    }
+  }, [activeTabId, optimizeLoading, setComposerInput, t])
 
   const handleSubmit = async () => {
     // Belt and braces: the composer is disabled too, but every send path (Enter,
@@ -1590,6 +1622,25 @@ export function ChatInput({ variant = 'default', compact = false }: ChatInputPro
                   message is being sent to — which is also what makes it read as
                   send without a word next to it. Dropping the label is why the
                   name now lives only in `aria-label`, on both breakpoints. */}
+              {/* Rewrites the draft before it is sent. Sits left of send, where
+                  it reads as an action on the draft rather than on the message.
+
+                  `IconButton`'s own loading state is what makes the click
+                  legible: the rewrite runs for seconds with nothing else on
+                  screen to show for it, and a button that just goes dead reads
+                  as broken. */}
+              {!isMemberSession && (
+                <IconButton
+                  icon="auto_awesome"
+                  label={t('chat.optimizePrompt')}
+                  onClick={() => { void handleOptimize() }}
+                  disabled={!input.trim() || optimizeLoading}
+                  loading={optimizeLoading}
+                  size={isMobileComposer ? '2xl' : 'md'}
+                  tone="muted"
+                  className="shrink-0"
+                />
+              )}
               <Button
                 variant={!isMemberSession && isActive ? 'danger' : 'accent'}
                 size="base"

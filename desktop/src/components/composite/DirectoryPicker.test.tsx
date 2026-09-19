@@ -23,6 +23,7 @@ import {
   captureProjectDisplayNameHydrationRevision,
   hydrateProjectDisplayNames,
 } from '../../stores/projectDisplayNameStore'
+import { useUIStore } from '../../stores/uiStore'
 
 describe('DirectoryPicker', () => {
   let originalInnerWidth: number
@@ -31,6 +32,7 @@ describe('DirectoryPicker', () => {
     originalInnerWidth = window.innerWidth
     act(() => {
       hydrateProjectDisplayNames({}, Number.MAX_SAFE_INTEGER)
+      useUIStore.setState({ toasts: [] })
     })
   })
 
@@ -235,6 +237,84 @@ describe('DirectoryPicker', () => {
     expect(errorSpy).not.toHaveBeenCalledWith(expect.stringContaining('validateDOMNesting'))
 
     errorSpy.mockRestore()
+  })
+
+  describe('browse mode', () => {
+    async function openBrowseMode() {
+      vi.mocked(sessionsApi.getRecentProjects).mockResolvedValue({ projects: [] })
+      render(<DirectoryPicker value="" onChange={vi.fn()} />)
+      fireEvent.click(screen.getByRole('button', { name: /选择项目|Select a project/ }))
+      fireEvent.click(await screen.findByText(/选择其他文件夹|Choose a different folder/))
+    }
+
+    const pathInput = () => screen.findByRole('textbox', {
+      name: /输入或粘贴路径|Type or paste a path/,
+    })
+
+    // `..` at a drive root points back at the same directory, so the row would
+    // be a no-op button. The drives take its place.
+    it('lists sibling drives at a Windows drive root instead of a dead parent row', async () => {
+      vi.mocked(filesystemApi.browse).mockResolvedValue({
+        currentPath: 'C:\\',
+        parentPath: 'C:\\',
+        entries: [
+          { name: 'D:\\', path: 'D:\\', isDirectory: true },
+          { name: 'Users', path: 'C:\\Users', isDirectory: true },
+        ],
+      })
+
+      await openBrowseMode()
+
+      expect(await screen.findByText(/切换盘符|Available drives/)).toBeInTheDocument()
+      expect(screen.queryByText('..')).not.toBeInTheDocument()
+      expect(await screen.findByText('D:\\')).toBeInTheDocument()
+    })
+
+    it('splits a Windows path on backslashes for the breadcrumb', async () => {
+      vi.mocked(filesystemApi.browse).mockResolvedValue({
+        currentPath: 'C:\\Users\\nanmi',
+        parentPath: 'C:\\Users',
+        entries: [],
+      })
+
+      await openBrowseMode()
+
+      // A `/`-only split would leave this as one unclickable segment.
+      expect(await screen.findByRole('button', { name: 'Users' })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'nanmi' })).toBeInTheDocument()
+    })
+
+    it('navigates to a typed path on Enter', async () => {
+      vi.mocked(filesystemApi.browse)
+        .mockResolvedValueOnce({ currentPath: '/workspace', parentPath: '/Users', entries: [] })
+        .mockResolvedValueOnce({ currentPath: 'D:\\Projects', parentPath: 'D:\\', entries: [] })
+
+      await openBrowseMode()
+
+      fireEvent.change(await pathInput(), { target: { value: 'D:\\Projects' } })
+      fireEvent.keyDown(screen.getByRole('textbox', {
+        name: /输入或粘贴路径|Type or paste a path/,
+      }), { key: 'Enter' })
+
+      await waitFor(() => expect(filesystemApi.browse).toHaveBeenLastCalledWith('D:\\Projects'))
+    })
+
+    // A typed path is the one navigation the user can get wrong; failing
+    // silently would read as a dead control.
+    it('reports a typed path that cannot be opened', async () => {
+      vi.mocked(filesystemApi.browse)
+        .mockResolvedValueOnce({ currentPath: '/workspace', parentPath: '/Users', entries: [] })
+        .mockRejectedValueOnce(new Error('404'))
+
+      await openBrowseMode()
+
+      fireEvent.change(await pathInput(), { target: { value: 'D:\\Nope' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Go' }))
+
+      await waitFor(() => {
+        expect(useUIStore.getState().toasts.some((toast) => toast.type === 'error')).toBe(true)
+      })
+    })
   })
 
   it('uses the injected desktop host for native folder selection', async () => {

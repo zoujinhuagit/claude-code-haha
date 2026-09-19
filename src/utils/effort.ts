@@ -265,7 +265,7 @@ export function resolveAppliedEffort(
   const resolved = hasRequestScopedOverride
     ? appStateEffortValue
     : envOverride ?? appStateEffortValue ?? getDefaultEffortForModel(model)
-  // Claude Code falls back to the nearest supported level at or below the
+  // Open AI Ma Zai falls back to the nearest supported level at or below the
   // requested level. Opus/Sonnet 4.6 therefore run xhigh as high.
   if (
     resolved === 'xhigh' &&

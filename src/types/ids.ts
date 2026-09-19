@@ -4,7 +4,7 @@
  */
 
 /**
- * A session ID uniquely identifies a Claude Code session.
+ * A session ID uniquely identifies a Open AI Ma Zai session.
  * Returned by getSessionId().
  */
 export type SessionId = string & { readonly __brand: 'SessionId' }

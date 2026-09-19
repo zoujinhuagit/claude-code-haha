@@ -7,17 +7,17 @@ order: 13
 
 # Channel 系统
 
-从源码视角深度剖析 Claude Code 如何通过 IM 平台远程控制 Agent
+从源码视角深度剖析 Open AI Ma Zai 如何通过 IM 平台远程控制 Agent
 
 ![Channel System Overview](./images/01-channel-overview.png)
 
 ## 什么是 Channel
 
-Channel 是 Claude Code 的 **IM 集成系统**，它允许用户通过 Telegram、Feishu（飞书）、Discord、Slack 等即时通讯平台远程控制正在运行的 Claude Code Agent。
+Channel 是 Open AI Ma Zai 的 **IM 集成系统**，它允许用户通过 Telegram、Feishu（飞书）、Discord、Slack 等即时通讯平台远程控制正在运行的 Open AI Ma Zai Agent。
 
 ### 核心理念
 
-传统的 AI 编程助手只能在终端中交互。Channel 系统打破了这一限制——你可以在手机上通过 Telegram 给 Claude Code 发消息，它会像在终端中一样理解并执行你的请求，并将结果回复到你的聊天窗口。
+传统的 AI 编程助手只能在终端中交互。Channel 系统打破了这一限制——你可以在手机上通过 Telegram 给 Open AI Ma Zai 发消息，它会像在终端中一样理解并执行你的请求，并将结果回复到你的聊天窗口。
 
 ### Channel 的本质
 
@@ -101,7 +101,7 @@ Channel 系统的消息流转遵循一个清晰的双向路径：
 
 ### 入站通知 Schema
 
-Channel Server 推送到 Claude Code 的通知格式：
+Channel Server 推送到 Open AI Ma Zai 的通知格式：
 
 ```typescript
 // channelNotification.ts
@@ -295,7 +295,7 @@ type ChannelGateResult =
 
 ### 为什么需要权限中继
 
-当 Claude Code 需要执行敏感操作（如运行 Bash 命令），会弹出权限确认对话框。但如果用户通过 Telegram 远程控制 Agent，他看不到本地终端的对话框。
+当 Open AI Ma Zai 需要执行敏感操作（如运行 Bash 命令），会弹出权限确认对话框。但如果用户通过 Telegram 远程控制 Agent，他看不到本地终端的对话框。
 
 权限中继系统解决了这个问题：**将权限提示转发到 IM 平台，让用户在手机上也能审批或拒绝操作**。
 
@@ -627,7 +627,7 @@ if (actual !== entry.marketplace) {
 
 ### skipSlashCommands
 
-Channel 消息入队时设置 `skipSlashCommands: true`，确保 IM 用户发送的 `/help` 等文本不会被解释为 Claude Code 的斜杠命令。
+Channel 消息入队时设置 `skipSlashCommands: true`，确保 IM 用户发送的 `/help` 等文本不会被解释为 Open AI Ma Zai 的斜杠命令。
 
 ### dev 旁路的粒度
 

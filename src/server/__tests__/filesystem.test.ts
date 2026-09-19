@@ -157,13 +157,18 @@ describe('filesystem API', () => {
       expect(res.status).toBe(403)
     }
 
+    // Directory browsing is deliberately not allowlisted — it is how the user
+    // reaches a folder on another drive. A symlinked directory resolving
+    // outside the root is therefore a legitimate browse target; the escape is
+    // stopped at the read, which is what the `/api/filesystem/file` assertions
+    // above cover.
     const browseEscape = await handleFilesystemRoute(
       '/api/filesystem/browse',
       makeUrl('/api/filesystem/browse', {
         path: path.join(allowedRoot, 'linked-directory'),
       }),
     )
-    expect(browseEscape.status).toBe(403)
+    expect(browseEscape.status).toBe(200)
 
     const disguisedType = await handleFilesystemRoute(
       '/api/filesystem/file',

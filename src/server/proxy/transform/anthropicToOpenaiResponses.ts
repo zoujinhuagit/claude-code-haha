@@ -67,7 +67,7 @@ export function anthropicToOpenaiResponses(
     result.max_output_tokens = compatibility.outputBudget.effective
   }
 
-  // Claude Code sends Anthropic sampling params that some compatible
+  // Open AI Ma Zai sends Anthropic sampling params that some compatible
   // providers reject. Keep them opt-in for providers known to accept them.
   if (compatibility.passSamplingParams) {
     if (body.temperature !== undefined) result.temperature = body.temperature

@@ -12,9 +12,9 @@ final class DaemonOverlayTargetTests: XCTestCase {
         let frontmostHost = AppTargetCandidate(
             pid: 900,
             bundleIdentifier: "dev.cchaha.host",
-            bundleURL: URL(fileURLWithPath: "/Applications/Claude Code Haha.app"),
-            localizedName: "Claude Code Haha",
-            executableName: "Claude Code Haha"
+            bundleURL: URL(fileURLWithPath: "/Applications/Open AI Ma Zai.app"),
+            localizedName: "Open AI Ma Zai",
+            executableName: "Open AI Ma Zai"
         )
         let backgroundTarget = AppTargetCandidate(
             pid: 4321,
@@ -40,9 +40,9 @@ final class DaemonOverlayTargetTests: XCTestCase {
         let host = AppTargetCandidate(
             pid: 900,
             bundleIdentifier: "dev.cchaha.host",
-            bundleURL: URL(fileURLWithPath: "/Applications/Claude Code Haha.app"),
-            localizedName: "Claude Code Haha",
-            executableName: "Claude Code Haha"
+            bundleURL: URL(fileURLWithPath: "/Applications/Open AI Ma Zai.app"),
+            localizedName: "Open AI Ma Zai",
+            executableName: "Open AI Ma Zai"
         )
 
         XCTAssertNil(try DaemonOverlayTargetResolver.resolve(

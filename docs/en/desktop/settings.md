@@ -93,7 +93,7 @@ Let Claude read the screen, click, and type. Unusable until you install the runt
 
 ![Settings → Token usage: heatmap and stat cards](../../images/app/en/settings-usage.webp)
 
-A usage dashboard computed from the Claude Code session records on this machine. Everything is calculated locally and nothing is uploaded.
+A usage dashboard computed from the Open AI Ma Zai session records on this machine. Everything is calculated locally and nothing is uploaded.
 
 - Across the top: total tokens, peak tokens, longest task, current and longest streak.
 - In the middle: a heatmap with daily, weekly, and cumulative views. Click a day for that day's sessions, tokens, messages, and tool calls.

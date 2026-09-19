@@ -190,7 +190,7 @@ describe('commit and PR prompts', () => {
       ]
       for (const prompt of prompts) {
         expect(prompt).not.toContain('Co-Authored-By')
-        expect(prompt).not.toContain('Generated with Claude Code')
+        expect(prompt).not.toContain('Generated with Open AI Ma Zai')
       }
     } finally {
       if (previous === undefined) {

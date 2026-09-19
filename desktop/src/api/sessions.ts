@@ -473,6 +473,19 @@ export const sessionsApi = {
     return api.get<{ commands: SlashCommandOption[] }>(`/api/sessions/${sessionId}/slash-commands`)
   },
 
+  /**
+   * Rewrite a composer draft into a clearer prompt. The server's own timeout is
+   * 60s, so this one has to be longer — a front-end abort would surface as a
+   * generic network error while the rewrite was still running.
+   */
+  optimizePrompt(prompt: string, sessionId?: string) {
+    return api.post<{ optimized: string }>(
+      '/api/optimize',
+      { prompt, sessionId },
+      { timeout: 90_000 },
+    )
+  },
+
   getInspection(sessionId: string, options?: { includeContext?: boolean; timeout?: number; contextOnly?: boolean }) {
     const query = new URLSearchParams()
     if (options?.includeContext !== undefined) {

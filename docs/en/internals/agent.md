@@ -7,13 +7,13 @@ order: 4
 
 # Multi-Agent Usage Guide
 
-Let Claude Code orchestrate multiple specialized agents to handle complex tasks in parallel.
+Let Open AI Ma Zai orchestrate multiple specialized agents to handle complex tasks in parallel.
 
 ![Multi-Agent System Overview](./images/01-agent-overview.png)
 
 ## What Is the Multi-Agent System?
 
-Claude Code's multi-agent system is an **intelligent task orchestration framework** that enables the primary agent to spawn multiple specialized subagents, each executing different tasks independently, then aggregating results for the user.
+Open AI Ma Zai's multi-agent system is an **intelligent task orchestration framework** that enables the primary agent to spawn multiple specialized subagents, each executing different tasks independently, then aggregating results for the user.
 
 Core philosophy: **Break large tasks into specialized subtasks, execute them in parallel, and boost efficiency.**
 
@@ -28,7 +28,7 @@ Core philosophy: **Break large tasks into specialized subtasks, execute them in 
 
 ![Six Built-in Agents](./images/02-agent-types.png)
 
-Claude Code ships with 6 specialized agent types, each with a specific tool pool and intended use case:
+Open AI Ma Zai ships with 6 specialized agent types, each with a specific tool pool and intended use case:
 
 ### general-purpose (General Agent)
 
@@ -96,7 +96,7 @@ Agent({
 
 ### claude-code-guide (Guide Agent)
 
-**Use case**: Answer questions about Claude Code, Agent SDK, or the Claude API.
+**Use case**: Answer questions about Open AI Ma Zai, Agent SDK, or the Claude API.
 
 ```
 Agent({
@@ -112,7 +112,7 @@ Agent({
 
 ### statusline-setup (Status Bar Configuration Agent)
 
-**Use case**: Configure the Claude Code status bar display.
+**Use case**: Configure the Open AI Ma Zai status bar display.
 
 - **Tool pool**: Read + Edit only
 - **Model**: Sonnet

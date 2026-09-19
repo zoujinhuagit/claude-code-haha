@@ -13,7 +13,7 @@ A deep dive into the architecture, spawn flow, context passing, and collaboratio
 
 ## Architecture Overview
 
-Claude Code's multi-agent system consists of the following core modules:
+Open AI Ma Zai's multi-agent system consists of the following core modules:
 
 ### Core Modules
 
@@ -322,7 +322,7 @@ Agent System Prompt        ← agentDefinition.getSystemPrompt()
   ↓                          - otherwise: replaces default
 Custom System Prompt       ← --system-prompt argument
   ↓
-Default System Prompt      ← Standard Claude Code prompt
+Default System Prompt      ← Standard Open AI Ma Zai prompt
   ↓
 Append System Prompt       ← Appended to the end
 ```

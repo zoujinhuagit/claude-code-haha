@@ -411,7 +411,7 @@ type TranscriptContextAccumulator = {
 /**
  * Whether this line's `usage` is the first sighting of its reply.
  *
- * Claude Code writes one JSONL line per content block of an assistant message and repeats the
+ * Open AI Ma Zai writes one JSONL line per content block of an assistant message and repeats the
  * complete `usage` object on every one — a reply with thinking, text and 12 tool_use blocks is
  * 14 lines carrying the same numbers. Summing raw lines overstated real transcripts by 2.2x,
  * which is why `stats.ts` and the activity index both deduplicate; the inspector paths had

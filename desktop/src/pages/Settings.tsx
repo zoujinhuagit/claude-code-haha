@@ -22,7 +22,7 @@ import { useUIStore } from '../stores/uiStore'
 import { AgentManager } from '../components/settings/AgentManager'
 import { H5AccessSettings } from './settings/H5AccessSettings'
 import { GeneralSettings } from './settings/GeneralSettings'
-import { AboutSettings } from './settings/AboutSettings'
+// import { AboutSettings } from './settings/AboutSettings'
 import { ProviderSettings } from './settings/ProviderSettings'
 
 export function Settings() {
@@ -104,7 +104,7 @@ export function DesktopSettings() {
           {activeTab === 'computerUse' && <ComputerUseSettings />}
           {activeTab === 'trace' && <TraceList />}
           {activeTab === 'diagnostics' && <DiagnosticsSettings />}
-          {activeTab === 'about' && <AboutSettings />}
+          {/* {activeTab === 'about' && <AboutSettings />} */}
         </div>
       </div>
     </div>

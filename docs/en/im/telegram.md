@@ -31,7 +31,7 @@ That token is the bot's password. Do not paste it anywhere public.
 
 At the top of the page, under **Pairing**, select **Generate Code**. The six-character code takes effect immediately — no separate save.
 
-Send any message to your new bot, then send the code when prompted. Once pairing is confirmed you can talk to Claude Code directly.
+Send any message to your new bot, then send the code when prompted. Once pairing is confirmed you can talk to Open AI Ma Zai directly.
 
 Codes are valid for 60 minutes, work once, and are invalidated when a new one is generated. Repeated failures are rate limited; wait a few minutes before retrying.
 
@@ -51,7 +51,7 @@ Codes are valid for 60 minutes, work once, and are invalidated when a new one is
 
 ## Agent capabilities and boundaries
 
-Telegram is not a separate question-and-answer model. Regular messages and Skills selected from `/skills` enter the same Claude Code Agent session for the current project, so they retain multi-turn context and can use the file, terminal, Git, Skill, and MCP tools already available to that session. Selecting a Skill sends its `/<skill-name>` invocation into the Agent, where the existing Skill system loads `SKILL.md` and continues the task.
+Telegram is not a separate question-and-answer model. Regular messages and Skills selected from `/skills` enter the same Open AI Ma Zai Agent session for the current project, so they retain multi-turn context and can use the file, terminal, Git, Skill, and MCP tools already available to that session. Selecting a Skill sends its `/<skill-name>` invocation into the Agent, where the existing Skill system loads `SKILL.md` and continues the task.
 
 These capabilities are intended for one trusted user remotely controlling their own machine. A paired account receives the full Agent capabilities available in the selected project. Permission prompts are an operation gate, not an operating-system sandbox. Do not expose the Bot to public groups or untrusted accounts, and do not install unreviewed Skills, Plugins, or MCP servers from chat.
 

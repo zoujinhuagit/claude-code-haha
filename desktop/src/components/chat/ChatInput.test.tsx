@@ -23,6 +23,7 @@ const mocks = vi.hoisted(() => ({
   getRepositoryContext: vi.fn(),
   createRepositoryBranch: vi.fn(),
   getRecentProjects: vi.fn(),
+  optimizePrompt: vi.fn(),
   search: vi.fn(),
   browse: vi.fn(),
   wsSend: vi.fn(),
@@ -42,6 +43,7 @@ vi.mock('../../api/sessions', () => ({
     getRepositoryContext: mocks.getRepositoryContext,
     createRepositoryBranch: mocks.createRepositoryBranch,
     getRecentProjects: mocks.getRecentProjects,
+    optimizePrompt: mocks.optimizePrompt,
   },
 }))
 
@@ -109,6 +111,7 @@ vi.mock('../controls/ModelSelector', async () => {
 
 import { ChatInput } from './ChatInput'
 import { getComposerElement, getComposerText, setComposerText } from './composerTestUtils'
+import { useUIStore } from '../../stores/uiStore'
 import { useChatStore } from '../../stores/chatStore'
 import { useSessionStore } from '../../stores/sessionStore'
 import { useSettingsStore } from '../../stores/settingsStore'
@@ -296,6 +299,7 @@ describe('ChatInput file mentions', () => {
     mocks.listReferences.mockResolvedValue({ skills: [], plugins: [] })
     mocks.browse.mockResolvedValue({ currentPath: '/repo', parentPath: null, entries: [] })
     mocks.search.mockResolvedValue({ currentPath: '/repo', parentPath: null, entries: [] })
+    mocks.optimizePrompt.mockResolvedValue({ optimized: 'Optimized prompt' })
   })
 
   afterEach(() => {
@@ -1121,6 +1125,68 @@ describe('ChatInput file mentions', () => {
     expect(stop).toHaveClass('rounded-full', 'h-8', 'w-8')
     expect(stop).toHaveTextContent('stop')
     expect(stop).not.toBeDisabled()
+  })
+
+  describe('optimize prompt', () => {
+    const optimizeButton = () => screen.getByRole('button', { name: 'Optimize prompt' })
+
+    it('replaces the draft with the rewrite', async () => {
+      stubComposerColumnWidth(700)
+      mocks.optimizePrompt.mockResolvedValue({
+        optimized: '写一个登录页面，包含邮箱与密码校验、错误提示和记住登录状态。',
+      })
+
+      render(<ChatInput compact />)
+      setComposerText('写个登录功能', 5)
+
+      fireEvent.click(optimizeButton())
+
+      await waitFor(() => {
+        expect(mocks.optimizePrompt).toHaveBeenCalledWith('写个登录功能', sessionId)
+      })
+      await waitFor(() => {
+        expect(getComposerText()).toBe('写一个登录页面，包含邮箱与密码校验、错误提示和记住登录状态。')
+      })
+    })
+
+    // A rewrite that changes nothing would otherwise look like a dead button.
+    it('leaves the draft alone when the rewrite is identical', async () => {
+      stubComposerColumnWidth(700)
+      mocks.optimizePrompt.mockResolvedValue({ optimized: '写个登录功能' })
+
+      render(<ChatInput compact />)
+      setComposerText('写个登录功能', 5)
+
+      fireEvent.click(optimizeButton())
+
+      await waitFor(() => expect(mocks.optimizePrompt).toHaveBeenCalled())
+      expect(getComposerText()).toBe('写个登录功能')
+    })
+
+    it('is disabled until the draft has content', () => {
+      stubComposerColumnWidth(700)
+
+      render(<ChatInput compact />)
+      expect(optimizeButton()).toBeDisabled()
+
+      setComposerText('写个登录功能', 5)
+      expect(optimizeButton()).not.toBeDisabled()
+    })
+
+    it('reports a failed rewrite and keeps the draft', async () => {
+      stubComposerColumnWidth(700)
+      mocks.optimizePrompt.mockRejectedValue(new Error('No active provider configured'))
+
+      render(<ChatInput compact />)
+      setComposerText('写个登录功能', 5)
+
+      fireEvent.click(optimizeButton())
+
+      await waitFor(() => {
+        expect(useUIStore.getState().toasts.some((toast) => toast.message === 'No active provider configured')).toBe(true)
+      })
+      expect(getComposerText()).toBe('写个登录功能')
+    })
   })
 
   it.each(['local_agent', 'remote_agent'])('keeps Run available alongside Stop for an idle session with a running %s', (taskType) => {

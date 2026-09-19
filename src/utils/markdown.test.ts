@@ -108,7 +108,7 @@ describe('applyMarkdown bare-URL hyperlinks', () => {
   test('still linkifies owner/repo#123 references', () => {
     const rendered = applyMarkdown('见 NanmiCoder/cc-haha#1145 的讨论', 'dark')
     expect(hyperlinkTargets(rendered)).toEqual([
-      'https://github.com/NanmiCoder/cc-haha/issues/1145',
+      '/issues/1145',
     ])
   })
 })

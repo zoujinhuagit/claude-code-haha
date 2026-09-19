@@ -1,5 +1,5 @@
 /**
- * Slack Adapter for Claude Code Desktop
+ * Slack Adapter for Open AI Ma Zai Desktop
  *
  * Runs the app in Socket Mode, so the desktop needs no public request URL —
  * the same property that makes the Feishu / WeCom / QQ adapters work from a

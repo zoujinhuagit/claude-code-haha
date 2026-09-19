@@ -21,6 +21,7 @@ import {
   isSameOrInsidePathForPlatform,
   normalizeDriveRootPathForPlatform,
 } from '../services/windowsDrivePath.js'
+import { containsVulnerableUncPath } from '../../utils/shell/readOnlyCommandValidation.js'
 
 export type FilesystemEntry = {
   name: string
@@ -75,6 +76,40 @@ function isWithinRoot(targetPath: string, rootPath: string): boolean {
 
 function isVcsMetadataDirectoryName(name: string): boolean {
   return VCS_METADATA_DIRECTORY_NAMES.has(name.toLowerCase())
+}
+
+/**
+ * Other drive roots to offer while browsing, on Windows only.
+ *
+ * `statSync` is the existence test: an unmapped letter throws, which is exactly
+ * the "not a drive" answer. Returning nothing when the current path is not a
+ * drive root keeps the drive list from appearing on every directory — the
+ * caller only asks once the user has walked up to `C:\`.
+ */
+function getWindowsDriveEntries(currentDirectory: string): FilesystemEntry[] {
+  const driveMatch = currentDirectory.match(/^([A-Za-z]):\\?$/)
+  if (!driveMatch) return []
+  const currentDrive = `${driveMatch[1]}:\\`.toLowerCase()
+
+  const drives: FilesystemEntry[] = []
+  for (let letter = 'C'.charCodeAt(0); letter <= 'Z'.charCodeAt(0); letter++) {
+    const drivePath = `${String.fromCharCode(letter)}:\\`
+    if (drivePath.toLowerCase() === currentDrive) continue
+    try {
+      if (fs.statSync(drivePath).isDirectory()) {
+        drives.push({
+          name: drivePath,
+          path: drivePath,
+          isDirectory: true,
+          relativePath: drivePath,
+        })
+      }
+    } catch {
+      // Unmapped drive letters throw on stat — not a directory to offer.
+    }
+  }
+
+  return drives.sort((a, b) => a.name.localeCompare(b.name))
 }
 
 export function isAllowedFilesystemPath(targetPath: string): boolean {
@@ -162,20 +197,43 @@ async function handleServeFile(url: URL): Promise<Response> {
 async function handleBrowse(url: URL): Promise<Response> {
   const targetPath = url.searchParams.get('path') || os.homedir() || '/'
   const resolvedPath = path.resolve(normalizeDriveRootPathForPlatform(targetPath))
-  const canonicalPath = await canonicalizeExistingFilesystemPath(resolvedPath)
-  if (!canonicalPath) {
-    if (!isAllowedFilesystemPath(resolvedPath)) {
-      return json({ error: 'Access denied: path outside allowed directory' }, 403)
-    }
-    return json({ error: 'Cannot read directory: path not found', path: resolvedPath }, 404)
-  }
-  if (!isAllowedFilesystemPath(canonicalPath)) {
-    return json({ error: 'Access denied: path outside allowed directory' }, 403)
-  }
 
+  // Read these before the guards below. Which guard applies depends on the
+  // mode, and a `const` read above its own declaration is a temporal-dead-zone
+  // error, not a lint nit.
   const searchQuery = url.searchParams.get('search') || ''
   const includeFiles = url.searchParams.get('includeFiles') === 'true'
   const maxResults = Math.min(parseInt(url.searchParams.get('maxResults') || '200', 10), 200)
+
+  // Two tiers. File search and file listing — the modes that hand file names
+  // and contents to the model — stay inside the allowlist. Plain directory
+  // browsing is how the user walks to a project folder on another drive, so it
+  // is fenced off from network shares only: an UNC path sends credentials to a
+  // remote host, while listing `D:\` leaks nothing the user cannot already see.
+  const isFileSearch = includeFiles || !!searchQuery
+  const findDenial = (candidate: string): Response | null => {
+    if (isFileSearch) {
+      return isAllowedFilesystemPath(candidate)
+        ? null
+        : json({ error: 'File search is limited to project directories' }, 403)
+    }
+    return containsVulnerableUncPath(candidate)
+      ? json({ error: 'UNC paths are not supported' }, 403)
+      : null
+  }
+
+  const deniedResolved = findDenial(resolvedPath)
+  if (deniedResolved) return deniedResolved
+
+  const canonicalPath = await canonicalizeExistingFilesystemPath(resolvedPath)
+  if (!canonicalPath) {
+    return json({ error: 'Cannot read directory: path not found', path: resolvedPath }, 404)
+  }
+  // Re-check the canonical path too: a symlink inside an allowed root can
+  // resolve to somewhere else entirely, and it is the resolved target that
+  // gets read.
+  const deniedCanonical = findDenial(canonicalPath)
+  if (deniedCanonical) return deniedCanonical
 
   try {
     const stat = fs.statSync(canonicalPath)
@@ -216,6 +274,13 @@ async function handleBrowse(url: URL): Promise<Response> {
         if (a.isDirectory !== b.isDirectory) return a.isDirectory ? -1 : 1
         return a.name.localeCompare(b.name)
       })
+
+    // Drives lead the listing at a drive root: with `..` already landing on the
+    // parent (often empty at `C:\`), this is the only way sideways to `D:\`.
+    const siblingDrives = getWindowsDriveEntries(canonicalPath)
+    if (siblingDrives.length > 0) {
+      entries_list.unshift(...siblingDrives)
+    }
 
     return json({
       currentPath: canonicalPath,

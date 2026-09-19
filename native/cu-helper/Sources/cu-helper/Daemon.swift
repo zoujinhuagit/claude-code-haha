@@ -622,7 +622,7 @@ public final class Daemon {
     /// get_app_state actually resolved (`Injection.lastResolvedTargetPid`). We
     /// deliberately do NOT fall back to the frontmost app — at turn start,
     /// before any real target is resolved, the frontmost app is the HOST
-    /// (Claude Code Haha), so the fallback made the cursor glide onto our own
+    /// (Open AI Ma Zai), so the fallback made the cursor glide onto our own
     /// sidebar. nil here => follow nothing until a real target lands;
     /// `retargetCursorIfNeeded()` re-aims the moment one resolves.
     private func resolvedInjectionOverlayTarget() -> ProvenProcessTarget? {

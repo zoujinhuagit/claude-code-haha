@@ -3694,7 +3694,7 @@ describe('Sessions API', () => {
       cache_read_input_tokens: 1_000,
       cache_creation_input_tokens: 20,
     }
-    // Claude Code writes one JSONL line per content block of a reply and repeats the complete
+    // Open AI Ma Zai writes one JSONL line per content block of a reply and repeats the complete
     // `usage` object on every one. Three lines here stand for one reply with thinking + text +
     // tool_use; summing them raw is the 2.2x inflation `usageAccounting.ts` documents.
     const blockLine = () => ({

@@ -7,13 +7,13 @@ order: 7
 
 # Skills 使用指南
 
-Skills 是 Claude Code 的扩展能力引擎，让你用 Markdown 文件定义专属的自动化工作流。
+Skills 是 Open AI Ma Zai 的扩展能力引擎，让你用 Markdown 文件定义专属的自动化工作流。
 
 ![Skills 系统概览](./images/01-skills-overview.png)
 
 ## 什么是 Skills？
 
-Skills 是 Claude Code 的**可扩展能力插件系统**。每个 Skill 是一个 Markdown 文件（含 YAML frontmatter），定义了一段专门的提示词和行为配置，让 Claude 在特定场景下执行专业化的工作流。
+Skills 是 Open AI Ma Zai 的**可扩展能力插件系统**。每个 Skill 是一个 Markdown 文件（含 YAML frontmatter），定义了一段专门的提示词和行为配置，让 Claude 在特定场景下执行专业化的工作流。
 
 核心能力：
 
@@ -30,7 +30,7 @@ Skills 是 Claude Code 的**可扩展能力插件系统**。每个 Skill 是一�
 
 ![Skill 来源类型](./images/02-skill-sources.png)
 
-Claude Code 从 6 个不同来源加载 Skills，按优先级从高到低：
+Open AI Ma Zai 从 6 个不同来源加载 Skills，按优先级从高到低：
 
 ### 1. Bundled（内置 Skills）
 

@@ -30,11 +30,11 @@
 
 - **地图三个产品**是开发者 Key 接入，不是登录个人地图 App 后自动授权。高德、百度文档明确提供 HTTP endpoint；腾讯 `userGuide` 原始 HTML 同时提供 `/mcp?key=<YourKey>&format=0` 与 `/sse?key=<YourKey>&format=0`。腾讯文档有浏览器抓取工具解析失败，已通过只读 HTTPS 获取原始官方 HTML 核对。不能因为采用 MCP 就绕过上游 WebServiceAPI 配额。
 - **GitHub** 官方明确远程 MCP 不支持 Dynamic Client Registration。通用 OAuth 按钮不能直接复用 VS Code 的客户端身份；要做 OAuth，需要我们注册并管理 GitHub App/OAuth App。因此本轮选 PAT。支持服务器端只读 header `X-MCP-Readonly: true`，或指定 toolsets。来源：[host integration](https://github.com/github/github-mcp-server/blob/main/docs/host-integration.md)、[configuration](https://github.com/github/github-mcp-server/blob/main/docs/server-configuration.md)。
-- **Notion** 官方明确给出 Claude Code HTTP + `/mcp` OAuth 操作。不要把 Notion integration secret 当作 hosted MCP 支持的静态 header 方案。用户仍只能访问自身权限允许的内容。
+- **Notion** 官方明确给出 Open AI Ma Zai HTTP + `/mcp` OAuth 操作。不要把 Notion integration secret 当作 hosted MCP 支持的静态 header 方案。用户仍只能访问自身权限允许的内容。
 - **Linear** 官方支持 OAuth 2.1 DCR、Bearer OAuth token 和 API key。新接入用 `/mcp`，`/sse` 已是废弃兼容路径。可选 `/mcp/readonly`。多工作区需要独立认证上下文。
 - **Supabase** hosted MCP 默认 DCR，无须用户自建 OAuth App；不支持 DCR 的特定客户端才需要手工 App。PAT 是可行备选。可通过 `project_ref` 限定项目。不要混淆自托管 Supabase 内部 MCP，它不应被直接暴露到公网，且授权机制不同。
 - **Canva** 现在推荐 CIMD，但 DCR 仍保留兼容。当前客户端能走 DCR，可列入；不能把“CIMD 推荐”误读成必须预注册 App。每个用户必须独立授权，不支持组织级共用服务账号。来源：[认证与设置](https://www.canva.dev/docs/mcp/)、[手工注册与限制](https://www.canva.dev/docs/mcp/troubleshooting/)。
-- **Figma** 官方明确给出 Claude Code `--transport http` + Authenticate 流程，故无需为本轮虚构 PAT 接入。它并不保证所有账号拥有全部设计写入工具；应从 tools/list 获取真实能力。
+- **Figma** 官方明确给出 Open AI Ma Zai `--transport http` + Authenticate 流程，故无需为本轮虚构 PAT 接入。它并不保证所有账号拥有全部设计写入工具；应从 tools/list 获取真实能力。
 - **Hugging Face** canonical endpoint 是 `/mcp`，token 用 Bearer。若改用 OAuth，官方示例使用 `https://huggingface.co/mcp?login`，不能强制 bare `/mcp` 走 OAuth。为减少客户端注册差异，本轮选用户 token。[官方安装示例](https://github.com/huggingface/hf-mcp-server?ref=explainx)、[Hub 使用说明](https://huggingface.co/docs/hub/agents-mcp)、[OAuth/CIMD](https://huggingface.co/docs/hub/oauth)。
 - **Context7** 当前官方 registry `server.json` 声明 Authorization header 非必需、支持 Bearer 或 raw key。旧资料常写 `CONTEXT7_API_KEY` header，目录采用当前官方配置。其专门 OAuth endpoint 为 `/mcp/oauth`；当前建议不混合。
 - **Exa** 官方明确匿名免费方案以及 `x-api-key` 升级方式。不要以基础连接成功推断无限额度；失败不应自动去申请 Key 或付费。

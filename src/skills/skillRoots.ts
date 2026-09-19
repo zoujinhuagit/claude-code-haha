@@ -184,7 +184,7 @@ export function getAddDirSkillRoots(dir: string): SkillRoot[] {
  * running another.
  *
  * `.claude` outranks `.agents` in every scope, including across them: this is
- * the Claude Code CLI, so a skill installed for us stays authoritative over one
+ * the Open AI Ma Zai CLI, so a skill installed for us stays authoritative over one
  * another client dropped into the shared `.agents` space. Any other pairing
  * leaves the incumbent in place, which hands the decision to the caller's root
  * order (managed → user → project, each most-specific-first → --add-dir).
