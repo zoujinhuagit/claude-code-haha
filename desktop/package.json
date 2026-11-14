@@ -2,17 +2,23 @@
   "name": "claude-code-desktop",
   "private": true,
   "version": "0.7.7",
-  "description": "Desktop coding agent workbench for Claude Code Haha.",
-  "homepage": "https://github.com/NanmiCoder/cc-haha",
+  "description": "Desktop coding agent workbench for Open AI Ma Zai.",
+  "homepage": "",
   "author": {
     "name": "NanmiCoder",
     "email": "relakkes@gmail.com"
+  },
+  "allowScripts": {
+    "electron-winstaller": true,
+    "esbuild": true,
+    "node-pty": true,
+    "sharp": true
   },
   "type": "module",
   "main": "electron-dist/main.cjs",
   "build": {
     "appId": "com.claude-code-haha.desktop",
-    "productName": "Claude Code Haha",
+    "productName": "Open AI Ma Zai",
     "asar": true,
     "asarUnpack": [
       "dist/**",
@@ -67,7 +73,10 @@
       "target": "nsis",
       "icon": "src-tauri/icons/icon.ico",
       "extraResources": [
-        { "from": "src-tauri/icons/icon.ico", "to": "app-icon.ico" }
+        {
+          "from": "src-tauri/icons/icon.ico",
+          "to": "app-icon.ico"
+        }
       ]
     },
     "nsis": {

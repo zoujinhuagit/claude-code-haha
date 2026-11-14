@@ -13,7 +13,7 @@ type DisplayProfile = DesktopProfilePreferences & { avatarDataUrl?: string | nul
 
 export const DEFAULT_PROFILE: DesktopProfilePreferences = {
   displayName: 'cc-haha',
-  subtitle: 'github.com/NanmiCoder/cc-haha',
+  subtitle: '',
   avatarFile: null,
   avatarUpdatedAt: null,
 }

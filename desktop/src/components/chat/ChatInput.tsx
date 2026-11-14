@@ -10,7 +10,7 @@ import { formatBytes } from '@/lib/formatBytes'
 import { checkUserMessageBudget } from '@/lib/userMessageBudget'
 import { useState, useRef, useEffect, useCallback, useMemo, useId } from 'react'
 import { useShallow } from 'zustand/react/shallow'
-import { ArrowUp, CornerDownRight, Cpu, Feather, Gauge, Pencil, Plus, ShieldCheck, Square, Trash2 } from 'lucide-react'
+import { ArrowUp, CornerDownRight, Cpu, Feather, Gauge, Pencil, Plus, ShieldCheck, Sparkles, Square, Trash2 } from 'lucide-react'
 import { useDismissable } from '@/hooks/useDismissable'
 import { Button } from '@/components/ui/Button'
 import { IconButton } from '@/components/ui/IconButton'
@@ -207,6 +207,7 @@ export function ChatInput({ variant = 'default', compact = false, sessionId, vis
   const [launchTransitioning, setLaunchTransitioning] = useState(false)
   const [editingQueuedMessageId, setEditingQueuedMessageId] = useState<string | null>(null)
   const [editingQueuedMessageText, setEditingQueuedMessageText] = useState('')
+  const [optimizeLoading, setOptimizeLoading] = useState(false)
   const composingRef = useRef(false)
   const composerRef = useRef<MentionComposerHandle>(null)
   const composerContainerRef = useRef<HTMLDivElement>(null)
@@ -272,6 +273,37 @@ export function ChatInput({ variant = 'default', compact = false, sessionId, vis
   const selectedTabId = useTabStore((s) => s.activeTabId)
   const activeTabId = sessionId ?? selectedTabId
   currentChatRef.current = activeTabId
+
+  // Read the live document: mention pills serialize to the paths the model
+  // should see. The result is plain text, so the pills become text in the
+  // refill — expected, since an optimized prompt is no longer a set of pill
+  // ranges.
+  const handleOptimize = useCallback(async () => {
+    if (optimizeLoading) return
+    const text = (composerRef.current?.getModelContent() ?? inputRef.current).trim()
+    if (!text) return
+
+    setOptimizeLoading(true)
+    try {
+      const { optimized } = await sessionsApi.optimizePrompt(text, activeTabId ?? undefined)
+      if (!optimized || optimized === text) return
+
+      // The composer's mentions are ProseMirror pill ranges; pass [] explicitly
+      // or the stale ranges would survive the replacement.
+      setComposerInput(optimized, [])
+      requestAnimationFrame(() => {
+        composerRef.current?.focus()
+        composerRef.current?.setSelectionOffsets(optimized.length)
+      })
+    } catch (error) {
+      useUIStore.getState().addToast({
+        type: 'error',
+        message: error instanceof Error ? error.message : t('chat.optimizePromptFailed'),
+      })
+    } finally {
+      setOptimizeLoading(false)
+    }
+  }, [activeTabId, optimizeLoading, setComposerInput, t])
   const activeTabType = useTabStore((s) =>
     s.tabs.find((tab) => tab.sessionId === (sessionId ?? s.activeTabId))?.type,
   )
@@ -2109,6 +2141,18 @@ export function ChatInput({ variant = 'default', compact = false, sessionId, vis
                   Terracotta (`accent`) is the send key's alone; mid-turn the
                   same circle turns ink (`primary`) with a filled square, so a
                   running turn does not read as an error. */}
+              {!isMemberSession && (
+                <IconButton
+                  icon={<Sparkles size={isMobileComposer ? 18 : 16} strokeWidth={1.75} aria-hidden="true" />}
+                  label={t('chat.optimizePrompt')}
+                  onClick={() => { void handleOptimize() }}
+                  disabled={!input.trim() || optimizeLoading}
+                  loading={optimizeLoading}
+                  size={isMobileComposer ? '2xl' : 'md'}
+                  tone="muted"
+                  className="shrink-0"
+                />
+              )}
               <Button
                 variant={stopOffer === 'turn' ? 'primary' : 'accent'}
                 size="base"

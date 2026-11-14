@@ -41,7 +41,7 @@ import { AgentManager } from '../components/settings/AgentManager'
 import { H5AccessSettings } from './settings/H5AccessSettings'
 import { GeneralSettings } from './settings/GeneralSettings'
 import { VoiceInputSettings } from './settings/VoiceInputSettings'
-import { AboutSettings } from './settings/AboutSettings'
+// import { AboutSettings } from './settings/AboutSettings'
 import { ProviderSettings } from './settings/ProviderSettings'
 
 export function Settings() {
@@ -134,7 +134,7 @@ export function DesktopSettings() {
             {activeTab === 'pets' && <PetSettings />}
             {activeTab === 'computerUse' && <ComputerUseSettings />}
             {activeTab === 'diagnostics' && <DiagnosticsSettings />}
-            {activeTab === 'about' && <AboutSettings />}
+            {/* {activeTab === 'about' && <AboutSettings />} */}
           </div>
         </div>
       </div>

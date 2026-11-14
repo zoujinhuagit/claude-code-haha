@@ -17,7 +17,7 @@ type HelpTopicKeys = {
 
 /**
  * The settings that get a "?" in General settings: the ones whose name or
- * description assumes you already know Claude Code — people kept asking what
+ * description assumes you already know Open AI Ma Zai — people kept asking what
  * Auto-dream does. Settings a newcomer can read at a glance (theme, language,
  * notifications) deliberately have none.
  *

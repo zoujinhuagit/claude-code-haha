@@ -92,7 +92,7 @@ describe('VoiceHistoryVocabularyDialog', () => {
     const dialog = renderDialog()
 
     expect(await within(dialog).findByText('Includes cc-haha sessions · 907 sessions in the last 14 days')).toBeInTheDocument()
-    expect(checkbox('Claude Code')).toBeChecked()
+    expect(checkbox('Open AI Ma Zai')).toBeChecked()
     // A source with no history in the analyzed days cannot be chosen.
     expect(within(dialog).getByText('No history in the last 14 days')).toBeInTheDocument()
     expect(checkbox('Codex')).toBeDisabled()
@@ -102,7 +102,7 @@ describe('VoiceHistoryVocabularyDialog', () => {
     expect(within(dialog).getByRole('button', { name: 'Model used to pick' })).toHaveTextContent('Follow default provider')
     expect(api.suggestFromHistory).not.toHaveBeenCalled()
 
-    fireEvent.click(checkbox('Claude Code'))
+    fireEvent.click(checkbox('Open AI Ma Zai'))
     expect(within(dialog).getByRole('button', { name: 'Start analysis' })).toBeDisabled()
   })
 

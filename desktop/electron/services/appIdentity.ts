@@ -53,7 +53,7 @@ export function applyWindowsTaskbarIdentity(
     appIconPath: existsSync(externalIcon) ? externalIcon : paths.executablePath,
     appIconIndex: 0,
     relaunchCommand: `"${paths.executablePath}"`,
-    relaunchDisplayName: 'Claude Code Haha',
+    relaunchDisplayName: 'Open AI Ma Zai',
   })
   return true
 }

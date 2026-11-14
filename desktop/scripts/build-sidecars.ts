@@ -66,7 +66,7 @@ await buildNativeAgentDesktop({ repoRoot, binariesDir, targetTriple })
 await compileExecutable({
   entrypoint: path.join(desktopRoot, 'sidecars/claude-sidecar.ts'),
   outfileBase: path.join(binariesDir, `claude-sidecar-${targetTriple}`),
-  productName: 'Claude Code Sidecar',
+  productName: 'Open AI Ma Zai Sidecar',
   bunTarget,
 })
 
@@ -250,7 +250,7 @@ async function compileExecutable({
       // stay a console program (see assert-windows-console-subsystem.ts).
       windows: {
         title: productName,
-        publisher: 'Claude Code',
+        publisher: 'Open AI Ma Zai',
         description: productName,
       },
     },

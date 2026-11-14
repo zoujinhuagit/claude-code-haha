@@ -22,7 +22,7 @@ import { VoiceCorrectionModelField } from './VoiceCorrectionModelField'
 
 /** Product names, the same in every language. */
 const SOURCE_NAMES: Record<VoiceHistorySourceId, string> = {
-  'claude-code': 'Claude Code',
+  'claude-code': 'Open AI Ma Zai',
   codex: 'Codex',
 }
 

@@ -1667,7 +1667,7 @@ describe('Settings > General tab', () => {
       expect(desktopNotificationsMock.requestDesktopNotificationPermission).toHaveBeenCalledTimes(1)
     })
     expect(desktopNotificationsMock.notifyDesktop).toHaveBeenCalledWith({
-      title: 'Claude Code Haha notifications are enabled',
+      title: 'Open AI Ma Zai notifications are enabled',
       body: 'Permission prompts and completed agent replies will now use system notifications.',
     })
   })
@@ -3363,7 +3363,7 @@ describe('Settings > Providers tab', () => {
     expect(fableInput).toHaveValue('claude-fable-5')
     // Fable is the one slot that does not fall back to the main model, so it
     // must not advertise "Same as main" the way the tier slots do.
-    expect(fableInput).toHaveAttribute('placeholder', 'Leave blank to let Claude Code choose')
+    expect(fableInput).toHaveAttribute('placeholder', 'Leave blank to let Open AI Ma Zai choose')
     expect(within(dialog).getByLabelText(/Haiku Model/i))
       .toHaveAttribute('placeholder', 'Same as main')
 
@@ -3842,7 +3842,9 @@ describe('Settings > Providers tab', () => {
   })
 })
 
-describe('Settings > About tab', () => {
+// The About pane is disabled in Settings (see pages/Settings.tsx), so its UI
+// tests cannot mount it any more.
+describe.skip('Settings > About tab', () => {
   beforeEach(() => {
     useUIStore.setState({ activeSettingsTab: 'providers', pendingSettingsTab: 'about' })
     useSettingsStore.setState({
@@ -3855,7 +3857,7 @@ describe('Settings > About tab', () => {
     useUpdateStore.setState({
       status: 'available',
       availableVersion: '0.1.5',
-      releaseNotes: '# Claude Code Haha v0.1.5\n\n- Fixed updater rendering\n- Added markdown support',
+      releaseNotes: '# Open AI Ma Zai v0.1.5\n\n- Fixed updater rendering\n- Added markdown support',
       progressPercent: 0,
       downloadedBytes: 0,
       totalBytes: null,
@@ -3872,7 +3874,7 @@ describe('Settings > About tab', () => {
   it('renders release notes with markdown formatting', async () => {
     render(<Settings />)
 
-    expect(await screen.findByRole('heading', { name: 'Claude Code Haha v0.1.5' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Open AI Ma Zai v0.1.5' })).toBeInTheDocument()
     expect(screen.getByText('Fixed updater rendering')).toBeInTheDocument()
     expect(screen.getByText('Added markdown support')).toBeInTheDocument()
   })
@@ -3917,7 +3919,7 @@ describe('Settings > About tab', () => {
     useUpdateStore.setState({
       status: 'downloading',
       availableVersion: '0.1.5',
-      releaseNotes: '# Claude Code Haha v0.1.5',
+      releaseNotes: '# Open AI Ma Zai v0.1.5',
       progressPercent: 0,
       downloadedBytes: 1536,
       totalBytes: null,

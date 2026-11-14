@@ -131,5 +131,8 @@
   },
   "devDependencies": {
     "mermaid": "^11.14.0"
+  },
+  "allowScripts": {
+    "sharp@0.34.5": true
   }
 }

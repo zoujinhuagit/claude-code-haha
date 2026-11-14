@@ -23,6 +23,7 @@ import {
   isSameOrInsidePathForPlatform,
   normalizeDriveRootPathForPlatform,
 } from '../services/windowsDrivePath.js'
+import { containsVulnerableUncPath } from '../../utils/shell/readOnlyCommandValidation.js'
 
 export type FilesystemEntry = {
   name: string
@@ -171,23 +172,71 @@ async function handleServeFile(url: URL): Promise<Response> {
   }
 }
 
+/**
+ * Other drives, Windows only.
+ *
+ * `statSync` is the existence check: an unmapped drive throws, which is the
+ * answer to "is this a drive". Returns nothing unless the current path is a
+ * drive root, so the list cannot appear inside every directory — callers only
+ * ask when the user has reached `C:\`.
+ */
+function getWindowsDriveEntries(currentDirectory: string): FilesystemEntry[] {
+  const driveMatch = currentDirectory.match(/^([A-Za-z]):\\?$/)
+  if (!driveMatch) return []
+  const currentDrive = `${driveMatch[1]}:\\`.toLowerCase()
+
+  const drives: FilesystemEntry[] = []
+  for (let letter = 'C'.charCodeAt(0); letter <= 'Z'.charCodeAt(0); letter++) {
+    const drivePath = `${String.fromCharCode(letter)}:\\`
+    if (drivePath.toLowerCase() === currentDrive) continue
+    try {
+      if (fs.statSync(drivePath).isDirectory()) {
+        drives.push({ name: drivePath, path: drivePath, isDirectory: true, relativePath: drivePath })
+      }
+    } catch {
+      // Unmapped drives throw on stat — that is the answer.
+    }
+  }
+  return drives.sort((a, b) => a.name.localeCompare(b.name))
+}
+
 async function handleBrowse(url: URL, requestSignal?: AbortSignal): Promise<Response> {
   const targetPath = url.searchParams.get('path') || os.homedir() || '/'
   const resolvedPath = path.resolve(normalizeDriveRootPathForPlatform(targetPath))
-  const canonicalPath = await canonicalizeExistingFilesystemPath(resolvedPath)
-  if (!canonicalPath) {
-    if (!isAllowedFilesystemPath(resolvedPath)) {
-      return json({ error: 'Access denied: path outside allowed directory' }, 403)
-    }
-    return json({ error: 'Cannot read directory: path not found', path: resolvedPath }, 404)
-  }
-  if (!isAllowedFilesystemPath(canonicalPath)) {
-    return json({ error: 'Access denied: path outside allowed directory' }, 403)
-  }
 
+  // Read both parameters before validating: which check applies depends on the
+  // mode, and a `const` read before its declaration is a TDZ error, not a lint
+  // warning.
   const searchQuery = url.searchParams.get('search') || ''
   const includeFiles = url.searchParams.get('includeFiles') === 'true'
   const maxResults = Math.min(parseInt(url.searchParams.get('maxResults') || '200', 10), 200)
+
+  // Directory browsing is open so the user can reach a project on another
+  // drive. File search and file listings are not: those carry names and
+  // contents to the model, so they keep the registered-root allow-list.
+  const isFileSearch = includeFiles || !!searchQuery
+  const findDenial = (candidate: string): Response | null => {
+    if (isFileSearch) {
+      return isAllowedFilesystemPath(candidate)
+        ? null
+        : json({ error: 'File search is limited to project directories' }, 403)
+    }
+    return containsVulnerableUncPath(candidate)
+      ? json({ error: 'UNC paths are not supported' }, 403)
+      : null
+  }
+
+  const deniedResolved = findDenial(resolvedPath)
+  if (deniedResolved) return deniedResolved
+
+  const canonicalPath = await canonicalizeExistingFilesystemPath(resolvedPath)
+  if (!canonicalPath) {
+    return json({ error: 'Cannot read directory: path not found', path: resolvedPath }, 404)
+  }
+  // Check the canonical path too: a symlink inside an allow-listed root can
+  // resolve elsewhere, and the resolved target is what actually gets read.
+  const deniedCanonical = findDenial(canonicalPath)
+  if (deniedCanonical) return deniedCanonical
 
   try {
     const stat = fs.statSync(canonicalPath)
@@ -245,6 +294,11 @@ async function handleBrowse(url: URL, requestSignal?: AbortSignal): Promise<Resp
         if (a.isDirectory !== b.isDirectory) return a.isDirectory ? -1 : 1
         return a.name.localeCompare(b.name)
       })
+
+    // Drives go first: `..` has nowhere to go at a drive root, and this is the
+    // only way to move sideways to `D:\`.
+    const siblingDrives = getWindowsDriveEntries(canonicalPath)
+    if (siblingDrives.length > 0) entries_list.unshift(...siblingDrives)
 
     return json({
       currentPath: canonicalPath,

@@ -16,6 +16,7 @@ import { useDismissable } from '@/hooks/useDismissable'
 import { sessionsApi, type RecentProject } from '../../api/sessions'
 import { filesystemApi } from '../../api/filesystem'
 import { useTranslation } from '../../i18n'
+import { useUIStore } from '../../stores/uiStore'
 import { useMobileViewport } from '../../hooks/useMobileViewport'
 import {
   resolveProjectDisplayName,
@@ -48,6 +49,8 @@ type DirEntry = { name: string; path: string; isDirectory: boolean }
 export type DirectoryPanelMode = 'recent' | 'browse'
 
 const DESKTOP_WORKTREE_MARKER = '/.claude/worktrees/'
+const WINDOWS_DRIVE_ROOT_PATTERN = /^[A-Za-z]:[\\/]?$/
+const WINDOWS_ABSOLUTE_PATTERN = /^([A-Za-z]):[\\/]/
 const DROPDOWN_WIDTH = 400
 const DROPDOWN_VIEWPORT_MARGIN = 12
 const DROPDOWN_HEIGHT = 380 // approximate max height
@@ -183,6 +186,7 @@ export function RecentProjectsPanel({
   const [browseEntries, setBrowseEntries] = useState<DirEntry[]>([])
   const [browsePath, setBrowsePath] = useState('')
   const [browseParent, setBrowseParent] = useState('')
+  const [pathInput, setPathInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [query, setQuery] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -275,13 +279,27 @@ export function RecentProjectsPanel({
 
   const loadBrowseDir = async (path?: string) => {
     setLoading(true)
+    let loaded = false
     try {
       const result = await filesystemApi.browse(path)
       setBrowsePath(result.currentPath)
       setBrowseParent(result.parentPath)
       setBrowseEntries(result.entries)
+      setPathInput('')
+      loaded = true
     } catch { /* API not available */ }
     setLoading(false)
+    return loaded
+  }
+
+  // Hand-typed paths are the only navigation that can be wrong; every other
+  // action moves through an entry the server already vouched for. Without this
+  // toast a typo just looks like a broken control.
+  const handlePathSubmit = async () => {
+    const trimmed = pathInput.trim()
+    if (!trimmed) return
+    if (await loadBrowseDir(trimmed)) return
+    useUIStore.getState().addToast({ type: 'error', message: t('dirPicker.pathNotFound') })
   }
 
   // Every selection path funnels through here, including the native dialog —
@@ -318,6 +336,32 @@ export function RecentProjectsPanel({
   }`
 
   if (mode === 'browse') {
+    // `browsePath` is canonicalized by the server: `D:\work\app` or
+    // `/home/u/app`. Splitting only on `/` would make a Windows path one
+    // segment, so the separator, root label and join rule come from the path.
+    const breadcrumb = (() => {
+      const windowsMatch = browsePath.match(WINDOWS_ABSOLUTE_PATTERN)
+      if (windowsMatch) {
+        const root = `${windowsMatch[1]}:\\`
+        return {
+          root,
+          separator: '\\',
+          segments: browsePath.slice(root.length).split('\\').filter(Boolean),
+          join: (parts: string[]) => root + parts.join('\\'),
+        }
+      }
+      return {
+        root: '/',
+        separator: '/',
+        segments: browsePath.split('/').filter(Boolean),
+        join: (parts: string[]) => '/' + parts.join('/'),
+      }
+    })()
+    // The server only adds drives when there are any, without a marker, so
+    // "at a drive root" alone would announce an empty group on a one-drive PC.
+    const showDriveHeading = WINDOWS_DRIVE_ROOT_PATTERN.test(browsePath)
+      && browseEntries.some((entry) => WINDOWS_DRIVE_ROOT_PATTERN.test(entry.path))
+
     return (
       <>
         <div className={`flex flex-wrap items-center gap-1 border-b border-[var(--color-border)] pb-1 ${touch ? 'px-3 pt-1' : 'px-1'}`}>
@@ -329,16 +373,36 @@ export function RecentProjectsPanel({
             <ChevronLeft size={14} strokeWidth={1.75} aria-hidden="true" />
             {t('dirPicker.recent')}
           </button>
-          <button onClick={() => loadBrowseDir('/')} className="font-mono text-[11px] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]">/</button>
-          {browsePath.split('/').filter(Boolean).map((seg, i, arr) => (
+          <button onClick={() => loadBrowseDir(breadcrumb.root)} className="font-mono text-[11px] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]">{breadcrumb.root}</button>
+          {breadcrumb.segments.map((seg, i, arr) => (
             <span key={i} className="flex items-center gap-1">
-              <span className="font-mono text-[11px] text-[var(--color-text-tertiary)]">/</span>
+              <span className="font-mono text-[11px] text-[var(--color-text-tertiary)]">{breadcrumb.separator}</span>
               <button
-                onClick={() => loadBrowseDir('/' + arr.slice(0, i + 1).join('/'))}
+                onClick={() => loadBrowseDir(breadcrumb.join(arr.slice(0, i + 1)))}
                 className="font-mono text-[11px] text-[var(--color-text-accent)] hover:underline"
               >{seg}</button>
             </span>
           ))}
+        </div>
+
+        <div className={`flex items-center gap-1 border-b border-[var(--color-border)] pb-1 ${touch ? 'px-3 pt-1' : 'px-1'}`}>
+          <input
+            value={pathInput}
+            onChange={(event) => setPathInput(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key !== 'Enter') return
+              event.preventDefault()
+              void handlePathSubmit()
+            }}
+            aria-label={t('dirPicker.typePath')}
+            placeholder={t('dirPicker.typePath')}
+            autoComplete="off"
+            spellCheck={false}
+            className="h-7 min-w-0 flex-1 rounded-[var(--radius-sm)] bg-transparent px-2 font-mono text-[11px] text-[var(--color-text-primary)] outline-none ring-[var(--color-border-focus)] placeholder:text-[var(--color-text-tertiary)] focus-visible:ring-2"
+          />
+          <Button size="xs" variant="link" onClick={() => { void handlePathSubmit() }}>
+            {t('dirPicker.go')}
+          </Button>
         </div>
 
         <div className={`${touch ? 'px-1.5' : 'max-h-[240px]'} overflow-y-auto py-1`}>
@@ -346,12 +410,16 @@ export function RecentProjectsPanel({
             <LoadingState label={t('common.loading')} variant="block" size="sm" />
           ) : (
             <>
-              {browseParent && browseParent !== browsePath && (
+              {browseParent && browseParent !== browsePath ? (
                 <button onClick={() => loadBrowseDir(browseParent)} className="flex min-h-[30px] w-full items-center gap-2 rounded-[var(--radius-sm)] px-2 text-left transition-colors hover:bg-[var(--color-surface-hover)]">
                   <ArrowUp size={14} strokeWidth={1.75} aria-hidden="true" className="shrink-0 text-[var(--color-text-tertiary)]" />
                   <span className="text-[13px] text-[var(--color-text-secondary)]">..</span>
                 </button>
-              )}
+              ) : showDriveHeading ? (
+                <div className="px-2 pb-0.5 pt-1 text-[11px] font-semibold text-[var(--color-text-tertiary)]">
+                  {t('dirPicker.availableDrives')}
+                </div>
+              ) : null}
               {browseEntries.length === 0 ? (
                 <EmptyState description={t('dirPicker.noSubdirs')} variant="plain" size="sm" />
               ) : browseEntries.map((entry) => (

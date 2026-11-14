@@ -57,7 +57,7 @@ describe('Windows window and pinned taskbar identity', () => {
         appIconPath: f.externalIcon,
         appIconIndex: 0,
         relaunchCommand: `"${f.executablePath}"`,
-        relaunchDisplayName: 'Claude Code Haha',
+        relaunchDisplayName: 'Open AI Ma Zai',
       })
     } finally {
       rmSync(f.root, { recursive: true, force: true })

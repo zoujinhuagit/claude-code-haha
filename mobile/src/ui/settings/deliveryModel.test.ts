@@ -240,11 +240,9 @@ describe('settings summaries and copy', () => {
     expect(versionLabel('0.1.0', null)).toBe('0.1.0')
   })
 
-  test('about links point at the public repository', () => {
+  test('about links are disabled', () => {
     for (const url of Object.values(aboutLinks))
-      expect(url.startsWith('https://github.com/NanmiCoder/cc-haha')).toBe(true)
-    expect(aboutLinks.issues.endsWith('/issues')).toBe(true)
-    expect(aboutLinks.license.endsWith('/LICENSE')).toBe(true)
+      expect(url).toBe('')
   })
 })
 

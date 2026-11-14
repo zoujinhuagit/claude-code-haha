@@ -433,10 +433,10 @@ export function versionLabel(version: string | undefined, build?: string | null)
   return build ? `${version} (${build})` : version
 }
 
-export const repoUrl = 'https://github.com/NanmiCoder/cc-haha'
+export const repoUrl = ''
 export const aboutLinks = {
-  guide: repoUrl,
-  issues: `${repoUrl}/issues`,
-  license: `${repoUrl}/blob/main/LICENSE`,
-  pushSetup: `${repoUrl}/blob/main/mobile/PUSH_NOTIFICATIONS.md`,
+  guide: '',
+  issues: '',
+  license: '',
+  pushSetup: '',
 }

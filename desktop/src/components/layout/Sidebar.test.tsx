@@ -714,10 +714,6 @@ describe('Sidebar', () => {
   })
 
   it('keeps every control in the title region clickable on the drag region', async () => {
-    // Only controls inside a drag region are no-drag now, so the rule has to
-    // name every kind the titlebars hold — the repository link here is an <a>,
-    // not a button, and dropping `a` from the rule would let a press on it
-    // drag the window instead.
     const root = document.body.appendChild(document.createElement('div'))
     root.id = 'root'
     render(<Sidebar />, { container: root })
@@ -725,7 +721,6 @@ describe('Sidebar', () => {
     const titleRegion = screen.getByTestId('sidebar-title-region')
     expect(resolveAppRegion(titleRegion)).toBe('drag')
     const controls = Array.from(titleRegion.querySelectorAll('a, button'))
-    expect(controls.some((control) => control.tagName === 'A')).toBe(true)
     expect(controls.some((control) => control.tagName === 'BUTTON')).toBe(true)
     for (const control of controls) {
       expect(resolveAppRegion(control), control.outerHTML).toBe('no-drag')
@@ -867,18 +862,13 @@ describe('Sidebar', () => {
     expect(createSession).not.toHaveBeenCalled()
   })
 
-  // The header used to render both "Claude Code Haha" and "cc-haha" and hide
-  // one with a container query, so the app answered to two names depending on
-  // how far the sidebar had been dragged. Only the short one ships now — and
-  // the long one must not linger in the DOM, since a display-hidden copy still
-  // reaches screen readers and in-page search.
-  it('renders one wordmark and it is the short one', () => {
+  it('renders the product wordmark', () => {
     render(<Sidebar />)
 
     const region = screen.getByTestId('sidebar-title-region')
 
-    expect(region).toHaveTextContent('cc-haha')
-    expect(region).not.toHaveTextContent('Claude Code')
+    expect(region).toHaveTextContent('Open AI Ma Zai')
+    expect(region).not.toHaveTextContent('cc-haha')
   })
 
   it('groups sessions by project and expands overflow rows', () => {
@@ -2594,9 +2584,8 @@ describe('Sidebar', () => {
   it('shows the brand mark only on the rail, where the wordmark is clamped away', async () => {
     render(<Sidebar />)
 
-    // Scope to the wordmark's own row — the GitHub link in the same header is
-    // also an svg and would answer a looser query.
-    const brandRow = () => screen.getByText('haha').closest('div')
+    // Scope to the wordmark's own row.
+    const brandRow = () => screen.getByText('Ma Zai').closest('div')
 
     // Expanded, the name carries the brand and the mark beside it is clutter.
     expect(brandRow()?.querySelector('svg')).toBeNull()

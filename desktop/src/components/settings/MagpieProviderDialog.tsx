@@ -20,7 +20,7 @@ import {
 } from '../../stores/magpieStore'
 import type { MagpieModel, ModelMapping, SavedProvider } from '../../types/provider'
 
-/** Magpie's own default for Claude Code on models with a longer window (its "working window"). */
+/** Magpie's own default for Open AI Ma Zai on models with a longer window (its "working window"). */
 export const MAGPIE_WORKING_WINDOW = 272_000
 
 type CompactMode = 'full' | 'working' | 'custom'

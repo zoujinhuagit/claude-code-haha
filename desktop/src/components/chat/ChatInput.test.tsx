@@ -36,6 +36,7 @@ const mocks = vi.hoisted(() => ({
   getRepositoryContext: vi.fn(),
   createRepositoryBranch: vi.fn(),
   getRecentProjects: vi.fn(),
+  optimizePrompt: vi.fn(),
   search: vi.fn(),
   browse: vi.fn(),
   wsSend: vi.fn(),
@@ -67,6 +68,7 @@ vi.mock('../../api/sessions', () => ({
     getRepositoryContext: mocks.getRepositoryContext,
     createRepositoryBranch: mocks.createRepositoryBranch,
     getRecentProjects: mocks.getRecentProjects,
+    optimizePrompt: mocks.optimizePrompt,
   },
 }))
 
@@ -272,6 +274,7 @@ describe('ChatInput file mentions', () => {
     Reflect.deleteProperty(window, 'desktopHost')
     delete (window as Window & { __TAURI_INTERNALS__?: unknown }).__TAURI_INTERNALS__
     mocks.listSessionReferences.mockResolvedValue({ sessions: [] })
+    mocks.optimizePrompt.mockResolvedValue({ optimized: 'Improved prompt' })
     viewportMocks.isMobile = false
     useSettingsStore.setState({ locale: 'en' })
     useChatStore.setState(initialChatState, true)
@@ -4369,6 +4372,51 @@ describe('ChatInput file mentions', () => {
       rerender(<ChatInput sessionId={sessionId} visible={false} />)
 
       expect(activeRecording.cancel).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  describe('prompt optimization', () => {
+    beforeEach(() => {
+      useUIStore.setState({ toasts: [] })
+    })
+
+    it('refills the composer with the optimized prompt and puts the caret at the end', async () => {
+      mocks.optimizePrompt.mockResolvedValue({ optimized: 'Build a login form with validation' })
+      render(<ChatInput />)
+      setComposerText('add login')
+
+      fireEvent.click(screen.getByRole('button', { name: 'Optimize prompt' }))
+
+      await waitFor(() => expect(getComposerText()).toBe('Build a login form with validation'))
+      expect(mocks.optimizePrompt).toHaveBeenCalledWith('add login', sessionId)
+    })
+
+    it('leaves the composer untouched when the rewrite matches the input', async () => {
+      mocks.optimizePrompt.mockResolvedValue({ optimized: 'add login' })
+      render(<ChatInput />)
+      setComposerText('add login')
+
+      fireEvent.click(screen.getByRole('button', { name: 'Optimize prompt' }))
+
+      await waitFor(() => expect(mocks.optimizePrompt).toHaveBeenCalled())
+      expect(getComposerText()).toBe('add login')
+    })
+
+    it('disables the button while the composer is empty', () => {
+      render(<ChatInput />)
+
+      expect(screen.getByRole('button', { name: 'Optimize prompt' })).toBeDisabled()
+    })
+
+    it('shows the failure and keeps the original text', async () => {
+      mocks.optimizePrompt.mockRejectedValue(new Error('HTTP 401: invalid x-api-key'))
+      render(<ChatInput />)
+      setComposerText('add login')
+
+      fireEvent.click(screen.getByRole('button', { name: 'Optimize prompt' }))
+
+      await waitFor(() => expect(useUIStore.getState().toasts.at(-1)?.message).toBe('HTTP 401: invalid x-api-key'))
+      expect(getComposerText()).toBe('add login')
     })
   })
 

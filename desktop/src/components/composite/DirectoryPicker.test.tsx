@@ -19,6 +19,7 @@ import { DirectoryPicker } from './DirectoryPicker'
 import { sessionsApi } from '../../api/sessions'
 import { filesystemApi } from '../../api/filesystem'
 import { browserHost } from '../../lib/desktopHost/browserHost'
+import { useUIStore } from '../../stores/uiStore'
 import {
   captureProjectDisplayNameHydrationRevision,
   hydrateProjectDisplayNames,
@@ -29,6 +30,7 @@ describe('DirectoryPicker', () => {
 
   beforeEach(() => {
     originalInnerWidth = window.innerWidth
+    vi.clearAllMocks()
     act(() => {
       hydrateProjectDisplayNames({}, Number.MAX_SAFE_INTEGER)
     })
@@ -260,6 +262,87 @@ describe('DirectoryPicker', () => {
     expect(errorSpy).not.toHaveBeenCalledWith(expect.stringContaining('validateDOMNesting'))
 
     errorSpy.mockRestore()
+  })
+
+  async function openBrowse() {
+    vi.mocked(sessionsApi.getRecentProjects).mockResolvedValue({ projects: [] })
+    render(<DirectoryPicker value="" onChange={vi.fn()} />)
+    fireEvent.click(screen.getByRole('button', { name: /选择项目|Select a project/ }))
+    fireEvent.click(await screen.findByText(/选择其他文件夹|Choose a different folder/))
+  }
+
+  it('lists other drives at a Windows drive root without a dead parent row', async () => {
+    vi.mocked(filesystemApi.browse).mockResolvedValue({
+      currentPath: 'C:\\',
+      parentPath: 'C:\\',
+      entries: [{ name: 'D:\\', path: 'D:\\', isDirectory: true, relativePath: 'D:\\' }],
+    })
+
+    await openBrowse()
+
+    expect(await screen.findByText(/切换盘符：|Available drives:/)).toBeInTheDocument()
+    expect(screen.queryByText('..')).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'D:\\' })).toBeInTheDocument()
+  })
+
+  it('splits a Windows breadcrumb on backslashes', async () => {
+    vi.mocked(filesystemApi.browse).mockResolvedValue({
+      currentPath: 'D:\\work\\app',
+      parentPath: 'D:\\work',
+      entries: [],
+    })
+
+    await openBrowse()
+
+    expect(await screen.findByRole('button', { name: 'D:\\' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'work' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'app' })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'D:\\work\\app' })).not.toBeInTheDocument()
+  })
+
+  it('navigates to a typed path on Enter', async () => {
+    vi.mocked(filesystemApi.browse)
+      .mockResolvedValueOnce({
+        currentPath: '/workspace',
+        parentPath: '/',
+        entries: [],
+      })
+      .mockResolvedValueOnce({
+        currentPath: 'D:\\MyProject',
+        parentPath: 'D:\\',
+        entries: [],
+      })
+
+    await openBrowse()
+
+    const input = await screen.findByLabelText(/输入或粘贴路径|Type or paste a path/)
+    fireEvent.change(input, { target: { value: 'D:\\MyProject' } })
+    fireEvent.keyDown(input, { key: 'Enter' })
+
+    await waitFor(() => expect(filesystemApi.browse).toHaveBeenLastCalledWith('D:\\MyProject'))
+    expect(await screen.findByRole('button', { name: 'MyProject' })).toBeInTheDocument()
+  })
+
+  it('shows a toast when a typed path cannot be opened', async () => {
+    vi.mocked(filesystemApi.browse)
+      .mockResolvedValueOnce({
+        currentPath: '/workspace',
+        parentPath: '/',
+        entries: [],
+      })
+      .mockRejectedValueOnce(new Error('not found'))
+    const addToast = vi.spyOn(useUIStore.getState(), 'addToast')
+
+    await openBrowse()
+
+    const input = await screen.findByLabelText(/输入或粘贴路径|Type or paste a path/)
+    fireEvent.change(input, { target: { value: '/missing/path' } })
+    fireEvent.keyDown(input, { key: 'Enter' })
+
+    await waitFor(() => expect(addToast).toHaveBeenCalledWith({
+      type: 'error',
+      message: expect.any(String),
+    }))
   })
 
   it('uses the injected desktop host for native folder selection', async () => {

@@ -183,13 +183,16 @@ describe('filesystem API', () => {
       expect(res.status).toBe(403)
     }
 
+    // Directory browsing no longer applies the registered-root allow-list:
+    // reaching a project on another drive is the point. The read boundary moved
+    // to /api/filesystem/file, asserted 403 above.
     const browseEscape = await handleFilesystemRoute(
       '/api/filesystem/browse',
       makeUrl('/api/filesystem/browse', {
         path: path.join(allowedRoot, 'linked-directory'),
       }),
     )
-    expect(browseEscape.status).toBe(403)
+    expect(browseEscape.status).toBe(200)
 
     const disguisedType = await handleFilesystemRoute(
       '/api/filesystem/file',

@@ -724,4 +724,13 @@ export const sessionsApi = {
       timeout: 60_000,
     })
   },
+
+  optimizePrompt(prompt: string, sessionId?: string) {
+    return api.post<{ optimized: string }>(
+      '/api/optimize',
+      { prompt, sessionId },
+      // Must outlast the server's 60s budget.
+      { timeout: 90_000 },
+    )
+  },
 }
